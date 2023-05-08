@@ -32,7 +32,10 @@ exports.postAddProduct = (req, res, next) => {
         .limit(1)
         .exec()
         .then(products => {
-                const id = products[0].productId + 1;
+                var id = 1 
+                if (products.length > 0) {
+                    id = products[0].productId + 1;
+                }
                 product.productId = id;
                 product
                     .save()
@@ -43,8 +46,6 @@ exports.postAddProduct = (req, res, next) => {
     };
 
 exports.deleteOneProduct = (req, res, next) => {
-        const id = req.body;
-        console.log(id);
         Product.findOneAndDelete({_id : req.body._id})
             .then(result => res.status(200).json("product deleted succefuly"))
             .catch(err => res.status(500).send(err));

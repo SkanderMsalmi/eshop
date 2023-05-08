@@ -18,3 +18,15 @@ exports.register = async (req, res, next) => {
     throw error;
   }
 };
+
+exports.getAllUsers = (req, res, next) =>{
+  User.find()
+    .then(users => {
+      if (users.length > 0) {
+        res.status(200).json(users);
+      } else {
+        res.status(404).json("no users found!");
+      }
+    })
+    .catch(err => res.status(500).send());
+}
