@@ -20,6 +20,7 @@ const baseLayoutRouting: Routes = [
     pathMatch: 'full',
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   }
+
 ];
 
 const routes: Routes = [
@@ -31,10 +32,6 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
-  },
-  {
-    path: 'doc',
-    loadChildren: () => import('./doc/doc.module').then(m => m.DocModule)
   },
   {
     path: 'dashboard',
