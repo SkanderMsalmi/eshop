@@ -32,7 +32,10 @@ exports.postAddProduct = (req, res, next) => {
         .limit(1)
         .exec()
         .then(products => {
-                const id = products[0].productId + 1;
+                var id = 1 
+                if (products.length > 0) {
+                    id = products[0].productId + 1;
+                }
                 product.productId = id;
                 product
                     .save()
