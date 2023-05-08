@@ -25,12 +25,12 @@ exports.connexion = async () => {
   }
 };
 
-exports.logout = () => {
+exports.logout = (req, res, next) => {
   res.clearCookie("token");
   res.end();
 };
 
-exports.currentUser = async () => {
+exports.currentUser = async (req, res, next) => {
   const token = req.cookies.token;
   if (token) {
     try {
