@@ -46,8 +46,6 @@ exports.postAddProduct = (req, res, next) => {
     };
 
 exports.deleteOneProduct = (req, res, next) => {
-        const id = req.body;
-        console.log(id);
         Product.findOneAndDelete({_id : req.body._id})
             .then(result => res.status(200).json("product deleted succefuly"))
             .catch(err => res.status(500).send(err));
