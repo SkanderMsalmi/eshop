@@ -6,7 +6,7 @@
     </div>
     <div class="login__content p-4 sm:p-8 flex flex-col justify-center bg-accent">
       <div class="login w-full max-w-xl rounded-md mx-auto border p-4 sm:p-8 xl:p-20">
-        <form>
+        <form [formGroup]="form" (ngSubmit)="register()">
           <h1 class="text-2xl font-bold">Sign up</h1>
           <div class="mb-4 mt-6">
             <label class="block text-gray-700 text-sm font-semibold mb-2" for="name"> Name </label>
@@ -15,16 +15,29 @@
               id="name"
               type="text"
               placeholder="Name"
+              formControlName="name"
             />
+          </div>
+          <div class="alert-danger" *ngIf="form.get('name')?.errors && form.get('name')?.touched">
+            <p class="text-accent" *ngIf="form.get('name')?.errors.required">Please insert your name</p>
+            <p class="text-accent" *ngIf="form.get('name')?.errors.minlength">Name should be at least 3 letters </p>
+            <p class="text-accent" *ngIf="form.get('name')?.errors.maxlength">Name should be at most 15 letters </p>
           </div>
           <div class="mb-4 mt-6">
             <label class="block text-gray-700 text-sm font-semibold mb-2" for="email"> Email </label>
             <input
-              class="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10"
+              class="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10 "
               id="email"
               type="text"
               placeholder="Email address"
+              formControlName="email"
+             
             />
+          </div>
+      
+          <div class="alert-danger" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+            <p class="text-accent" *ngIf="form.get('email')?.errors.required">Please insert your email address</p>
+            <p class="text-accent" *ngIf="form.get('email')?.errors.email">Please insert a valid email address</p>
           </div>
           <div class="mb-6 mt-6">
             <label class="block text-gray-700 text-sm font-semibold mb-2" for="password"> Password </label>
@@ -33,17 +46,36 @@
               id="password"
               type="password"
               placeholder="Password"
+              formControlName="password"
             />
           </div>
+          <div class="alert-danger" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+            <p class="text-accent" *ngIf="form.get('password')?.errors.required">Please insert your password</p>
+            <p class="text-accent" *ngIf="form.get('password')?.errors.minlength">Password must be at least 8 letters long</p>
+            <p class="text-accent" *ngIf="form.get('password')?.errors.pattern">Password of 8 letters must contain at least one uppercase letter, one lowercase letter, and one number</p>
+          </div>
           <div class="mb-6 mt-6">
-            <label class="block text-gray-700 text-sm font-semibold mb-2" for="password2"> Conformation Password </label>
+            <label class="block text-gray-700 text-sm font-semibold mb-2" for="password2"> Confirmation Password </label>
             <input
               class="text-sm bg-gray-100 appearance-none rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline h-10"
               id="password2"
               type="password"
-              placeholder="Conformation password"
+              placeholder="Confirmation password"
+              formControlName="confirmPassword"
             />
           </div>
+          <div class="alert-danger" *ngIf="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched">
+            <p class="text-accent" *ngIf="form.get('confirmPassword')?.errors.required">Please confirm your password</p>
+          
+            
+          </div>
+          <div class="alert alert-danger" *ngIf="form.hasError('mismatch') && form.get('confirmPassword').touched">
+            
+            <p class="text-accent" >Passwords do not match.</p>
+          </div>
+          <div class="alert-danger" *ngIf="error">
+            <p>{{error}}</p>
+        </div>
           <div class="flex items-center">
             <input
               id="remember_me"
@@ -56,7 +88,9 @@
           <div class="flex w-full mt-6">
             <button
               class="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10"
-              type="button"
+              type="submit"
+             [disabled]="form.invalid"
+             
             >
               Sign up
             </button>
