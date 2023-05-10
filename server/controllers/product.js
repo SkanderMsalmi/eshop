@@ -1,4 +1,22 @@
 const Product = require("../models/product.model");
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+    destination : (req, file, cb) => {
+        console.log("destination : "+path.join(__dirname,"..","public","images"));
+        cb(null,path.join(__dirname,"..","public","images"));
+    },
+    filename : (req, file, cb) => {
+        console.log( file.fieldname+"date"+path.extname(file.originalname));
+        cb(null , file.fieldname +"-"+Date.now()+path.extname(file.originalname));
+    }
+});
+
+exports.upload = multer({
+    storage : storage,
+    limits : {fileSize : 1024*1024*5}
+});
 
 exports.getAllProducts = (req, res, next) => {
     Product.find()
@@ -26,7 +44,9 @@ exports.getOneProduct = (req, res, next) => {
     };
 
 exports.postAddProduct = (req, res, next) => {
+    console.log("add product");
     const product = new Product(req.body);
+    product.image = req.file.path;
     Product.find()
         .sort({ productId: -1 })
         .limit(1)
