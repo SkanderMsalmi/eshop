@@ -4,7 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const routes = require("./routes/index");
-
+const cors = require("cors");
 var app = express();
 
 app.use(logger("dev"));
@@ -13,7 +13,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 const db = require("./db");
-
+app.use(
+  cors({
+    origin: "http://localhost:4200",
+  })
+);
 app.use(routes);
 
 // catch 404 and forward to error handler
