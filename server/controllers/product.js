@@ -75,3 +75,16 @@ exports.putUpdateProduct = (req, res, next) => {
         .then(product => res.status(201).json(product))
         .catch(err => res.status(500).send());
 }
+
+exports.getProductsByCategory = (req, res, next) =>{
+    const category = req.params.category.toUpperCase();
+    Product.find({category : category})
+        .then(products => {
+            if (products.length > 0) {
+                res.status(200).json(products);
+            }else{
+                res.status(404).json("no products found!");
+            }
+        })
+        .catch(err => res.status(500).send(err));
+}
