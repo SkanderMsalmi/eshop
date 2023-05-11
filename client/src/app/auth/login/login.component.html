@@ -6,7 +6,7 @@
     </div>
     <div class="login__content p-4 sm:p-8 flex flex-col justify-center bg-accent">
       <div class="login w-full max-w-xl rounded-md mx-auto border p-4 sm:p-8 xl:p-20">
-        <form>
+        <form [formGroup]="form"  (ngSubmit)="submit()">
           <h1 class="text-2xl font-bold">Sign in</h1>
           <div class="mb-4 mt-6">
             <label class="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email">  Email </label>
@@ -15,7 +15,12 @@
               id="email"
               type="text"
               placeholder="Your email address"
+              formControlName="email"
             />
+          </div>
+          <div class="alert-danger" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+            <p class="text-accent" *ngIf="form.get('email')?.errors.required">Please insert your email address</p>
+            <p class="text-accent" *ngIf="form.get('email')?.errors.email">Please insert a valid email address</p>
           </div>
           <div class="mb-6 mt-6">
             <label class="block text-gray-700 text-sm font-semibold mb-2" htmlFor="password"> Password </label>
@@ -24,21 +29,31 @@
               id="password"
               type="password"
               placeholder="Your password"
+              formControlName="password"
             />
           </div>
-          <div class="flex items-center">
+          <div class="alert-danger" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+            <p class="text-accent" *ngIf="form.get('password')?.errors.required">Please insert your password</p>
+          </div>
+                 <!-- Error -->
+    <div *ngIf="error" class="text-accent m-2">
+      {{error}}
+    </div>
+          <div class="flex items-center mt-3">
             <input
               id="remember_me"
               name="remember_me"
               type="checkbox"
-              class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border rounded"
+              class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border rounded "
             />
             <label for="remember_me" class="ml-2 block text-sm text-gray-900"> Keep me signed in </label>
           </div>
+    
           <div class="flex w-full mt-6">
             <button
               class="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10"
-              type="button"
+              type="submit"
+              
             >
               Sign in
             </button>

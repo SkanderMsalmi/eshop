@@ -17,9 +17,13 @@
       >
         <mat-icon>menu</mat-icon>
       </button>
-      <div class="hidden items-center md:flex ml-auto">
+      <div class="hidden items-center md:flex ml-auto" *ngIf="!isLoggedin">
         <a [routerLink]="['/auth/login']" mat-raised-button color="warn" class="text-lg font-bold py-2 px-5">Login</a>
         <a [routerLink]="['/auth/signup']" mat-raised-button color="accent" class="text-lg font-bold py-2 px-5 ml-2">Join Now</a>
+      </div>
+      <div class="hidden items-center md:flex ml-auto" *ngIf="isLoggedin">
+        <a [routerLink]="['/auth/espaceUser']" mat-raised-button color="warn" class="text-lg font-bold py-2 px-5">My Space</a>
+        <a (click)="logout.emit(true)" mat-raised-button color="accent" class="text-lg font-bold py-2 px-5 ml-2">Logout</a>
       </div>
     </div>
   </div>

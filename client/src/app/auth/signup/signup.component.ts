@@ -34,19 +34,19 @@ export class SignupComponent implements OnInit {
   public register(){
     const { confirmPassword, ...dataWithoutConfirmPassword } = this.form.getRawValue();
     
-    console.log(
-    this.form
-    );
+  
     if(this.form.valid){
+      this.form.setErrors(null);
+      this.error="";
       this.authService.inscription(dataWithoutConfirmPassword).subscribe(()=>{
-        this.router.navigateByUrl('/auth/connexion');
+        this.router.navigateByUrl("/auth/login");
       },
       
       (err)=>{
         this.error = err?.error || 'Une erreur est survenue.'
       })
     }
-    console.log(this.form);
+    
     
   }
 }
