@@ -2,10 +2,10 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jsonwebtoken = require("jsonwebtoken");
 const fs = require("fs");
-// const RSA_PUB = fs.readFileSync("./rsa/key.pub");
-// const RSA_PRIVATE = fs.readFileSync("./rsa/key");
+const RSA_PUB = fs.readFileSync("./rsa/key.pub");
+const RSA_PRIVATE = fs.readFileSync("./rsa/key");
 
-exports.connexion = async () => {
+exports.connexion = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email }).exec();
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
