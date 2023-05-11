@@ -22,6 +22,6 @@ export class ProductListComponent implements OnInit {
         console.log(this.products);
         
       })
-    },10)
+    },50)
   }
 }

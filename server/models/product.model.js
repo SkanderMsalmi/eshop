@@ -45,10 +45,12 @@ const ProductSchema = new Schema(
         type : Number,
         required : true
     },
-    image : {
-      type : String,
-      requierd: true
-    }
+    image : [
+      {
+        type : String,
+        requierd: true
+      }
+    ]
   },
   {
     timestamps: true,

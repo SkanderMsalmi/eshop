@@ -46,16 +46,17 @@ exports.getOneProduct = (req, res, next) => {
 
 exports.postAddProduct = async (req, res, next) => {
     const product = new Product(req.body);
-    const file = req.file;
-    const outputFileName = `eshop-${file.filename}`;
-    const image = sharp(file.path)
-        .resize(800,600)
-        .jpeg({quality : 80})
-        .toFile(path.join(__dirname,'..','public','images',outputFileName))
-        .then(result => fs.unlinkSync(file.path));
-    product.image = outputFileName;
-    const index = product.image.lastIndexOf("\\");
-    product.image = product.image.substring(index+1);
+    console.log(req.files);
+    req.files.forEach(file => {
+        const outputFileName = `eshop-${file.filename}`;
+        const image = sharp(file.path)
+            .resize(800,600)
+            .jpeg({quality : 80})
+            .toFile(path.join(__dirname,'..','public','images',outputFileName))
+            .then(result => fs.unlinkSync(file.path));
+        const index = outputFileName.lastIndexOf("\\");
+        product.image.push(outputFileName.substring(index+1));
+    });
     Product.find()
         .sort({ productId: -1 })
         .limit(1)
@@ -104,4 +105,10 @@ exports.deleteOneProductById = (req, res, next) => {
     Product.findOneAndDelete({productId : id})
         .then(result => res.status(200).json("product deleted succefuly"))
         .catch(err => res.status(500).send(err));
+}
+
+exports.deleteAll = (req, res, next) =>{
+    Product.deleteMany()
+        .then(result => res.status(200).send())
+        .catch(err => console.log(err))
 }

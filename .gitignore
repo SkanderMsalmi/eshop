@@ -42,3 +42,4 @@ client/Thumbs.db
 
 #Server
 server/node_modules
+server/public
