@@ -11,18 +11,17 @@ import { Router } from '@angular/router';
 })
 export class BaseLayoutComponent implements OnInit, OnDestroy {
   public isLoggedin$: Observable<boolean> = this.authService.isLoggedin$.asObservable();
-
+  isLoggedIn: boolean;
   isAlive: boolean = true;
   @ViewChild('sidenav') sidenav;
   isSidenavExpand = false;
   isLessThenLargeDevice = true;
-  
+
   public logout(){
-    console.log("hello logout");
     
     this.authService.logout().subscribe(
       ()=>{
-        this.router.navigateByUrl('/connexion')
+        this.router.navigateByUrl('/products')
       }
     )
   }
@@ -33,12 +32,16 @@ export class BaseLayoutComponent implements OnInit, OnDestroy {
         this.isSidenavExpand = false;
       }
     });
+
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+ 
+  }
   
   ngOnDestroy(): void{
     this.isAlive = false
+    this.isLoggedIn = false
   }
 
   toggleSidenav(): void {
