@@ -1,14 +1,15 @@
+const { fstat } = require("fs");
 const Product = require("../models/product.model");
 const multer = require('multer');
 const path = require('path');
+const sharp = require('sharp');
+const fs = require('fs');
 
 const storage = multer.diskStorage({
     destination : (req, file, cb) => {
-        console.log("destination : "+path.join(__dirname,"..","public","images"));
         cb(null,path.join(__dirname,"..","public","images"));
     },
     filename : (req, file, cb) => {
-        console.log( file.fieldname+"date"+path.extname(file.originalname));
         cb(null , file.fieldname +"-"+Date.now()+path.extname(file.originalname));
     }
 });
@@ -43,10 +44,18 @@ exports.getOneProduct = (req, res, next) => {
         .catch((err) => res.status(500).json("server crush"));
     };
 
-exports.postAddProduct = (req, res, next) => {
-    console.log("add product");
+exports.postAddProduct = async (req, res, next) => {
     const product = new Product(req.body);
-    product.image = req.file.path;
+    const file = req.file;
+    const outputFileName = `eshop-${file.filename}`;
+    const image = sharp(file.path)
+        .resize(800,600)
+        .jpeg({quality : 80})
+        .toFile(path.join(__dirname,'..','public','images',outputFileName))
+        .then(result => fs.unlinkSync(file.path));
+    product.image = outputFileName;
+    const index = product.image.lastIndexOf("\\");
+    product.image = product.image.substring(index+1);
     Product.find()
         .sort({ productId: -1 })
         .limit(1)
@@ -87,5 +96,12 @@ exports.getProductsByCategory = (req, res, next) =>{
                 res.status(404).json("no products found!");
             }
         })
+        .catch(err => res.status(500).send(err));
+}
+
+exports.deleteOneProductById = (req, res, next) => {
+    const id = req.params.id;
+    Product.findOneAndDelete({productId : id})
+        .then(result => res.status(200).json("product deleted succefuly"))
         .catch(err => res.status(500).send(err));
 }

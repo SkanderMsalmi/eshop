@@ -20,14 +20,18 @@ const ProductSchema = new Schema(
       type: Number,
       required: true,
     },
-    color:{
+    color:[
+      {
         type : String,
         required : true
-    },
-    size:{
+    }
+    ],
+    size:[
+      {
         type : String,
         required : true
-    },
+    }
+    ],
     material:{
         type : String,
         required : true

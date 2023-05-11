@@ -18,6 +18,8 @@ app.use(
     origin: "http://localhost:4200",
   })
 );
+
+app.use("/image", express.static(path.join(__dirname,"public","images")));
 app.use(routes);
 
 // catch 404 and forward to error handler
