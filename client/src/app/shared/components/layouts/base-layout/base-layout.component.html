@@ -1,7 +1,7 @@
 <div [class.example-is-mobile]="isLessThenLargeDevice">
   <mat-sidenav-container class="kl-sidenav-container">
     <mat-sidenav #sidenav [opened]="isSidenavExpand && isLessThenLargeDevice" [mode]="'over'" [fixedInViewport]="isLessThenLargeDevice">
-        <ll-sidenav></ll-sidenav>
+        <ll-sidenav (logout)="logout()" [isLoggedin]="isLoggedin$ | async"></ll-sidenav>
     </mat-sidenav>
     <mat-sidenav-content>
       <ll-header (toggleSidenav)="toggleSidenav()" topFixed="true" (logout)="logout()" [isLoggedin]="isLoggedin$ | async" ></ll-header>
