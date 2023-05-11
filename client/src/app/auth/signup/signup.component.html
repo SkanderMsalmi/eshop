@@ -73,10 +73,10 @@
             
             <p class="text-accent" >Passwords do not match.</p>
           </div>
-          <div class="alert-danger" *ngIf="error">
-            <p>{{error}}</p>
-        </div>
-          <div class="flex items-center">
+          <div *ngIf="error" class="text-accent m-2">
+            {{error}}
+          </div>
+          <div class="flex items-center mt-3">
             <input
               id="remember_me"
               name="remember_me"
