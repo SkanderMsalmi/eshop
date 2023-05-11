@@ -45,6 +45,7 @@ export class AuthService {
     return this.http.delete('/api/auth/logout').pipe(
       tap(()=>{
         this.user$.next(null);
+        this.isLoggedin$.next(false);
       })
     );
   }
