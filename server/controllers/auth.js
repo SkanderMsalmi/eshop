@@ -8,6 +8,9 @@ const RSA_PRIVATE = fs.readFileSync("./rsa/key");
 exports.connexion = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email }).exec();
+    if (!user) {
+      return res.status(401).json("Email not found");
+    }
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       const token = jsonwebtoken.sign({}, RSA_PRIVATE, {
         subject: user._id.toString(),
@@ -17,11 +20,15 @@ exports.connexion = async (req, res, next) => {
       res.cookie("token", token, { httpOnly: true });
       return res.json(user);
     } else {
-      return res.status(401).json("Mauvais email ou mot passe");
+      return res.status(401).json("Incorrect password");
     }
   } catch (error) {
     console.log(error);
-    return res.status(401).json("Mauvais email ou mot passe");
+    return res
+      .status(401)
+      .json(
+        "An error occurred while trying to authenticate. Please try again later."
+      );
   }
 };
 
