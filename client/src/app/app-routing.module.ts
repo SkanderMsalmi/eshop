@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BaseLayoutComponent } from './shared/components/layouts/base-layout/base-layout.component';
+import { DataUserGuard } from './shared/guards/data-user.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const baseLayoutRouting: Routes = [
   {
     path: 'products',
+    
     loadChildren: () => import('./product/product.module').then(m => m.ProductModule)
   },
   {
@@ -18,6 +21,7 @@ const baseLayoutRouting: Routes = [
   {
     path: '',
     pathMatch: 'full',
+    canActivate:[DataUserGuard],
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   }
 
@@ -31,6 +35,7 @@ const routes: Routes = [
   },
   {
     path: 'auth',
+    canActivate:[DataUserGuard],
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {

@@ -8,6 +8,8 @@ import { menuList as staticMenuList } from '../../data/menus';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @Input() public isLoggedin!:boolean |null;
+  @Output() public logout : EventEmitter<true> = new EventEmitter();
   @Input() topFixed: boolean;
   @Output() toggleSidenav = new EventEmitter();
   isScrolled: boolean;

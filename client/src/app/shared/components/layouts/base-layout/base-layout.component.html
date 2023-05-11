@@ -4,7 +4,7 @@
         <ll-sidenav></ll-sidenav>
     </mat-sidenav>
     <mat-sidenav-content>
-      <ll-header (toggleSidenav)="toggleSidenav()" topFixed="true"></ll-header>
+      <ll-header (toggleSidenav)="toggleSidenav()" topFixed="true" (logout)="logout()" [isLoggedin]="isLoggedin$ | async" ></ll-header>
       <main><router-outlet></router-outlet></main>
       <ll-feature></ll-feature>
       <ll-footer></ll-footer>

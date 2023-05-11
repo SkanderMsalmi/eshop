@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -25,11 +24,8 @@ export class HomeComponent implements OnInit {
       }
     }
   };
-  constructor(private http:HttpClient) {
-    fetch('/api/product/all')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
+  constructor() {
+  
   }
 
   ngOnInit(): void {}

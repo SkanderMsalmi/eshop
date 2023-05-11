@@ -27,7 +27,7 @@ export class AuthService {
 
 
   public inscription(user:User):Observable<any>{
-    return this.http.post('/api/user/inscription',user);
+    return this.http.post('/api/auth/inscription',user);
   }
   public connexion(credentials:{email:string,password:string}):Observable<User>{
     return this.http.post<User>('/api/auth/connexion',credentials).pipe(

@@ -8,7 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { HttpClientModule } from '@angular/common/http';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent ],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, SharedModule, NgxSkeletonLoaderModule,HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]
