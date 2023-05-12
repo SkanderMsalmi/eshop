@@ -14,6 +14,9 @@ const UserSchema = new Schema(
       unique: true,
       trim: true,
     },
+    image: {
+      type: String,
+    },
     password: {
       type: String,
       required: true,
@@ -22,6 +25,20 @@ const UserSchema = new Schema(
       type: String,
       enum: ["ADMIN", "CUSTOMER"],
       default: "CUSTOMER",
+    },
+    gender: {
+      type: String,
+      enum: ["Male", "Female"],
+    },
+    number: {
+      type: Number,
+      unique: true,
+    },
+    occupation: {
+      type: String,
+    },
+    dateOfBirth: {
+      type: Date,
     },
   },
   {
