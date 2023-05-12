@@ -126,7 +126,7 @@
                     <div class="ll-dataset__value"  >
 						<input formControlName="name" class="text-sm appearance-none rounded w-full py-2 px-2 w-60 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10 "type="text">
 					</div>
-                    <div class="  alert-danger" *ngIf="userForm.get('name')?.errors && userForm.get('name')?.touched && isEdit">
+                    <div class="  alert-danger" *ngIf="userForm.get('name')?.errors && userForm.get('name')?.touched && isEdit" >
                         <p class="text-accent" *ngIf="userForm.get('name')?.errors.required">Please insert your name</p>
                         <p class="text-accent" *ngIf="userForm.get('name')?.errors.minlength">Name should be at least 3 letters </p>
                         <p class="text-accent" *ngIf="userForm.get('name')?.errors.maxlength">Name should be at most 15 letters </p>
