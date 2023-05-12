@@ -48,7 +48,7 @@ const ProductSchema = new Schema(
     image : [
       {
         type : String,
-        requierd: true
+        required: true
       }
     ],
     reviews : [
@@ -60,6 +60,15 @@ const ProductSchema = new Schema(
         body : {
           type : String,
           required : true
+      },
+      userId : {
+        type : Schema.Types.ObjectId,
+        required : true,
+        ref: 'user'
+      },
+      date : {
+        type : Date,
+        required: true
       }
     }
     ]

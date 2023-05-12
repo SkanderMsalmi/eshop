@@ -34,6 +34,7 @@ exports.getAllProducts = (req, res, next) => {
 exports.getOneProduct = (req, res, next) => {
     const id = req.params.id;
     Product.findOne({ productId: id })
+        .populate("reviews.userId")
         .then((result) => {
             if (result) {
                 res.status(200).json(result);
@@ -118,10 +119,12 @@ exports.postAddReview = (req, res, next) => {
     Product.findOne({productId : id})
         .then(prodcut => {
             const review = req.body;
+            review.date = Date.now();
+            console.log(review);
             prodcut.reviews.push(review);
             prodcut.save()
                 .then(updatedProduct => res.status(203).json(updatedProduct))
                 .catch(err => res.status(500).send(err));
         })
-        .catch(err => res.stats(500).send(500));
+        .catch(err => res.stats(500).send(err));
 }
