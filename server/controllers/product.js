@@ -112,3 +112,16 @@ exports.deleteAll = (req, res, next) =>{
         .then(result => res.status(200).send())
         .catch(err => console.log(err))
 }
+
+exports.postAddReview = (req, res, next) => {
+    const id = req.params.id;
+    Product.findOne({productId : id})
+        .then(prodcut => {
+            const review = req.body;
+            prodcut.reviews.push(review);
+            prodcut.save()
+                .then(updatedProduct => res.status(203).json(updatedProduct))
+                .catch(err => res.status(500).send(err));
+        })
+        .catch(err => res.stats(500).send(500));
+}

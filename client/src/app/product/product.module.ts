@@ -8,6 +8,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductHeroComponent } from './product-list/product-hero/product-hero.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ProductListComponent, ProductDetailsComponent, ProductHeroComponent],
@@ -17,7 +18,8 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     SharedModule,
     MatExpansionModule,
     NgParticlesModule,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    FormsModule
   ]
 })
 export class ProductModule { }

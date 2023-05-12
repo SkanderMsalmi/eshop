@@ -65,3 +65,59 @@
     line-height: 2.7rem;
   }
 }
+
+.star-rating {
+  display: inline-block;
+  height: 2rem;
+  position: relative;
+  justify-content: space-around;
+  width: 10rem;
+  background-color: #e3e3e3;
+  border-radius: 1rem;
+  overflow: hidden;
+  padding: 0 1rem 0 1rem;
+
+  .star {
+    display: inline-block;
+    font-size: 1.5em;
+    height: 1em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1em;
+    white-space: nowrap;
+  }
+
+  .star:nth-child(1) {
+    z-index: 5;
+    left: 1rem;
+  }
+
+  .star:nth-child(2) {
+    z-index: 4;
+    left: 2.5rem;
+  }
+
+  .star:nth-child(3) {
+    z-index: 3;
+    left: 4rem;
+  }
+
+  .star:nth-child(4) {
+    z-index: 2;
+    left: 5.5rem;
+  }
+
+  .star:nth-child(5) {
+    z-index: 1;
+    left: 7rem;
+  }
+}
+
+.form-control{
+  border-radius: .5rem;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: #c6c6c6;
+}

@@ -50,6 +50,18 @@ const ProductSchema = new Schema(
         type : String,
         requierd: true
       }
+    ],
+    reviews : [
+      {
+        score : {
+          type : Number,
+          required : true
+        },
+        body : {
+          type : String,
+          required : true
+      }
+    }
     ]
   },
   {

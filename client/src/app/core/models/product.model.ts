@@ -9,4 +9,6 @@ export class Product{
     quantity : Number;
     image : String;
     material : String;
+    reviews : any;
+    rating: any;
 }

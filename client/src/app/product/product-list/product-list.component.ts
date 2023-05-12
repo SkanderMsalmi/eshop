@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
       this.productService.getAllProducts().subscribe(res => {
         this.products = res;
         this.isLoaded = true
-        console.log(this.products);
+        this.products.forEach(product => product.rating = this.productService.calculScore(product))
         
       })
     },50)

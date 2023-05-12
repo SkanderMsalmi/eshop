@@ -17,4 +17,23 @@ export class ProductsService {
   public getOneProduct(id : number) : Observable<Product>{
     return this.http.get<Product>(`/api/product/${id}`);
 }
+
+public calculScore (product : Product) : string{
+  let somme = 0 ;
+  let score : any;
+  if (product.reviews) {
+    product.reviews.forEach(review => {
+      somme += review.score;
+    });
+    score = (somme / product.reviews.length).toFixed(2);
+  }
+  if (score == "NaN") {
+    score = 0;
+  }
+  return score;
+}
+
+public sendFeedback(id : Number, feedback : {score : number , body: string}) : Observable<Product> {
+  return this.http.post<Product>(`/api/product/addReview/${id}`,feedback);
+}
 }
