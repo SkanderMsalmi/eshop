@@ -19,6 +19,12 @@ const baseLayoutRouting: Routes = [
     loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
   },
   {
+    path:'espace',
+    canActivate:[DataUserGuard,AuthGuard],
+    loadChildren: () => import('./espacecustomer/espacecustomer.module').then(m => m.EspacecustomerModule)
+
+  },
+  {
     path: '',
     pathMatch: 'full',
     canActivate:[DataUserGuard],

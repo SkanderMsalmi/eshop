@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { productsDB } from 'src/app/shared/data/products';
 
 @Component({
   selector: 'app-customer-saved-item',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerSavedItemComponent implements OnInit {
 
-  constructor() { }
+  view = 'list';
+
+  products;
+  constructor() {}
 
   ngOnInit(): void {
+    this.products = productsDB.Product;
   }
 
 }
