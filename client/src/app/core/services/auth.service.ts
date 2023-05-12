@@ -29,6 +29,26 @@ export class AuthService {
   public inscription(user:User):Observable<any>{
     return this.http.post('/api/auth/inscription',user);
   }
+  public updateUser(user:User):Observable<any>{
+    
+    
+    return this.http.post('/api/auth/updateUser',user).pipe(
+      tap((u:User)=>{
+        if(u){
+          this.user$.next(u);
+        }
+      })
+    );
+
+  }
+
+  public uploadProfileImage(id:String,image:File){
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+    return this.http.post('/api/auth/uploadProfileImage/'+id,formData).pipe(
+
+    )
+  }
   public connexion(credentials:{email:string,password:string}):Observable<User>{
     return this.http.post<User>('/api/auth/connexion',credentials).pipe(
       tap((user:User)=>{
