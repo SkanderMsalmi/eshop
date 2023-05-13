@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="cart-container">
+    <div class="d-flex justify-content-center" *ngIf="cart.products.length < 1">
+      <h5>No items in the cart.</h5>
+    </div>
+    <div class="cart-items" *ngIf="cart.products.length >0">
+      <div class="card mb-3" style="max-width: 540px;" *ngFor="let item of cart.products">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img [src]="'http://localhost:8000/image/'+item.product.image[0]" alt="Product Image">
+          </div>
+          <div class="col-md-8">
+            <div class="remove-buttons">
+              <button (click)="removeProduct(item.product)" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-minus"></i></button>
+              <button (click)="removeFromCart(item.product)" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+            </div>
+            <div class="card-body">
+              <p class="card-text">{{ item.product.name }}</p>
+              <p class="card-text"><small class="text-body-secondary">Price : {{ item.product.price }}</small></p>
+              <p class="card-text"><small class="text-body-secondary">Quantity : {{ item.quantity }} </small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card text-end">
+      <p class="cart-total-text">Total: {{ cart.total | number:'.3' }} TND</p>
+      <span class="btn-group">
+        <button (click)="clearCart()" class="btn btn-sm btn-outline-danger w-25" *ngIf="cart.products.length > 0">Clear Cart</button>
+        <a href="#" class="btn btn-outline-primary w-75">Passer commande</a>
+      </span>
+    </div>
+  </div>
+</div>

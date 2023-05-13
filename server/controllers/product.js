@@ -47,7 +47,6 @@ exports.getOneProduct = (req, res, next) => {
 
 exports.postAddProduct = async (req, res, next) => {
     const product = new Product(req.body);
-    console.log(req.files);
     req.files.forEach(file => {
         const outputFileName = `eshop-${file.filename}`;
         const image = sharp(file.path)
@@ -120,7 +119,6 @@ exports.postAddReview = (req, res, next) => {
         .then(prodcut => {
             const review = req.body;
             review.date = Date.now();
-            console.log(review);
             prodcut.reviews.push(review);
             prodcut.save()
                 .then(updatedProduct => res.status(203).json(updatedProduct))

@@ -16,6 +16,8 @@ import { MatListModule } from '@angular/material/list';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { CartComponent } from './components/cart/cart.component';
 
 const commonModules = [
   HttpClientModule,
@@ -25,11 +27,12 @@ const commonModules = [
   MatCardModule,
   MatProgressSpinnerModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatMenuModule
 ];
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, FeatureComponent, BaseLayoutComponent, LoaderComponent, SidenavComponent, CarouselComponent],
+  declarations: [HeaderComponent, FooterComponent, FeatureComponent, BaseLayoutComponent, LoaderComponent, SidenavComponent, CarouselComponent, CartComponent],
   imports: [CommonModule, RouterModule, ...commonModules],
   exports: [HeaderComponent, FooterComponent, BaseLayoutComponent, FeatureComponent, LoaderComponent, SidenavComponent,CarouselComponent, ...commonModules]
 })

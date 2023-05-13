@@ -144,7 +144,7 @@
           </div>
           <div class="border-b px-5 pt-10 pb-12 text-center">
             <p class="text-gray-400 mb-4">This price can increase due to additional bookings</p>
-            <button mat-flat-button class="py-3 px-20 text-xl font-bold" color="accent" [disabled]="product.quantity == 0">Add to cart <i class="fa-solid fa-cart-shopping"></i></button>
+            <button (click)="addToCart(product)" mat-flat-button class="py-3 px-20 text-xl font-bold" color="accent" [disabled]="product.quantity == 0">Add to cart <i class="fa-solid fa-cart-shopping"></i></button>
           </div>
         </div>
         <div class="border mt-5 px-5 py-10 text-center">

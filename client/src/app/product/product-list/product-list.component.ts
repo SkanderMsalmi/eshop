@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { productsDB } from '../../shared/data/products';
 import { ProductsService } from 'src/app/core/services/products.service';
 import { Product } from 'src/app/core/models/product.model';
+import { Store } from '@ngrx/store';
+import { StoreInterface } from 'src/app/store/store';
+import { AddToCartAction } from 'src/app/store/actions/cart.action';
 
 @Component({
   selector: 'll-product-list',
@@ -12,7 +15,7 @@ export class ProductListComponent implements OnInit {
   isLoaded: boolean;
   advanceSearchExpanded: boolean = false;
   products : Product[];
-  constructor(private productService : ProductsService) {}
+  constructor(private productService : ProductsService, private cartStore : Store<StoreInterface>) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -23,5 +26,9 @@ export class ProductListComponent implements OnInit {
         
       })
     },50)
+  }
+
+  addToCart(product : Product){
+    this.cartStore.dispatch(new AddToCartAction(product));
   }
 }

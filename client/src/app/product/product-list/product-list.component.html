@@ -98,7 +98,7 @@
               <mat-icon color="warn">star</mat-icon> {{ product.rating }}/5
             </div>
             <div class="flex-1 text-center">
-              <a href="#" mat-raised-button color="warn" class="px-4" [disabled]="product.quantity == 0">Add to cart <i class="fa-solid fa-cart-shopping"></i></a>
+              <a (click)="addToCart(product)" mat-raised-button color="warn" class="px-4" [disabled]="product.quantity == 0">Add to cart <i class="fa-solid fa-cart-shopping"></i></a>
             </div>
           </mat-card-actions>
         </mat-card>

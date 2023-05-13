@@ -63,9 +63,7 @@ export class CustomerProfileComponent implements OnInit {
   }
   public ToggleIsEdit(){
     
-    this.isEdit = !this.isEdit;
-    console.log(this.isEdit);
-    
+    this.isEdit = !this.isEdit;    
   }
   public editUser( ){
     const id = this.user._id;

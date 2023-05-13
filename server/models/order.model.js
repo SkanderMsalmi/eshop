@@ -11,6 +11,12 @@ const OrderSchema = new Schema({
         type : Date,
         required : true
     },
+    products : [
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            required : true
+        }
+    ],
     status : {
         type : String,
         enum : ["PENDING","DELIVERED","CANCELED"],

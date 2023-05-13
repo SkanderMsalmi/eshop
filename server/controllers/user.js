@@ -97,7 +97,6 @@ exports.updateUser = async (req, res, next) => {
     return res.status(404).json("User not found");
   } else if (user) {
     const { id, email } = req.body;
-    console.log(id);
     const userWithSameEmail = await User.findOne({ email });
     if (userWithSameEmail && userWithSameEmail._id != id) {
       return res.status(409).json("Email is already taken.");
