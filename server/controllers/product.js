@@ -39,6 +39,7 @@ exports.getAllProducts = (req, res, next) => {
 exports.getOneProduct = (req, res, next) => {
   const id = req.params.id;
   Product.findOne({ productId: id })
+    .populate("reviews.userId")
     .then((result) => {
       if (result) {
         res.status(200).json(result);
@@ -120,16 +121,17 @@ exports.deleteAll = (req, res, next) => {
 
 exports.postAddReview = (req, res, next) => {
   const id = req.params.id;
-  Product.findOne({ productId: id })
-    .then((prodcut) => {
+  Product.findById( id )
+    .then((product) => {
       const review = req.body;
-      prodcut.reviews.push(review);
-      prodcut
+      review.date = new Date();
+      product.reviews.push(review);
+      product
         .save()
         .then((updatedProduct) => res.status(203).json(updatedProduct))
-        .catch((err) => res.status(500).send(err));
+        .catch((err) => console.log(err));
     })
-    .catch((err) => res.stats(500).send(500));
+    .catch((err) => console.log(err));
 };
 
 // Saved Products List

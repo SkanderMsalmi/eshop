@@ -71,7 +71,7 @@ const bcrypt = require("bcrypt");
 // };
 
 exports.register = async (req, res, next) => {
-  if (await User.find({ email: req.body.email })) {
+  if (await User.findOne({ email: req.body.email })) {
     return res.status(409).json("Email exists already");
   }
   const newUser = new User({

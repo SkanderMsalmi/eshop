@@ -44,7 +44,7 @@ export class ProductDetailsComponent implements OnInit {
 
   sendFeedback(){    
     this.feedback.userId = this.user._id;
-    this.productService.sendFeedback(this.product.productId,this.feedback)
+    this.productService.sendFeedback(this.product._id,this.feedback)
       .subscribe(result => {
         this.product = result;
         this.feedback = {score : 0 , body : "" , userId : this.user._id};

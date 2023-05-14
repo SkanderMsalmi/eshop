@@ -33,7 +33,7 @@ public calculScore (product : Product) : string{
   return score;
 }
 
-public sendFeedback(id : Number, feedback : {score : number , body: string}) : Observable<Product> {
+public sendFeedback(id : string, feedback : {score : number , body: string}) : Observable<Product> {
   return this.http.post<Product>(`/api/product/addReview/${id}`,feedback);
 }
 
