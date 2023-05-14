@@ -1,74 +1,74 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
-const multer = require("multer");
-const path = require("path");
+// const multer = require("multer");
+// const path = require("path");
 
-const storage = multer.diskStorage({
-  destination: "./public/images",
-  filename: function (req, file, callback) {
-    callback(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: "./public/images",
+//   filename: function (req, file, callback) {
+//     callback(
+//       null,
+//       file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+//     );
+//   },
+// });
 
-// Init upload
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 1000000 }, // 1 MB
-  fileFilter: function (req, file, callback) {
-    checkFileType(file, callback);
-  },
-}).single("image");
+// // Init upload
+// const upload = multer({
+//   storage: storage,
+//   limits: { fileSize: 1000000 }, // 1 MB
+//   fileFilter: function (req, file, callback) {
+//     checkFileType(file, callback);
+//   },
+// }).single("image");
 
-// Check file type
-function checkFileType(file, callback) {
-  // Allowed ext
-  const filetypes = /jpeg|jpg|png|gif/;
-  // Check ext
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  // Check mime
-  const mimetype = filetypes.test(file.mimetype);
-  if (mimetype && extname) {
-    return callback(null, true);
-  } else {
-    return callback("Error: Images only!");
-  }
-}
+// // Check file type
+// function checkFileType(file, callback) {
+//   // Allowed ext
+//   const filetypes = /jpeg|jpg|png|gif/;
+//   // Check ext
+//   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+//   // Check mime
+//   const mimetype = filetypes.test(file.mimetype);
+//   if (mimetype && extname) {
+//     return callback(null, true);
+//   } else {
+//     return callback("Error: Images only!");
+//   }
+// }
 
-exports.uploadProfileImage = async (req, res, next) => {
-  try {
-    const user = await User.findById(req.params.id);
+// exports.uploadProfileImage = async (req, res, next) => {
+//   try {
+//     const user = await User.findById(req.params.id);
 
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-      });
-    }
+//     if (!user) {
+//       return res.status(404).json({
+//         message: "User not found",
+//       });
+//     }
 
-    const image = req.file;
+//     const image = req.file;
 
-    if (!image || !image.mimetype.startsWith("image/")) {
-      return res.status(400).json({
-        message: "Please upload a valid image file",
-      });
-    }
+//     if (!image || !image.mimetype.startsWith("image/")) {
+//       return res.status(400).json({
+//         message: "Please upload a valid image file",
+//       });
+//     }
 
-    user.profileImage = {
-      data: fs.readFileSync(image.path),
-      contentType: image.mimetype,
-    };
+//     user.profileImage = {
+//       data: fs.readFileSync(image.path),
+//       contentType: image.mimetype,
+//     };
 
-    await user.save();
+//     await user.save();
 
-    res.status(200).json({
-      message: "Profile image uploaded successfully",
-    });
-  } catch (err) {
-    next(err);
-  }
-};
+//     res.status(200).json({
+//       message: "Profile image uploaded successfully",
+//     });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
 
 exports.register = async (req, res, next) => {
   if (await User.find({ email: req.body.email })) {

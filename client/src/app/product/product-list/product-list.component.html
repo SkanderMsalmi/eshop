@@ -69,8 +69,15 @@
   <div class="container">
     <div class="grid grid-cols-12 gap-6 xxl:gap-8" *ngIf="isLoaded">
       <div *ngFor="let product of products" class="col-span-12 md:col-span-6 xl:col-span-4">
+      
         <mat-card class="ll-product">
-          <app-carousel [imageUrls]="product.image"></app-carousel>
+          <button mat-icon-button class="ll-product__like-button" (click)="toggleList(product._id)">
+            <mat-icon
+              
+             >favorite</mat-icon>
+          </button>
+          <app-carousel [imageUrls]="product.image" ></app-carousel>
+         
           <div class="overlay" *ngIf="product.quantity == 0">
             <span class="alert alert-danger">Out of stock</span>
           </div>

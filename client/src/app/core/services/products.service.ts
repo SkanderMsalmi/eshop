@@ -36,4 +36,23 @@ public calculScore (product : Product) : string{
 public sendFeedback(id : Number, feedback : {score : number , body: string}) : Observable<Product> {
   return this.http.post<Product>(`/api/product/addReview/${id}`,feedback);
 }
+
+// Saved Products 
+public getSavedProductsForUserId(userId:string){
+  return this.http.get<Product[]>(`/api/product/allSavedProductByUserId/${userId}`);
+}
+// add Product
+
+public addProductToSavedProducts(userId:string,productId:string){
+  
+  return this.http.post<String>(`/api/product/addProductToSavedList/${userId}/${productId}`,null);
+}
+
+public deleteProductFromSavedProducts(userId:string,productId:string){
+  
+  return this.http.post<String>(`/api/product/deleteProductFromSavedProducts/${userId}/${productId}`,null);
+}
+
+
+
 }
