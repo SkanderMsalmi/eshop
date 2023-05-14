@@ -43,7 +43,7 @@ exports.postNewOrder = (req, res, next) => {
                 order
                     .save()
                     .then((result) => res.status(201).json(result))
-                    .catch((err) => res.status(500).json(err));
+                    .catch((err) => console.log(err));
         })
         .catch(err => res.status(500).json(err));
 }

@@ -13,8 +13,15 @@ const OrderSchema = new Schema({
     },
     products : [
         {
-            type : mongoose.Schema.Types.ObjectId,
-            required : true
+            product : {
+                type : mongoose.Schema.Types.ObjectId,
+                required : true,
+                ref : "product"
+            },
+            quantity : {
+                type : Number,
+                required : true
+            }
         }
     ],
     status : {

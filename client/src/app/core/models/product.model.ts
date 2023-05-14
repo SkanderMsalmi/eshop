@@ -1,5 +1,5 @@
 export class Product{
-    productId : Number;
+    productId : number;
     name : String;
     description : String;
     price : number;

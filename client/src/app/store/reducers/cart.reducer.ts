@@ -1,16 +1,16 @@
-import { Product } from "src/app/core/models/product.model";
 import { CartAction } from "../store";
 import { ADDTOCART, REMOVEFROMCART, CLEARCART, DELETEFROMCART } from "../actions/cart.action";
+import { Product } from "src/app/core/models/product.model";
 
 
 export interface Cart{
     products : [
         {
-            product : Product,
-            quantity : Number
+            productId : Product,
+            quantity : number
         }
     ];
-    total : Number;
+    total : number;
 }
 
 let initialState = {

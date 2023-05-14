@@ -27,7 +27,7 @@
       <p class="cart-total-text">Total: {{ cart.total | number:'.3' }} TND</p>
       <span class="btn-group">
         <button (click)="clearCart()" class="btn btn-sm btn-outline-danger w-25" *ngIf="cart.products.length > 0">Clear Cart</button>
-        <a href="#" class="btn btn-outline-primary w-75">Passer commande</a>
+        <a (click)="passerCommande()" class="btn btn-outline-primary w-75">Passer commande</a>
       </span>
     </div>
   </div>
