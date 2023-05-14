@@ -11,4 +11,6 @@ export class Product{
     material : String;
     reviews : any;
     rating: any;
+    _id?: string
+    isSaved?:boolean
 }

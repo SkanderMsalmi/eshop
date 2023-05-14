@@ -7,15 +7,17 @@ import { AuthGuard } from './shared/guards/auth.guard';
 const baseLayoutRouting: Routes = [
   {
     path: 'products',
-    
+    canActivate:[DataUserGuard],
     loadChildren: () => import('./product/product.module').then(m => m.ProductModule)
   },
   {
     path: 'about',
+    canActivate:[DataUserGuard],
     loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
   },
   {
     path: 'contact',
+    canActivate:[DataUserGuard],
     loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
   },
   {
