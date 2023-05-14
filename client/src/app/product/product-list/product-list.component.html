@@ -69,46 +69,7 @@
   <div class="container">
     <div class="grid grid-cols-12 gap-6 xxl:gap-8" *ngIf="isLoaded">
       <div *ngFor="let product of products" class="col-span-12 md:col-span-6 xl:col-span-4">
-      
-        <mat-card class="ll-product">
-          <button mat-icon-button class="ll-product__like-button" (click)="toggleList(product._id)">
-            <mat-icon
-              
-             >favorite</mat-icon>
-          </button>
-          <app-carousel [imageUrls]="product.image" ></app-carousel>
-         
-          <div class="overlay" *ngIf="product.quantity == 0">
-            <span class="alert alert-danger">Out of stock</span>
-          </div>
-          <mat-card-content class="flex">
-            <div class="flex-grow pl-3">
-              <h2 class="ll-product__name">
-                <a [routerLink]="['/products', product.productId]">{{ product.name }}</a>
-              </h2>
-              <div class="flex justify-start mt-5">
-                <div class="text-mute">{{ product.color.length }} color<span *ngIf="product.color.length >1">s</span></div>
-              </div>
-              <div class="flex justify-start">
-                <div class="text-mute">{{ product.size.length }} size<span *ngIf="product.size.length >1">s</span></div>
-              </div>
-              <div class="flex justify-start">
-                <a href="#" class="text-mute">Voir plus ...</a>
-              </div>
-              <div class="flex justify-end">
-                <div class="ll-product__price text-accent font-bold">{{ product.price }} Dt</div>
-              </div>
-            </div>
-          </mat-card-content>
-          <mat-card-actions class="ll-product__action flex justify-between">
-            <div class="flex-1 text-center flex items-center justify-center">
-              <mat-icon color="warn">star</mat-icon> {{ product.rating }}/5
-            </div>
-            <div class="flex-1 text-center">
-              <a (click)="addToCart(product)" mat-raised-button color="warn" class="px-4" [disabled]="product.quantity == 0">Add to cart <i class="fa-solid fa-cart-shopping"></i></a>
-            </div>
-          </mat-card-actions>
-        </mat-card>
+        <app-product-card [product]="product"></app-product-card>
       </div>
     </div>
     <div *ngIf="!isLoaded">

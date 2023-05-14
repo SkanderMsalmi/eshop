@@ -1,0 +1,22 @@
+.ll-product__like-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 42px;
+    height: 42px;
+    z-index: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.ll-product__like-button:hover {
+    transform: scale(1.5);
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    color: red;
+}

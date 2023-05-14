@@ -24,34 +24,11 @@ export class ProductListComponent implements OnInit {
   public exist:Number;
   public SavedProducts;
   
-  constructor(private productService : ProductsService,private authService : AuthService,private router:Router, private cartStore : Store<StoreInterface>) {
+  constructor(private productService : ProductsService,private authService : AuthService,private router:Router) {
     this.user$.subscribe((response)=>this.user = response);
-  
-    
- 
   }
-  toggleList(productId: string) {
-    const isProductSaved = this.SavedProducts.some(savedProduct => savedProduct._id === productId);
-    if (isProductSaved) {
-      this.productService.deleteProductFromSavedProducts(this.user._id, productId).subscribe(() => {
-        // Do something after successfully deleting the product
-        this.productService.getSavedProductsForUserId(this.user._id).subscribe((savedProducts) => {
-          this.SavedProducts = savedProducts;
-        });
-      });
-    } else {
-      this.productService.addProductToSavedProducts(this.user._id, productId).subscribe(() => {
-        // Do something after successfully adding the product
-         this.productService.getSavedProductsForUserId(this.user._id).subscribe((savedProducts) => {
-      this.SavedProducts = savedProducts;
-    });
-      });
-    }
-  }
+
   ngOnInit(): void {
-    this.productService.getSavedProductsForUserId(this.user._id).subscribe((savedProducts) => {
-      this.SavedProducts = savedProducts;
-    });
     setTimeout(() => {
       this.productService.getAllProducts().subscribe(res => {
         this.products = res;
@@ -60,9 +37,5 @@ export class ProductListComponent implements OnInit {
         
       })
     },50)
-  }
-
-  addToCart(product : Product){
-    this.cartStore.dispatch(new AddToCartAction(product));
   }
 }
