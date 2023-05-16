@@ -21,9 +21,15 @@ public submit(){
     if(this.form.valid){
       this.form.setErrors(null);
       this.error="";
-      this.authService.connexion(this.form.getRawValue()).subscribe(()=>{
+      this.authService.connexion(this.form.getRawValue()).subscribe((res)=>{
+        if(res.role == "ADMIN"){
+       this.router.navigateByUrl('/admin')
 
-      this.router.navigateByUrl('/')
+        }else{
+       this.router.navigateByUrl('/')
+
+        }
+        
       },
       
       (err)=>{

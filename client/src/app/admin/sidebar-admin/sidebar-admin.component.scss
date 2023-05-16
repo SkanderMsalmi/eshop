@@ -1,0 +1,39 @@
+.sidebar {
+    width: 25%;
+    background-color: #1f1f1f;
+    color: rgba(255, 255, 255, .6);
+  }
+  
+  .brand {
+    padding: 20px;
+  }
+  
+  .brand h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .section-title {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 0 20px;
+  }
+  
+  .link {
+    display: flex;
+    align-items: center;
+    padding: 8px 20px;
+    color: rgba(255, 255, 255, .6);
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    background-color: #1f1f1f;
+    color: #fff;
+  }
+  
+  .link mat-icon {
+    margin-right: 8px;
+  }
+  

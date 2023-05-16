@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BaseLayoutComponent } from './shared/components/layouts/base-layout/base-layout.component';
 import { DataUserGuard } from './shared/guards/data-user.guard';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { AdminGuard } from './shared/guards/AdminGuard.guard';
 
 const baseLayoutRouting: Routes = [
   {
@@ -26,6 +27,7 @@ const baseLayoutRouting: Routes = [
     loadChildren: () => import('./espacecustomer/espacecustomer.module').then(m => m.EspacecustomerModule)
 
   },
+
   {
     path: '',
     pathMatch: 'full',
@@ -47,8 +49,9 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+    path: 'admin',
+     // Add AdminGuard to restrict access to admin routes
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) // Replace with the actual path to your admin module
   }
 ];
 

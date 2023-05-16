@@ -12,6 +12,7 @@ import { StoreInterface } from 'src/app/store/store';
 })
 export class HeaderComponent implements OnInit {
   @Input() public isLoggedin!: boolean | null;
+  @Input() public role!: string | null;
   @Output() public logout: EventEmitter<true> = new EventEmitter();
   @Input() topFixed: boolean;
   @Output() toggleSidenav = new EventEmitter();
@@ -19,7 +20,9 @@ export class HeaderComponent implements OnInit {
   menuList = [];
   isLessThenLargeDevice;
   numberItems : number;
-  constructor(private breakpointObserver: BreakpointObserver,private authService:AuthService, private store: Store<StoreInterface>) {}
+  constructor(private breakpointObserver: BreakpointObserver,private authService:AuthService, private store: Store<StoreInterface>) {
+    
+  }
 
   ngOnInit(): void {
     this.menuList = staticMenuList;

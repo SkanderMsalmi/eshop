@@ -9,12 +9,14 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   public isLoggedin$ : ReplaySubject<boolean> = new ReplaySubject(1);
   public user$: BehaviorSubject<User | null> = new BehaviorSubject<User |null>(null);
+  public role$: ReplaySubject<string | null> = new ReplaySubject<string | null>(null); // Add role$ subject
   constructor(private http:HttpClient) { }
 
   public fetchCurrentUser(): Observable<User> {
     return this.http.get<User>('/api/auth/currentuser').pipe(
       tap((user: User) => {
         this.user$.next(user);
+        this.role$.next(user?.role || null);
         if (user) {
           this.isLoggedin$.next(true);
         } else {
@@ -55,6 +57,7 @@ export class AuthService {
         if(user){
           this.user$.next(user);
           this.isLoggedin$.next(true);
+          this.role$.next(user?.role || null);
         }
       })
     );

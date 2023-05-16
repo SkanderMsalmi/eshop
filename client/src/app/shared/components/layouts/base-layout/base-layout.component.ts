@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class BaseLayoutComponent implements OnInit, OnDestroy {
   public isLoggedin$: Observable<boolean> = this.authService.isLoggedin$.asObservable();
+  public role$: Observable<string> = this.authService.role$.asObservable();
+  role:string;
   isLoggedIn: boolean;
   isAlive: boolean = true;
   @ViewChild('sidenav') sidenav;

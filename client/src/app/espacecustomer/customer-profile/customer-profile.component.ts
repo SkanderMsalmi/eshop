@@ -35,7 +35,8 @@ export class CustomerProfileComponent implements OnInit {
 
 
   constructor( private router: Router,private authService:AuthService,private fb:FormBuilder) {
-    this.user$.subscribe((response)=>this.user = response);
+    this.user$.subscribe((response)=>{this.user = response;console.log(response);
+    });
     
    }
  
@@ -45,6 +46,7 @@ export class CustomerProfileComponent implements OnInit {
       this.initForm();
     });
   }
+
   initForm() {
     this.userForm = this.fb.group({
       name: [this.user.name, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
@@ -55,6 +57,7 @@ export class CustomerProfileComponent implements OnInit {
       occupation:[this.user.occupation ? this.user.occupation : '']
     });
   }
+  
   public cancelUpdate(){
     this.ToggleIsEdit();
     this.error="";

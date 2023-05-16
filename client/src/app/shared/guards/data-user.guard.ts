@@ -14,7 +14,7 @@ export class DataUserGuard implements CanActivate {
     return this.authService.user$.pipe(
       first(),
       switchMap((user:User| null):Observable<true>=>{
-        if(!user){
+        if(!user ){
           return this.authService.fetchCurrentUser().pipe(mapTo(true))
         }else{
           return of(true);

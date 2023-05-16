@@ -9,6 +9,17 @@
     transition: background-color 0.5s ease;
   }
 }
+.ll_header_admin {
+  padding: 15px 0;
+  @apply bg-gray-50;
+  &.top-fixed {
+    @apply fixed -inset-x-0 top-0;
+    padding: 15px 0;
+    z-index: 9999;
+    background-color: gray;
+    transition: background-color 0.5s ease;
+  }
+}
 .logo {
   max-width: 120px;
 }
@@ -57,3 +68,4 @@
   align-items: center;
   font-size: 12px;
 }
+

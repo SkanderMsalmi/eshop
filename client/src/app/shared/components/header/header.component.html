@@ -1,4 +1,4 @@
-<header class="ll_header" [class.top-fixed]="topFixed" [ngClass]="{ 'bg-gray-50 shadow': topFixed && isScrolled }">
+<header class="ll_header" [class.top-fixed]="topFixed" [ngClass]="{ 'bg-gray-50 shadow': topFixed && isScrolled }" >
   <div class="container">
     <div class="flex items-center">
       <div class="flex items-center">
@@ -34,6 +34,9 @@
         <a [routerLink]="['/espace']" mat-raised-button color="warn" class="text-lg font-bold py-2 px-5 ml-2" style="color: white;">My Space</a>
         <a (click)="onLogout()" mat-raised-button color="accent" class="text-lg font-bold py-2 px-5 ml-2">Logout</a>
       </div>
+      
     </div>
   </div>
 </header>
+
+
