@@ -1,1 +1,34 @@
-<p>products-admin works!</p>
+<div class="d-flex justify-content-end">
+    <button routerLink="/admin/addProduct" class="btn btn-outline-info" style="margin-right: 3rem;"><i class="fa-solid fa-plus"></i> Add new Product</button>
+</div>
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Price</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of listProducts | slice: currentPage * itemsPerPage : (currentPage + 1) * itemsPerPage">
+              <th scope="row">{{product.productId}}</th>
+              <td>{{product.name}}</td>
+              <td>{{ product.category }}</td>
+              <td>{{ product.price }} TND</td>
+              <td class="btn-group">
+                  <button  class="btn btn-outline-primary"><i class="fa-solid fa-list"></i></button>
+                  <button routerLink="/admin/editProduct/{{product._id}}" class="btn btn-outline-secondary"><i class="fa-solid fa-pencil"></i></button>
+                  <button (click)="deleteProduct(product)" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>
+      </table>
+      <mat-paginator
+  [length]="listProducts?.length"
+  [pageSize]="itemsPerPage"
+  [pageSizeOptions]="[10, 25, 100]"
+  (page)="onPageChange($event)">
+</mat-paginator>
+</div>

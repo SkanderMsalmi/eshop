@@ -1,0 +1,86 @@
+<div class="d-flex container card">
+    <form class="card-body form-valide" #form="ngForm" novalidate="novalidate" enctype="multipart/form-data" (ngSubmit)="submitForm()">
+        <div class="col-12">
+            <label for="name" class="form-label"><strong>Name</strong></label>
+            <input type="text" class="form-control" name="name" id="name" [(ngModel)]="product.name" #nom="ngModel" required autocomplete="off">
+            <div *ngIf="nom.touched && nom.invalid">
+                <div class="alert alert-danger">Name is obligatory.</div>
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="description" class="form-label"><strong>Description</strong></label>
+            <textarea type="text" class="form-control" rows="5" name="description" id="description" [(ngModel)]="product.description" #description="ngModel" required autocomplete="off"></textarea>
+            <div *ngIf="description.touched && description.invalid">
+                <div class="alert alert-danger">Description is obligatory.</div>
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="price" class="form-label"><strong>Price</strong></label>
+            <input type="number" class="form-control" name="price" id="price" [(ngModel)]="product.price" #price="ngModel" required autocomplete="off">
+            <div *ngIf="price.touched && price.invalid">
+                <div class="alert alert-danger">Price is obligatory.</div>
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="quantity" class="form-label"><strong>Quantity</strong></label>
+            <input type="number" class="form-control" name="quantity" id="quantity" [(ngModel)]="product.quantity" #quantity="ngModel" required autocomplete="off">
+            <div *ngIf="quantity.touched && quantity.invalid">
+                <div class="alert alert-danger">quantity is obligatory.</div>
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="material" class="form-label"><strong>Material</strong></label>
+            <input type="text" class="form-control" name="material" id="material" [(ngModel)]="product.material" #material="ngModel" required autocomplete="off">
+            <div *ngIf="material.touched && material.invalid">
+                <div class="alert alert-danger">material is obligatory.</div>
+            </div>
+        </div>
+        <fieldset class="col-12 row mb-3">
+          <legend class="col-form-label col-sm-2 pt-0"><strong>Category</strong></legend>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="category" id="category" value="MAN" [(ngModel)]="product.category">
+              <label class="form-check-label" for="category">
+                Men
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="category" id="category" [(ngModel)]="product.category" value="WOMAN">
+              <label class="form-check-label" for="category">
+                Women
+              </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="category" id="category" [(ngModel)]="product.category" value="KID">
+                <label class="form-check-label" for="category">
+                  Kids
+                </label>
+              </div>
+          </div>
+        </fieldset>
+        <div class="col-12">
+          <label class="form-label"><strong>Colors</strong></label>
+          <app-chips [chips]="product.color" [allchips]="listColors" (colorsOutput)="handleColors($event)"></app-chips>
+        </div>
+        <div class="col-12">
+          <label class="form-label"><strong>Sizes</strong></label>
+          <app-chips [chips]="product.size" [allchips]="listSizes" (colorsOutput)="handleSizes($event)"></app-chips>
+        </div>
+        <div class="row col-12" *ngIf="edit">
+          <span class="col-4 image" *ngFor="let image of product.image">
+            <img [src]="'http://localhost:8000/image/'+image" />
+            <button type="button" class="close" aria-label="Remove" (click)="removeImage(image)">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </span>
+        </div>
+        <div class="col-12">
+          <label for="image" class="form-label"><strong>Pictures</strong></label>
+          <input type="file" class="form-control" name="image" id="image"  (change)="handleFileInput($event.target.files)" required autocomplete="off" multiple>
+        </div>
+        <div class="d-flex justify-content-center btn-group mt-6">
+            <button routerLink="/admin/products" type="button" class="btn btn-danger w-50">Cancel</button>
+            <button type="submit" class="btn btn-primary w-50">{{ submitButton }}</button>
+        </div>
+      </form>
+</div>

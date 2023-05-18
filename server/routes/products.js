@@ -11,7 +11,7 @@ router.post(
   productController.postAddProduct
 );
 router.post("/addReview/:id", productController.postAddReview);
-router.put("/edit", productController.putUpdateProduct);
+router.put("/edit/:id",productController.upload.array("image"), productController.putUpdateProduct);
 router.delete("/delete", productController.deleteOneProduct);
 router.delete("/deleteAll", productController.deleteAll);
 router.delete("/delete/:id", productController.deleteOneProductById);

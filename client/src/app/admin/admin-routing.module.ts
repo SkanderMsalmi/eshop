@@ -4,6 +4,7 @@ import { AdminComponent } from './admin.component';
 import { IndexAdminComponent } from './index-admin/index-admin.component';
 import { UsersAdminComponent } from './users-admin/users-admin.component';
 import { ProductsAdminComponent } from './products-admin/products-admin.component';
+import { FormProductComponent } from './form-product/form-product.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,14 @@ const routes: Routes = [
       {
         path: 'products',
         component: ProductsAdminComponent
+      },
+      {
+        path:'addProduct',
+        component: FormProductComponent
+      },
+      {
+        path :'editProduct/:id',
+        component : FormProductComponent
       }
       // Define child routes for admin module here
       // Example:

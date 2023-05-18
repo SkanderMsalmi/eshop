@@ -20,6 +20,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { CartComponent } from './components/cart/cart.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { ChipsComponent } from './components/chips/chips.component';
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const commonModules = [
   HttpClientModule,
@@ -31,12 +36,16 @@ const commonModules = [
   MatSidenavModule,
   MatListModule,
   MatMenuModule,
-  MatDialogModule
+  MatDialogModule,
+  MatAutocompleteModule,
+  MatChipsModule,
+  MatFormFieldModule,
+  ReactiveFormsModule
 ];
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, FeatureComponent, BaseLayoutComponent, LoaderComponent, SidenavComponent, CarouselComponent, CartComponent, DialogComponent],
+  declarations: [HeaderComponent, FooterComponent, FeatureComponent, BaseLayoutComponent, LoaderComponent, SidenavComponent, CarouselComponent, CartComponent, DialogComponent, ChipsComponent],
   imports: [CommonModule, RouterModule, ...commonModules],
-  exports: [HeaderComponent, FooterComponent, BaseLayoutComponent, FeatureComponent, LoaderComponent, SidenavComponent,CarouselComponent, ...commonModules]
+  exports: [HeaderComponent, FooterComponent, BaseLayoutComponent, FeatureComponent, LoaderComponent, SidenavComponent,CarouselComponent,ChipsComponent, ...commonModules]
 })
 export class SharedModule {}

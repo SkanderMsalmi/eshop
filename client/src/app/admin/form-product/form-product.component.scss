@@ -1,0 +1,52 @@
+.container{
+    display: flex;
+    justify-content: center;
+    background-color: #e3e3e3;
+    border-radius: 2%;
+    box-shadow: 0 0 1rem rgba(0,0,0,.5);
+    width: 100%;
+    margin-bottom: 2rem;
+    padding: 2rem;
+}
+
+.image{
+        position: relative;
+        display: inline-block;
+        margin-bottom: 1rem;
+        
+       // img {
+          // ...existing styles for the image...
+       // }
+        
+        button.close {
+          position: absolute;
+          top: -1rem;
+          right: 0;
+          background-color: transparent;
+          border: 1px solid;
+          width: 1.5rem;
+          height: 1.5rem;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: red;
+          font-size: 1.5rem;
+          cursor: pointer;
+          z-index: 1;
+          
+          &:hover {
+            color: white;
+            background-color: red;
+          }
+        }
+        &:hover,
+        &:focus {
+            transform: scale(1.2);
+            transition: transform ease 0.5s;
+        }
+}
+
+.col-12{
+  margin-top: 1rem;
+}
