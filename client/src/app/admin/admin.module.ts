@@ -25,6 +25,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { SharedModule } from '../shared/shared.module';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 
 const commonModules = [
   HttpClientModule,
@@ -53,6 +54,7 @@ const commonModules = [
        AdminComponent,
        FormProductComponent,
        ProductDetailsComponent,
+       DialogDeleteComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Are you sure?</h2>
+    </div>
+    <div class="card-body">
+        <div class="card-title row">
+            <div class="col-6 left">
+                <span class="card-text"><strong>Product : </strong>{{ product.name }}</span>
+                <span class="card-text"><strong>Price : </strong>{{ product.price }} TND</span>
+                <span class="card-text"><strong>Quantity : </strong>{{ product.quantity }} left</span>
+            </div>
+            <div class="col-6 right">
+                <img [src]="'http://localhost:8000/image/'+product.image[0]" />
+            </div>
+        </div>
+    </div>
+    <div class="card-footer btn-group d-flex justify-content-end">
+        <button (click)="closeDiag()" class="btn btn-primary">Cancel</button>
+        <button (click)="deleteProduct()" class="btn btn-danger">Delete</button>
+    </div>
+</div>

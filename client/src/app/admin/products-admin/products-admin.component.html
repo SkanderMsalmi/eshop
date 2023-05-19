@@ -40,7 +40,7 @@
         <button mat-icon-button color="warn" routerLink="/admin/editProduct/{{product._id}}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="accent" (click)="deleteProduct(product)">
+        <button mat-icon-button color="accent" (click)="openDialog(product)" >
           <mat-icon>delete</mat-icon>
         </button>
       </td>
@@ -57,7 +57,6 @@
     (page)="onPageChange($event)">
   </mat-paginator>
 </div>
-
 <div *ngIf="selectedProduct" #elementRef>
   <app-product-details [product]="selectedProduct" (productEmitter)="closeDetails($event)"></app-product-details>
 </div>
