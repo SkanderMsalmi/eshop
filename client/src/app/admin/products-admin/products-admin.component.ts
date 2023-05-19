@@ -40,4 +40,8 @@ export class ProductsAdminComponent implements OnInit {
     this.selectedProduct = null;
   }
 
+  closeDetails(){
+    this.selectedProduct = null;
+  }
+
 }

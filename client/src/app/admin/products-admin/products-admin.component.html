@@ -33,7 +33,7 @@
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef width=23%>Actions</th>
-      <td mat-cell *matCellDef="let product" class="btn-group">
+      <td mat-cell *matCellDef="let product">
         <button mat-icon-button color="primary" (click)="select(product)">
           <mat-icon>list</mat-icon>
         </button>
@@ -58,6 +58,6 @@
   </mat-paginator>
 </div>
 
-<div *ngIf="selectedProduct">
-  <app-product-details [product]="selectedProduct" (productEmitter)="handleProduct($event)"></app-product-details>
+<div *ngIf="selectedProduct" #elementRef>
+  <app-product-details [product]="selectedProduct" (productEmitter)="closeDetails($event)"></app-product-details>
 </div>
