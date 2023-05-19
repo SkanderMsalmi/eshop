@@ -51,7 +51,7 @@
   </table>
 
   <mat-paginator
-    [length]="listProducts?.length"
+    [length]="listProducts?.data.length"
     [pageSize]="itemsPerPage"
     [pageSizeOptions]="[10, 25, 100]"
     (page)="onPageChange($event)">

@@ -4,6 +4,7 @@ import { Product } from 'src/app/core/models/product.model';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDeleteComponent } from "../components/dialog-delete/dialog-delete.component";
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-products-admin',
@@ -13,14 +14,17 @@ import { DialogDeleteComponent } from "../components/dialog-delete/dialog-delete
 export class ProductsAdminComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator : MatPaginator;
-  listProducts : Product[]
+  listProducts : MatTableDataSource<Product>
   selectedProduct : Product;
   itemsPerPage = 10;
   currentPage = 0;
   constructor(private productsService : ProductsService, private dialog : MatDialog) { }
 
   ngOnInit(): void {
-    this.productsService.getAllProducts().subscribe(result => this.listProducts = result);
+    this.productsService.getAllProducts().subscribe((result : Product[]) => {
+      this.listProducts = new MatTableDataSource(result);
+      this.listProducts.paginator = this.paginator;
+    });
   }
 
   onPageChange(event : PageEvent){
@@ -33,7 +37,7 @@ export class ProductsAdminComponent implements OnInit {
   }
 
   handleProduct(){
-    this.listProducts = this.listProducts.filter(p => p._id != this.selectedProduct._id);
+    this.listProducts = new MatTableDataSource(this.listProducts.data.filter(p => p._id != this.selectedProduct._id));
     this.selectedProduct = null;
   }
 
@@ -49,7 +53,7 @@ export class ProductsAdminComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.productsService.getAllProducts().subscribe(res => this.listProducts = res)
+      this.productsService.getAllProducts().subscribe(res => this.listProducts = new MatTableDataSource(res))
     });
   }
 }
