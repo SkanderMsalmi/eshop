@@ -29,4 +29,8 @@ export class ProductsService {
   updateProduct(product : FormData, id : string) : Observable<Product>{
     return this.http.put<Product>(`/api/product/edit/${id}`, product);
   }
+
+  deleteReview(review : any, id :string) : Observable<Product>{
+    return this.http.put<Product>(`/api/product/delete-review/${id}`,review);
+  }
 }

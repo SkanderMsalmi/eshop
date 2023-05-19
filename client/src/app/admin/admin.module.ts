@@ -22,8 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FormProductComponent } from './form-product/form-product.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { ChipsComponent } from '../shared/components/chips/chips.component';
+import { MatTableModule } from '@angular/material/table';
 import { SharedModule } from '../shared/shared.module';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 const commonModules = [
   HttpClientModule,
@@ -36,7 +37,8 @@ const commonModules = [
   MatListModule,
   MatMenuModule,
   MatDialogModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatTableModule
 ];
 
 @NgModule({
@@ -50,6 +52,7 @@ const commonModules = [
        ProductsAdminComponent,
        AdminComponent,
        FormProductComponent,
+       ProductDetailsComponent,
   ],
   imports: [
     CommonModule,

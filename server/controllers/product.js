@@ -57,20 +57,18 @@ exports.getOneProduct = (req, res, next) => {
 
 exports.postAddProduct = async (req, res, next) => {
   const product = new Product(req.body);
-  req.files.forEach((file) => {
-    console.log(file);
-    const outputFileName = `eshop-${file.filename}`;
-    const image = sharp(file.path)
-      .resize(800, 600)
-      .jpeg({ quality: 80 })
-      .toFile(path.join(__dirname, "..", "public", "images", outputFileName))
-      .then((result) => fs.unlinkSync(file.path))
-      .then(() => {
-        const index = outputFileName.lastIndexOf("\\");
-        product.image.push(outputFileName.substring(index + 1));
-      })
-      .catch((err) => console.log(err));
-  });
+  if (req.files) {
+    req.files.forEach((file) => {
+      const outputFileName = `eshop-${file.filename}`;
+      const image = sharp(file.path)
+        .resize(800, 600)
+        .jpeg({ quality: 80 })
+        .toFile(path.join(__dirname, "..", "public", "images", outputFileName))
+        .then((result) => fs.unlinkSync(file.path));
+      const index = outputFileName.lastIndexOf("\\");
+      product.image.push(outputFileName.substring(index + 1));
+    });
+  }
   Product.find()
     .sort({ productId: -1 })
     .limit(1)
@@ -283,3 +281,14 @@ exports.clearSavedList = async (req, res, next) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+exports.deleteReview = (req, res, next) =>{
+  const productId = req.params.id;
+  Product.updateOne({_id: productId},{$pull : {"reviews" :  req.body }})
+  .then(result => {
+    Product.findById(productId)
+      .then(product => res.status(201).json(product)
+    );
+  })
+  .catch(err => console.log(err));
+}

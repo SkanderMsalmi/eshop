@@ -1,0 +1,13 @@
+.container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+th{
+    font-weight: bolder;
+}

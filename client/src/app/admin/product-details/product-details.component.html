@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="card">
+        <h5 class="card-header">
+            <span>{{ product.name }}</span>
+            <span>Category : {{ product.category}}</span>
+            <span>Material : {{ product.material}}</span>
+        </h5>
+        <div class="card-body row">
+            <div class="col-4 card">
+                <div class="card-body inside-left">
+                    <span>
+                        <strong>Description :</strong><br>
+                        {{product.description}}
+                    </span>
+                    <hr>
+                    <span>
+                        <strong>Price :</strong>
+                        {{product.price}} TND
+                    </span>
+                    <hr>
+                    <span>
+                        <strong>Colors :</strong>
+                        <ul>
+                            <li *ngFor="let color of product.color">{{color}}</li>
+                        </ul>
+                    </span>
+                    <hr>
+                    <span>
+                        <strong>Sizes :</strong>
+                        <ol>
+                            <li *ngFor="let size of product.size">{{size}}</li>
+                        </ol>
+                    </span>
+                </div>
+            </div>
+            <div class="col-8 col inside-right">
+                <div class="row-6 card images">
+                    <div class="card-body row row-cols-2">
+                        <span class="col image" *ngFor="let image of product.image">
+                            <img [src]="'http://localhost:8000/image/'+image" />
+                        </span>
+                    </div>
+                </div>
+                <div class="row-6 card">
+                    <div class="card-body">
+                        <div class="card w-100 mb-3" *ngFor="let review of product.reviews">
+                            <div class="card-body row justify-content-between">
+                                <h5 class="card-title col-8">
+                                    <p >{{ review.body }}</p>
+                                </h5>
+                                <div class="star-rating col-4">
+                                    <span class="star" [style.color]="review.score >= 1 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                                    <span class="star" [style.color]="review.score >= 2 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                                    <span class="star" [style.color]="review.score >= 3 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                                    <span class="star" [style.color]="review.score >= 4 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                                    <span class="star" [style.color]="review.score >= 5 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                                </div>
+                                <p class="card-text" *ngIf="review.userId._id == user?._id">
+                                    You | {{ review.date | date:'dd MMMM yyyy' }}
+                                </p>
+                                <p class="card-text" *ngIf="review.userId._id != user?._id">
+                                    {{ review.userId.name }} | {{ review.date | date:'dd MMMM yyyy' }}
+                                </p>
+                                <button type="button" class="close" aria-label="Remove" (click)="removeReview(review)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-end mt-2">
+                      <button mat-icon-button color="warn" routerLink="/admin/editProduct/{{product._id}}">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button mat-icon-button color="accent" (click)="deleteProduct()">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                </div>
+            </div>
+        </div>
+      </div>
+</div>

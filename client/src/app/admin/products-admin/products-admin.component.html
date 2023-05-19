@@ -1,34 +1,63 @@
 <div class="d-flex justify-content-end">
-    <button routerLink="/admin/addProduct" class="btn btn-outline-info" style="margin-right: 3rem;"><i class="fa-solid fa-plus"></i> Add new Product</button>
+  <button mat-raised-button color="primary" routerLink="/admin/addProduct" style="margin-right: 3rem;">
+    <mat-icon>add</mat-icon> Add new Product
+  </button>
 </div>
+
 <div class="container">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Name</th>
-              <th scope="col">Category</th>
-              <th scope="col">Price</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let product of listProducts | slice: currentPage * itemsPerPage : (currentPage + 1) * itemsPerPage">
-              <th scope="row">{{product.productId}}</th>
-              <td>{{product.name}}</td>
-              <td>{{ product.category }}</td>
-              <td>{{ product.price }} TND</td>
-              <td class="btn-group">
-                  <button  class="btn btn-outline-primary"><i class="fa-solid fa-list"></i></button>
-                  <button routerLink="/admin/editProduct/{{product._id}}" class="btn btn-outline-secondary"><i class="fa-solid fa-pencil"></i></button>
-                  <button (click)="deleteProduct(product)" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-              </td>
-            </tr>
-      </table>
-      <mat-paginator
-  [length]="listProducts?.length"
-  [pageSize]="itemsPerPage"
-  [pageSizeOptions]="[10, 25, 100]"
-  (page)="onPageChange($event)">
-</mat-paginator>
+  <table mat-table class="mat-elevation-z8" [dataSource]="listProducts" matSort>
+    <ng-container matColumnDef="productId">
+      <th mat-header-cell *matHeaderCellDef width=7%>Id</th>
+      <td mat-cell *matCellDef="let product">{{ product.productId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef width=50%>Name</th>
+      <td mat-cell *matCellDef="let product">{{ product.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef width=10%>Category</th>
+      <td mat-cell *matCellDef="let product">{{ product.category }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef width=10%>Quantity</th>
+      <td mat-cell *matCellDef="let product">{{ product.quantity }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef width=10%>Price</th>
+      <td mat-cell *matCellDef="let product">{{ product.price }} TND</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef width=23%>Actions</th>
+      <td mat-cell *matCellDef="let product" class="btn-group">
+        <button mat-icon-button color="primary" (click)="select(product)">
+          <mat-icon>list</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" routerLink="/admin/editProduct/{{product._id}}">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="deleteProduct(product)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['productId', 'name', 'category', 'quantity', 'price', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['productId', 'name', 'category', 'quantity', 'price', 'actions']"></tr>
+  </table>
+
+  <mat-paginator
+    [length]="listProducts?.length"
+    [pageSize]="itemsPerPage"
+    [pageSizeOptions]="[10, 25, 100]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>
+
+<div *ngIf="selectedProduct">
+  <app-product-details [product]="selectedProduct" (productEmitter)="handleProduct($event)"></app-product-details>
 </div>

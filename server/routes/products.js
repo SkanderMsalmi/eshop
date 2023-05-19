@@ -10,11 +10,15 @@ router.post(
   productController.upload.array("image"),
   productController.postAddProduct
 );
-router.post("/addReview/:id", productController.postAddReview);
 router.put("/edit/:id",productController.upload.array("image"), productController.putUpdateProduct);
 router.delete("/delete", productController.deleteOneProduct);
 router.delete("/deleteAll", productController.deleteAll);
 router.delete("/delete/:id", productController.deleteOneProductById);
+
+//reviews
+
+router.post("/addReview/:id", productController.postAddReview);
+router.put("/delete-review/:id", productController.deleteReview);
 
 // saved products
 

@@ -12,6 +12,7 @@ export class ProductsAdminComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator : MatPaginator;
   listProducts : Product[]
+  selectedProduct : Product;
   itemsPerPage = 10;
   currentPage = 0;
   constructor(private productsService : ProductsService) { }
@@ -28,6 +29,15 @@ export class ProductsAdminComponent implements OnInit {
   deleteProduct(product : Product) : void{
     this.productsService.deleteProduct(product);
     this.listProducts = this.listProducts.filter(p => p._id != product._id);
+  }
+
+  select(product : Product){
+    this.selectedProduct = product;
+  }
+
+  handleProduct(){
+    this.listProducts = this.listProducts.filter(p => p._id != this.selectedProduct._id);
+    this.selectedProduct = null;
   }
 
 }
