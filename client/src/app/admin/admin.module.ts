@@ -26,6 +26,7 @@ import { MatTableModule } from '@angular/material/table';
 import { SharedModule } from '../shared/shared.module';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
+import { MatRadioModule } from "@angular/material/radio";
 
 const commonModules = [
   HttpClientModule,
@@ -39,7 +40,8 @@ const commonModules = [
   MatMenuModule,
   MatDialogModule,
   MatPaginatorModule,
-  MatTableModule
+  MatTableModule,
+  MatRadioModule
 ];
 
 @NgModule({

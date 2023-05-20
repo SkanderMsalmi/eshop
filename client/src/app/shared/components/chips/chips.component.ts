@@ -19,6 +19,7 @@ export class ChipsComponent implements OnInit {
   chipCtrl = new FormControl();
   filteredchips: Observable<string[]>;
   @Input() chips: string[];
+  @Input() label: string;
   @Output() chipsOutput : EventEmitter<string[]> = new EventEmitter<string[]>();
   @Input() allchips: string[];
 

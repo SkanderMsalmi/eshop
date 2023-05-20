@@ -15,6 +15,7 @@ export class FormProductComponent implements OnInit {
   edit : boolean = false;
   submitButton = "Add new product";
   selectedFiles : any[];
+  displayImages : string[] = [];
   colors : string[];
   size : string[];
   listColors = colors;
@@ -51,6 +52,12 @@ export class FormProductComponent implements OnInit {
     this.selectedFiles = [];
     for (let i = 0; i < files.length; i++) {
       this.selectedFiles.push(files.item(i));
+      const file = files[i];
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.displayImages.push(event.target.result);
+      };
+      reader.readAsDataURL(file);
     }
   }
 
@@ -87,6 +94,12 @@ export class FormProductComponent implements OnInit {
 
   handleColors(colors : string[] ) : void {
     this.colors = colors;
+  }
+
+  cancelImage(image : string){
+    let index = this.displayImages.indexOf(image);
+    this.displayImages.splice(index,1);
+    this.selectedFiles.splice(index,1);
   }
 
 }

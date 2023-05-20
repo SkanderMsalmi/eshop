@@ -1,72 +1,55 @@
-<div class="d-flex container card">
-    <form class="card-body form-valide" #form="ngForm" novalidate="novalidate" enctype="multipart/form-data" (ngSubmit)="submitForm()">
-        <div class="col-12">
-            <label for="name" class="form-label"><strong>Name</strong></label>
-            <input type="text" class="form-control" name="name" id="name" [(ngModel)]="product.name" #nom="ngModel" required autocomplete="off">
-            <div *ngIf="nom.touched && nom.invalid">
-                <div class="alert alert-danger">Name is obligatory.</div>
-            </div>
+<div class="container">
+    <form #form="ngForm" novalidate="novalidate" enctype="multipart/form-data" (ngSubmit)="submitForm()">
+        <div class="did-floating-label-content" [ngClass]="{'did-error-input' : nom.touched&& nom.invalid}" [ngClass]="{'did-error-input' : nom.touched&& nom.invalid}">
+          <input type="text" class="did-floating-input"  name="name" id="name" [(ngModel)]="product.name" #nom="ngModel" placeholder=" " required autocomplete="off">
+          <label for="name" class="did-floating-label">Name</label>
         </div>
-        <div class="col-12">
-            <label for="description" class="form-label"><strong>Description</strong></label>
-            <textarea type="text" class="form-control" rows="5" name="description" id="description" [(ngModel)]="product.description" #description="ngModel" required autocomplete="off"></textarea>
-            <div *ngIf="description.touched && description.invalid">
-                <div class="alert alert-danger">Description is obligatory.</div>
-            </div>
+        <div class="did-floating-label-content" [ngClass]="{'did-error-textarea' : description.touched&& description.invalid}">
+          <textarea placeholder=" " type="text" class="did-floating-textarea" rows="5" name="description" id="description" [(ngModel)]="product.description" #description="ngModel" required autocomplete="off"></textarea>
+          <label for="description" class="did-floating-label">Description</label>
         </div>
-        <div class="col-12">
-            <label for="price" class="form-label"><strong>Price</strong></label>
-            <input type="number" class="form-control" name="price" id="price" [(ngModel)]="product.price" #price="ngModel" required autocomplete="off">
-            <div *ngIf="price.touched && price.invalid">
-                <div class="alert alert-danger">Price is obligatory.</div>
-            </div>
+        <div class="did-floating-label-content" [ngClass]="{'did-error-input' : price.touched&& price.invalid}">
+            <input placeholder=" " type="number" class="did-floating-input" name="price" id="price" [(ngModel)]="product.price" #price="ngModel" required autocomplete="off">
+            <label for="price" class="did-floating-label">Price</label>
         </div>
-        <div class="col-12">
-            <label for="quantity" class="form-label"><strong>Quantity</strong></label>
-            <input type="number" class="form-control" name="quantity" id="quantity" [(ngModel)]="product.quantity" #quantity="ngModel" required autocomplete="off">
-            <div *ngIf="quantity.touched && quantity.invalid">
-                <div class="alert alert-danger">quantity is obligatory.</div>
-            </div>
+        <div class="did-floating-label-content" [ngClass]="{'did-error-input' : quantity.touched&& quantity.invalid}">
+          <input placeholder=" " type="number" class="did-floating-input" name="quantity" id="quantity" [(ngModel)]="product.quantity" #quantity="ngModel" required autocomplete="off">
+            <label for="quantity" class="did-floating-label">Quantity</label>
         </div>
-        <div class="col-12">
-            <label for="material" class="form-label"><strong>Material</strong></label>
-            <input type="text" class="form-control" name="material" id="material" [(ngModel)]="product.material" #material="ngModel" required autocomplete="off">
-            <div *ngIf="material.touched && material.invalid">
-                <div class="alert alert-danger">material is obligatory.</div>
-            </div>
+        <div class="did-floating-label-content" [ngClass]="{'did-error-input' : material.touched&& material.invalid}">
+          <input placeholder=" " type="text" class="did-floating-input"  name="material" id="material" [(ngModel)]="product.material" #material="ngModel" required autocomplete="off">
+            <label for="material" class="did-floating-label">Material</label>
         </div>
-        <fieldset class="col-12 row mb-3">
-          <legend class="col-form-label col-sm-2 pt-0"><strong>Category</strong></legend>
-          <div class="col-sm-10">
+        <fieldset>
+          <legend>Category</legend>
+          <div class="input-radio-group">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="category" id="category" value="MAN" [(ngModel)]="product.category">
-              <label class="form-check-label" for="category">
-                Men
+              <input placeholder=" " class="radio-input" type="radio" name="category" id="category" value="MAN" [(ngModel)]="product.category">
+              <label class="radio-label" for="category">
+                Man
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="category" id="category" [(ngModel)]="product.category" value="WOMAN">
-              <label class="form-check-label" for="category">
-                Women
+              <input placeholder=" " class="radio-input" type="radio" name="category" id="category" value="WOMAN" [(ngModel)]="product.category">
+              <label class="radio-label" for="category">
+                Woman
               </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="category" id="category" [(ngModel)]="product.category" value="KID">
-                <label class="form-check-label" for="category">
+              <input placeholder=" " class="radio-input" type="radio" name="category" id="category"  value="KID"  [(ngModel)]="product.category">
+                <label class="radio-label" for="category">
                   Kids
                 </label>
               </div>
           </div>
         </fieldset>
-        <div class="col-12">
-          <label class="form-label"><strong>Colors</strong></label>
-          <app-chips [chips]="product.color" [allchips]="listColors" (colorsOutput)="handleColors($event)"></app-chips>
+        <div class="did-floating-label-content">
+          <app-chips [chips]="product.color" [allchips]="listColors" [label]="'Colors'" (colorsOutput)="handleColors($event)"></app-chips>
         </div>
-        <div class="col-12">
-          <label class="form-label"><strong>Sizes</strong></label>
-          <app-chips [chips]="product.size" [allchips]="listSizes" (colorsOutput)="handleSizes($event)"></app-chips>
+        <div class="did-floating-label-content">
+          <app-chips [chips]="product.size" [allchips]="listSizes" [label]="'Sizes'" (colorsOutput)="handleSizes($event)"></app-chips>
         </div>
-        <div class="row col-12" *ngIf="edit">
+        <div class="row images" *ngIf="edit">
           <span class="col-4 image" *ngFor="let image of product.image">
             <img [src]="'http://localhost:8000/image/'+image" />
             <button type="button" class="close" aria-label="Remove" (click)="removeImage(image)">
@@ -74,13 +57,21 @@
           </button>
           </span>
         </div>
-        <div class="col-12">
-          <label for="image" class="form-label"><strong>Pictures</strong></label>
-          <input type="file" class="form-control" name="image" id="image"  (change)="handleFileInput($event.target.files)" required autocomplete="off" multiple>
+        <div class="row images" *ngIf="displayImages">
+          <span class="col-4 image" *ngFor="let image of displayImages">
+            <img  [src]="image" class="selected-image">
+            <button type="button" class="close" aria-label="Remove" (click)="cancelImage(image)">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </span>
+        </div>
+        <div class="file-input-wrapper">
+          <input placeholder=" " type="file" name="image" id="image"  (change)="handleFileInput($event.target.files)" required autocomplete="off" multiple>
+          <label for="image" class="file-custom">Upload pictures</label>
         </div>
         <div class="d-flex justify-content-center btn-group mt-6">
-            <button routerLink="/admin/products" type="button" class="btn btn-danger w-50">Cancel</button>
-            <button type="submit" class="btn btn-primary w-50">{{ submitButton }}</button>
+            <button routerLink="/admin/products" type="button" class="button-cancel">Cancel</button>
+            <button type="submit" class="button-submit">{{ submitButton }}</button>
         </div>
       </form>
 </div>
