@@ -53,6 +53,10 @@ public deleteProductFromSavedProducts(userId:string,productId:string){
   return this.http.post<String>(`/api/product/deleteProductFromSavedProducts/${userId}/${productId}`,null);
 }
 
+public getProductsByCategory(category : string) : Observable<Product[]>{
+  return this.http.get<Product[]>(`/api/product/category/${category}`);
+}
+
 
 
 }

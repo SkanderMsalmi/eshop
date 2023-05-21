@@ -2,24 +2,17 @@
   <ng-particles [id]="'home_hero__particles'" class="ll-hero__particles" [options]="particlesOptions"></ng-particles>
   <div class="container">
     <div class="grid grid-cols-12 gap-x-6">
-      <div class="col-span-12 md:col-span-6 lg:col-span-7 xxl:col-span-6 ll-hero-text">
+      <div class="col-span-12 md:col-span-12 lg:col-span-12 xxl:col-span-12 ll-hero-text">
         <h1 class="lg:mt-12 text-white font-bold">
-          The world's best consulting for manufacturing companies thanks to digital microservices
+          Welcome to ESHOP! Discover fashionable apparel and accessories to elevate your style. Happy shopping!
         </h1>
-        <div class="flex flex-wrap items-center mt-4">
-          <div class="inline-block mr-5">Offer:</div>
-          <a href="" class="rounded-full bg-white px-5 py-2 bg-opacity-40 mr-3">Digitalization</a>
-          <a href="" class="rounded-full bg-white px-5 py-2 bg-opacity-40 mr-3">Marketing</a>
-          <a href="" class="rounded-full bg-white px-5 py-2 bg-opacity-40">Staff</a>
-        </div>
-      </div>
-      <div class="col-span-12 md:col-span-6 lg:col-span-5 xxl:col-span-6 ll-image mt-10 md:mt-0">
-        <img class="ml-auto" src="assets/images/hero.png" alt="Hero" />
+        <span class="lg:mt-12">
+          <app-home-cards></app-home-cards>
+        </span>
       </div>
     </div>
   </div>
 </div>
-
 <div class="ll-service-area">
   <div class="container">
     <h1 class="ll-service__title text-center font-extralight mb-12">Digital - Micro - Services</h1>
@@ -109,18 +102,15 @@
 <div class="pt-20 ll-starter">
   <div class="container">
     <h2 class="text-center mb-16 xl:mb-0">Start with you desire</h2>
-    <div class="grid xl:grid-cols-2 gap-x-8 mt-10">
+    <div class="grid xl:grid-cols-2 gap-x-8 mt-10 justify-center">
       <div class="ll-starter__card px-5 grid grid-cols-12 place-items-center">
         <div class="col-span-5 px-5">
           <img class="-mt-14" src="assets/images/starter-01.png" alt="" />
         </div>
         <div class="py-5 col-span-7">
-          <h4 class="text-white mb-4">Start as a buyer</h4>
-          <p class="text-white mb-7">
-            Become part of your eshop services and book the micro-service that will help your production company at any time.
-          </p>
+          <h4 class="text-white mb-4">Man</h4>
           <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" mat-flat-button color="warn" class="font-semibold"
-            >Join Now</a
+            >Visit us</a
           >
         </div>
       </div>
@@ -128,13 +118,21 @@
         <div class="col-span-5 px-5">
           <img class="-mt-14" src="assets/images/starter-02.png" alt="" />
         </div>
-        <div class="py-5 col-span-7 order-first text-right">
-          <h4 class="text-white mb-4">Start as a consultant</h4>
-          <p class="text-white mb-7">
-            Become part of your eshop services and book the micro-service that will help your production company at any time.
-          </p>
+        <div class="py-5 col-span-7">
+          <h4 class="text-white mb-4">Kids</h4>
           <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" mat-flat-button color="warn" class="font-semibold"
-            >Join Now</a
+            >Visit us</a
+          >
+        </div>
+      </div>
+      <div class="ll-starter__card px-5 grid grid-cols-12 place-items-center mt-16 xl:mt-0">
+        <div class="col-span-5 px-5">
+          <img class="-mt-14" src="assets/images/starter-02.png" alt="" />
+        </div>
+        <div class="py-5 col-span-7 order-first text-center">
+          <h4 class="text-white mb-4">Woman</h4>
+          <a [routerLink]="['/auth/signup']" routerLinkActive="router-link-active" mat-flat-button color="warn" class="font-semibold"
+            >Visit us</a
           >
         </div>
       </div>

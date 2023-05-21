@@ -6,9 +6,10 @@ import { HomeComponent } from './home.component';
 import { SharedModule } from '../shared/shared.module';
 import { HomeProductsComponent } from './home-products/home-products.component';
 import { NgParticlesModule } from 'ng-particles';
+import { HomeCardsComponent } from './home-cards/home-cards.component';
 
 @NgModule({
-  declarations: [HomeComponent, HomeProductsComponent],
+  declarations: [HomeComponent, HomeProductsComponent, HomeCardsComponent],
   imports: [CommonModule, HomeRoutingModule, SharedModule, NgParticlesModule]
 })
 export class HomeModule {}
