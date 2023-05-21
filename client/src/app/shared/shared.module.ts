@@ -20,6 +20,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { CartComponent } from './components/cart/cart.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
+
+import { DialogStatusComponent } from './components/dialog-status/dialog-status.component';
+import {MatSelectModule} from '@angular/material/select'
+import { FormsModule } from '@angular/forms';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+
 import { ChipsComponent } from './components/chips/chips.component';
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatChipsModule } from '@angular/material/chips';
@@ -37,15 +43,18 @@ const commonModules = [
   MatListModule,
   MatMenuModule,
   MatDialogModule,
-  MatAutocompleteModule,
+
+  MatSelectModule,
+   MatAutocompleteModule,
   MatChipsModule,
   MatFormFieldModule,
   ReactiveFormsModule
 ];
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, FeatureComponent, BaseLayoutComponent, LoaderComponent, SidenavComponent, CarouselComponent, CartComponent, DialogComponent, ChipsComponent],
-  imports: [CommonModule, RouterModule, ...commonModules],
-  exports: [HeaderComponent, FooterComponent, BaseLayoutComponent, FeatureComponent, LoaderComponent, SidenavComponent,CarouselComponent,ChipsComponent, ...commonModules]
+  declarations: [HeaderComponent, FooterComponent, FeatureComponent, BaseLayoutComponent, LoaderComponent, SidenavComponent, CarouselComponent, CartComponent, DialogComponent, DialogStatusComponent, ConfirmationDialogComponent],
+  imports: [CommonModule,FormsModule , RouterModule, ...commonModules],
+  exports: [HeaderComponent, FooterComponent, BaseLayoutComponent, FeatureComponent, LoaderComponent, SidenavComponent,CarouselComponent, ...commonModules]
+
 })
 export class SharedModule {}

@@ -40,6 +40,10 @@ const UserSchema = new Schema(
     dateOfBirth: {
       type: Date,
     },
+    blocked: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

@@ -33,7 +33,7 @@ export class DialogComponent implements OnInit {
 
   passerCommande(){
     let order = new Order;
-    order.Status = "PENDING";
+    order.status = "PENDING";
     order.totalAmount = this.cart.total;
     order.products = this.cart.products;
     order.userId = this.user;

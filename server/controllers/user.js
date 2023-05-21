@@ -118,7 +118,7 @@ exports.updateUser = async (req, res, next) => {
   }
 };
 exports.getAllUsers = (req, res, next) => {
-  User.find()
+  User.find({ role: "CUSTOMER" })
     .then((users) => {
       if (users.length > 0) {
         res.status(200).json(users);
@@ -127,4 +127,36 @@ exports.getAllUsers = (req, res, next) => {
       }
     })
     .catch((err) => res.status(500).send());
+};
+exports.getUserById = async (req, res, next) => {
+  const id = req.params.id;
+  const user = await User.findById(id);
+  return res.status(200).json(user);
+};
+
+exports.deleteUserById = async (req, res, next) => {
+  try {
+    await User.findOneAndDelete({ _id: req.params.id });
+    return res.status(200).json("User deleted !");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+exports.blockUserById = async (req, res, next) => {
+  try {
+    await User.findByIdAndUpdate(req.params.id, { blocked: true });
+    res.status(200).json("User blocked Successfully");
+  } catch (error) {
+    res.status(402).json("Error : ", error);
+  }
+};
+
+exports.unblockUserById = async (req, res, next) => {
+  try {
+    await User.findByIdAndUpdate(req.params.id, { blocked: false });
+    res.status(200).json("User Unblocked");
+  } catch (error) {
+    res.status(402).json("Error : ", error);
+  }
 };

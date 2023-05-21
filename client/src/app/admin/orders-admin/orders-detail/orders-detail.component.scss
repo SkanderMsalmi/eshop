@@ -1,0 +1,22 @@
+.icon-edit{
+    margin: 1rem;
+    color: var(--bs-blue);
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.ll-dataset__label{
+    max-width: 80px;
+}
+.backtoList{
+    padding-left: 2rem;
+    margin-bottom: 2rem;
+    span{
+      padding: 0;
+    }
+  }
+  .backtoList:hover{
+    cursor: pointer;
+    color: var(--bs-blue);
+  }
