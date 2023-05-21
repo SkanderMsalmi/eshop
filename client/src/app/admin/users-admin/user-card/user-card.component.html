@@ -1,0 +1,15 @@
+<mat-card>
+    <img class="m-0 mb-4" mat-card-image src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Photo of a Shiba Inu" />
+    <mat-card-header class="mx-0">
+      <h3 class="text-[15px] leading-[23px]">{{ user?.name }}</h3>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Email: {{ user?.email }}</p>
+      <p>Number: {{ user?.number }}</p>
+      <p>Gender: {{ user?.gender }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-stroked-button [routerLink]="['/products', user._id]" class="px-5">View</a>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>

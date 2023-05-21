@@ -9,5 +9,6 @@ export interface User{
     number:Number;
     occupation:String;
     dateOfBirth:Date
-    role:string
+    role:string;
+    blocked:boolean;
 }

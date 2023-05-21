@@ -10,7 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/store';
 
 @NgModule({
-  declarations: [AppComponent ],
+  declarations: [AppComponent  ],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, SharedModule, NgxSkeletonLoaderModule,HttpClientModule, 
     StoreModule.forRoot(reducers)],
   providers: [],

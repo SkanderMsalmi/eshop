@@ -6,7 +6,6 @@ import { FooterAdminComponent } from './footer-admin/footer-admin.component';
 import { HeaderAdminComponent } from './header-admin/header-admin.component';
 import { SidebarAdminComponent } from './sidebar-admin/sidebar-admin.component';
 import { IndexAdminComponent } from './index-admin/index-admin.component';
-import { UsersAdminComponent } from './users-admin/users-admin.component';
 import { ProductsAdminComponent } from './products-admin/products-admin.component';
 import { AdminComponent } from './admin.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -19,8 +18,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
-
-const commonModules = [
+import { UsersAdminModule } from './users-admin/users-admin.module';
+ const commonModules = [
   HttpClientModule,
   MatToolbarModule,
   MatIconModule,
@@ -35,12 +34,11 @@ const commonModules = [
 
 @NgModule({
   declarations: [
-  
+    
     FooterAdminComponent,
        HeaderAdminComponent,
        SidebarAdminComponent,
        IndexAdminComponent,
-       UsersAdminComponent,
        ProductsAdminComponent,
        AdminComponent,
 
@@ -48,7 +46,9 @@ const commonModules = [
   imports: [
     CommonModule,
     AdminRoutingModule,
-     ...commonModules
+     ...commonModules,
+     UsersAdminModule,
+
   ],
   exports:[
     ...commonModules
