@@ -1,10 +1,10 @@
 import { User } from "./user.model";
 
 export class Order {
-    orderID : number;
+    _id : number;
     date : Date;
     products : any[];
-    Status : string = "PENDING";
+    status : string = "PENDING";
     totalAmount : number;
     shippingInfo : string;
     userId : User;

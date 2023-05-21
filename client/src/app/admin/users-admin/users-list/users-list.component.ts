@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/core/models/user.model';
 import { AdminService } from 'src/app/core/services/admin.service';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-users-list',
@@ -8,14 +10,17 @@ import { AdminService } from 'src/app/core/services/admin.service';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
+  loading: boolean = false;
   view = "list"
   public users =[];
   searchQuery: string = '';
   public gettingUsers = ()=> this.adminService.getAllUsers().subscribe(
     (reponse)=> this.users = reponse
    );
-  constructor(private adminService:AdminService) {
+  constructor(private dialog: MatDialog,private adminService:AdminService) {
+    this.loading = true;
     this.gettingUsers();
+    this.loading = false;
    }
    get filteredUsers(): User[] {
     if (this.searchQuery.trim() === '') {
@@ -34,34 +39,55 @@ export class UsersListComponent implements OnInit {
     this.searchQuery = '';
   }
   deleteUser(userId: string): void {
-    if (confirm('Are you sure you want to delete this user?')) {
-      this.adminService.deleteUserById(userId).subscribe(() => {
-        // const index = this.users.findIndex(user => user.id === userId);
-        // if (index !== -1) {
-        //   // Remove the user from the users array using splice
-        //   this.users.splice(index, 1);
-        // } // Refresh the user list after deletion
-    this.gettingUsers();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: { message: 'Are you sure you want to delete this user?' }
+    });
 
-      });
-    }
-  }
-  blockUser(userId:string):void{
-    if (confirm('Are you sure you want to block this ?')) {
-      this.adminService.blockUserById(userId).subscribe(() => {
-        
-    this.gettingUsers();
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.adminService.deleteUserById(userId).subscribe(() => {
+          // Refresh the orders list after successful block
+          this.gettingUsers();
 
-      });
-    }
-  }
-  unblockUser(userId:string):void{
-    if (confirm('Are you sure you want to unblock this user ?')) {
-      this.adminService.unblockUserById(userId).subscribe(() => {
-        
-    this.gettingUsers();
+        });
+      }
+    });
 
-      });
-    }
   }
+
+  confirmBlockUser(userId: string) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: { message: 'Are you sure you want to block this user?' }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.adminService.blockUserById(userId).subscribe(() => {
+          // Refresh the orders list after successful block
+          this.gettingUsers();
+
+        });
+      }
+    });
+  }
+
+  confirmUnBlockUser(userId: string) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: { message: 'Are you sure you want to unblock this user?' }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.adminService.unblockUserById(userId).subscribe(() => {
+          // Refresh the orders list after successful block
+          this.gettingUsers();
+
+        });
+      }
+    });
+  }
+
 }

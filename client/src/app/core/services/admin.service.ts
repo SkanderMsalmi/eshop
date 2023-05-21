@@ -20,9 +20,17 @@ export class AdminService {
   }
 
   public blockUserById(id):Observable<any>{
-    return this.http.put('/api/auth/toggleBlockUserById/'+id,null);
+    return this.http.put('/api/auth/blockUserById/'+id,null);
   }
   public unblockUserById(id):Observable<any>{
-    return this.http.put('/api/auth/toggleBlockUserById/'+id,null);
+    return this.http.put('/api/auth/unblockUserById/'+id,null);
   }
+
+  public getAllOrders():Observable<any>{
+    return this.http.get('api/order/all');
+  }
+  public getUserByOrderId(id):Observable<any>{
+    return this.http.get(`/api/order/getUserByOrderId/${id}`)
+  }
+
 }

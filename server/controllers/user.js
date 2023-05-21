@@ -145,14 +145,8 @@ exports.deleteUserById = async (req, res, next) => {
 
 exports.blockUserById = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id);
-
-    if (user.blocked == false) {
-      user.blocked = true;
-      user.save();
-      res.status(200).json("User blocked Successfully");
-    }
-    res.status(404).status("User Not Found");
+    await User.findByIdAndUpdate(req.params.id, { blocked: true });
+    res.status(200).json("User blocked Successfully");
   } catch (error) {
     res.status(402).json("Error : ", error);
   }
@@ -160,13 +154,8 @@ exports.blockUserById = async (req, res, next) => {
 
 exports.unblockUserById = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id);
-    if (user.blocked == true) {
-      user.blocked = false;
-      user.save();
-      res.status(200).json("User Unblocked");
-    }
-    res.status(404).json("User not found");
+    await User.findByIdAndUpdate(req.params.id, { blocked: false });
+    res.status(200).json("User Unblocked");
   } catch (error) {
     res.status(402).json("Error : ", error);
   }

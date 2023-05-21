@@ -1,3 +1,6 @@
+<div class="backtoList">
+	<h5 routerLink="/admin/users"> < Back To List</h5>
+</div>
 <div class="border bg-white mt-8 rounded-md contact-info d-flex">
   <div class="col-md-3 imageprofil" >
 
@@ -48,7 +51,7 @@
   <hr class="mt-5 mb-5 w-80 mx-auto">
 	<h5 class="mb-3 font-medium px-5 pt-2">Orders</h5>
 	<div class="table-inside px-5">
-		<table class="order-table table-auto ltMd:responsive">
+		<table class="order-table table-auto ltMd:responsive" *ngIf="orders.length>0">
 			<thead>
 				<tr class="border text-left">
 					<th>
@@ -74,22 +77,22 @@
 			<tbody>
 				<tr *ngFor="let order of orders" class="border">
 					<td>
-						<a class="text-primary" href="/">#{{order?.id}}</a>
+						<a class="text-primary" routerLink="admin/orders">#{{order?._id.slice(-4)}}</a>
 					</td>
 					<td>
-						{{order?.orderBy | titlecase }}
+						{{order?.shippingInfo | titlecase }}
 					</td>
 					<td>
-						<span>${{order?.price}}</span>
+						<span>${{order?.totalAmount | number:'1.2-2'}}</span>
 					</td>
 					<td>
-						<span>{{order?.created}}</span>
+						<span>{{order?.createdAt | date}}</span>
 					</td>
 					<td>
 						<div [ngClass]="{
-							'bg-blue-500 text-blue-500': order?.status === 'complated',
-							'bg-red-500 text-red-500': order?.status === 'rejected',
-							'bg-yellow-500 text-yellow-900': order?.status === 'pending',
+							'bg-blue-500 text-blue-500': order?.status === 'DELIVERED',
+							'bg-red-500 text-red-500': order?.status === 'CANCELED',
+							'bg-yellow-500 text-yellow-900': order?.status === 'PENDING',
 							'bg-primary text-primary': order?.status === 'initialized'
 							}" 
 							class="text-[12px] bg-opacity-20 rounded-full px-3 inline-block font-bold py-[3px]"
@@ -114,6 +117,10 @@
 					</td>
 				</tr>
 			</tbody>
+		
 		</table>
+		<div *ngIf="orders.length ==0" class="w-100 text-center mb-5">
+			<h2>No Orders For this User...</h2>
+		  </div>
 	</div>
 </div>

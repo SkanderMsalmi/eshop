@@ -11,7 +11,11 @@ exports.connexion = async (req, res, next) => {
     if (!user) {
       return res.status(401).json("Email not found");
     }
+
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
+      if (user.blocked == true) {
+        return res.status(401).json("You Are Banned !");
+      }
       const token = jsonwebtoken.sign({}, RSA_PRIVATE, {
         subject: user._id.toString(),
         algorithm: "RS256",

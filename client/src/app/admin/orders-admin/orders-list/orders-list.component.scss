@@ -49,10 +49,11 @@
     margin-right: 5px ;
     margin-left: 5px;
   }
-
-  .image{
-    width: 50px;
-    height: 50px;
-    margin: auto;
-    border-radius: 100%;
+  
+  .user{
+    font-weight: 700;
+  }
+  .user:hover{
+    color: var(--bs-blue);
+    cursor: pointer;
   }

@@ -19,6 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersAdminModule } from './users-admin/users-admin.module';
+import { OrdersAdminModule } from './orders-admin/orders-admin.module';
  const commonModules = [
   HttpClientModule,
   MatToolbarModule,
@@ -48,6 +49,7 @@ import { UsersAdminModule } from './users-admin/users-admin.module';
     AdminRoutingModule,
      ...commonModules,
      UsersAdminModule,
+     OrdersAdminModule,
 
   ],
   exports:[

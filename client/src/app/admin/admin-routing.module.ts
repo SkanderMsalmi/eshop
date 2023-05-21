@@ -25,6 +25,10 @@ const routes: Routes = [
       {
         path: 'products',
         component: ProductsAdminComponent
+      },
+      {
+        path:'orders',
+        loadChildren: () => import('./orders-admin/orders-admin.module').then(m => m.OrdersAdminModule)
       }
       // Define child routes for admin module here
       // Example:
