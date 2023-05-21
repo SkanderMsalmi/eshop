@@ -57,6 +57,10 @@ public getProductsByCategory(category : string) : Observable<Product[]>{
   return this.http.get<Product[]>(`/api/product/category/${category}`);
 }
 
+public getNewestProducts() : Observable<any[]>{
+  return this.http.get<any[]>(`/api/product/newest`);
+}
+
 
 
 }

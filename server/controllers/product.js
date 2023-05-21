@@ -169,7 +169,7 @@ exports.getSavedProductsListByUserId = async (req, res) => {
     );
 
     if (!savedProducts) {
-      return res.status(404).json({ message: "Saved products not found" });
+      return res.status(204).json({ message: "Saved products not found" });
     }
     const productIds = savedProducts.productsSaved.map(
       (product) => product._id
@@ -292,3 +292,24 @@ exports.deleteReview = (req, res, next) =>{
   })
   .catch(err => console.log(err));
 }
+
+exports.getNewestProduct = async (req, res, next) =>{
+  try {
+    const categories = ["MAN", "WOMAN", "KID"]; // Array of categories
+
+    const productPromises = categories.map(async (category) => {
+      const products = await Product.find({ category })
+        .sort({ createdAt: -1 })
+        .limit(10)
+        .exec();
+
+      return products;
+    });
+
+    const productsByCategory = await Promise.all(productPromises);
+
+    res.status(200).json(productsByCategory)
+  } catch (error) {
+    console.error(error);
+  }
+};

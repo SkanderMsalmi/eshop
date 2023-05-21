@@ -3,6 +3,7 @@ var router = express.Router();
 const productController = require("../controllers/product");
 
 router.get("/all", productController.getAllProducts);
+router.get("/newest",productController.getNewestProduct);
 router.get("/category/:category", productController.getProductsByCategory);
 router.get("/:id", productController.getOneProduct);
 router.post(

@@ -5,8 +5,16 @@ export interface Menu {
 
 export const menuList: Menu[] = [
   {
-    path: '/products',
-    name: 'Products'
+    path: "/products/list/man",
+    name: 'Man'
+  },
+  {
+    path: "/products/list/woman",
+    name: 'Woman'
+  },
+  {
+    path: "/products/list/kid",
+    name: 'Kids'
   },
   {
     path: '/about',

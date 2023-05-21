@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/core/models/product.model';
@@ -18,26 +19,40 @@ export class ProductCardComponent implements OnInit {
   @Input() product: Product;
   isFavourite:boolean =false;
   public user$:Observable<User | null> = this.authService.user$.asObservable();
+  public isLoggedIn : boolean;
   public user:User ;
   public exist:Number;
   public SavedProducts;
-  constructor(private cartStore : Store<StoreInterface>, private productService : ProductsService,private authService : AuthService) 
+  constructor(private cartStore : Store<StoreInterface>, private productService : ProductsService,private authService : AuthService,private router:Router) 
   {
-    this.user$.subscribe((response)=>this.user = response);
-  }
-
-  ngOnInit(): void {
-    this.productService.getSavedProductsForUserId(this.user._id).subscribe((savedProducts) => {
-      savedProducts.forEach(savedProduct => {
-        if(savedProduct._id == this.product._id){
-          this.isFavourite = true;
-        }
-      })
+    this.user$.subscribe((response)=>{
+      this.user = response
+      this.authService.isLoggedin$.subscribe(res => this.isLoggedIn = res
+      )
+      
     });
   }
 
+  ngOnInit(): void {
+    if (this.isLoggedIn) {
+      this.productService.getSavedProductsForUserId(this.user._id).subscribe((savedProducts) => {
+        if (savedProducts) {
+          savedProducts.forEach(savedProduct => {
+            if(savedProduct._id == this.product._id){
+              this.isFavourite = true;
+            }
+          })
+        }
+      });
+    }
+  }
+
   addToCart(product : Product){
-    this.cartStore.dispatch(new AddToCartAction(product));
+    if (this.isLoggedIn) {
+      this.cartStore.dispatch(new AddToCartAction(product));
+    }else{
+      this.router.navigateByUrl("/auth/login");
+    }
   }
 
   toggleList(productId: string) {

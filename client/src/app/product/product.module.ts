@@ -21,6 +21,9 @@ import { ProductCardComponent } from './product-card/product-card.component';
     NgParticlesModule,
     NgxSkeletonLoaderModule,
     FormsModule
+  ],
+  exports:[
+    ProductCardComponent
   ]
 })
 export class ProductModule { }

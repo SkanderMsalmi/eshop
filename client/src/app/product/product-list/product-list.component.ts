@@ -27,13 +27,17 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let category = this.activatedRoute.snapshot.params["category"];
-    setTimeout(() => {
-      this.productService.getProductsByCategory(category).subscribe(res => {
-        this.products = res;
-        this.isLoaded = true
-        this.products.forEach(product => product.rating = this.productService.calculScore(product))
-      })
-    },50)
+    this.activatedRoute.params.subscribe(params => {
+      const category = params['category'];
+      this.loadProducts(category);
+    });
+  }
+
+  loadProducts(category: string): void {
+    this.isLoaded = false;
+    this.productService.getProductsByCategory(category).subscribe(res => {
+      this.products = res;
+      this.isLoaded = true;
+    });
   }
 }

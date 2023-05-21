@@ -23,7 +23,7 @@ export class BaseLayoutComponent implements OnInit, OnDestroy {
     
     this.authService.logout().subscribe(
       ()=>{
-        this.router.navigateByUrl('/products')
+        this.router.navigateByUrl('')
       }
     )
   }

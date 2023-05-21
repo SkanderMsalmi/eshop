@@ -13,4 +13,5 @@ export class Product{
     rating: any;
     _id?: string
     isSaved?:boolean
+    createdAt : Date
 }
