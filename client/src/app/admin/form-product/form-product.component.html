@@ -1,0 +1,77 @@
+<div class="container">
+    <form #form="ngForm" novalidate="novalidate" enctype="multipart/form-data" (ngSubmit)="submitForm()">
+        <div class="did-floating-label-content" [ngClass]="{'did-error-input' : nom.touched&& nom.invalid}" [ngClass]="{'did-error-input' : nom.touched&& nom.invalid}">
+          <input type="text" class="did-floating-input"  name="name" id="name" [(ngModel)]="product.name" #nom="ngModel" placeholder=" " required autocomplete="off">
+          <label for="name" class="did-floating-label">Name</label>
+        </div>
+        <div class="did-floating-label-content" [ngClass]="{'did-error-textarea' : description.touched&& description.invalid}">
+          <textarea placeholder=" " type="text" class="did-floating-textarea" rows="5" name="description" id="description" [(ngModel)]="product.description" #description="ngModel" required autocomplete="off"></textarea>
+          <label for="description" class="did-floating-label">Description</label>
+        </div>
+        <div class="did-floating-label-content" [ngClass]="{'did-error-input' : price.touched&& price.invalid}">
+            <input placeholder=" " type="number" class="did-floating-input" name="price" id="price" [(ngModel)]="product.price" #price="ngModel" required autocomplete="off">
+            <label for="price" class="did-floating-label">Price</label>
+        </div>
+        <div class="did-floating-label-content" [ngClass]="{'did-error-input' : quantity.touched&& quantity.invalid}">
+          <input placeholder=" " type="number" class="did-floating-input" name="quantity" id="quantity" [(ngModel)]="product.quantity" #quantity="ngModel" required autocomplete="off">
+            <label for="quantity" class="did-floating-label">Quantity</label>
+        </div>
+        <div class="did-floating-label-content" [ngClass]="{'did-error-input' : material.touched&& material.invalid}">
+          <input placeholder=" " type="text" class="did-floating-input"  name="material" id="material" [(ngModel)]="product.material" #material="ngModel" required autocomplete="off">
+            <label for="material" class="did-floating-label">Material</label>
+        </div>
+        <fieldset>
+          <legend>Category</legend>
+          <div class="input-radio-group">
+            <div class="form-check">
+              <input placeholder=" " class="radio-input" type="radio" name="category" id="category" value="MAN" [(ngModel)]="product.category">
+              <label class="radio-label" for="category">
+                Man
+              </label>
+            </div>
+            <div class="form-check">
+              <input placeholder=" " class="radio-input" type="radio" name="category" id="category" value="WOMAN" [(ngModel)]="product.category">
+              <label class="radio-label" for="category">
+                Woman
+              </label>
+            </div>
+            <div class="form-check">
+              <input placeholder=" " class="radio-input" type="radio" name="category" id="category"  value="KID"  [(ngModel)]="product.category">
+                <label class="radio-label" for="category">
+                  Kids
+                </label>
+              </div>
+          </div>
+        </fieldset>
+        <div class="did-floating-label-content">
+          <app-chips [chips]="product.color" [allchips]="listColors" [label]="'Colors'" (colorsOutput)="handleColors($event)"></app-chips>
+        </div>
+        <div class="did-floating-label-content">
+          <app-chips [chips]="product.size" [allchips]="listSizes" [label]="'Sizes'" (colorsOutput)="handleSizes($event)"></app-chips>
+        </div>
+        <div class="row images" *ngIf="edit">
+          <span class="col-4 image" *ngFor="let image of product.image">
+            <img [src]="'http://localhost:8000/image/'+image" />
+            <button type="button" class="close" aria-label="Remove" (click)="removeImage(image)">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </span>
+        </div>
+        <div class="row images" *ngIf="displayImages">
+          <span class="col-4 image" *ngFor="let image of displayImages">
+            <img  [src]="image" class="selected-image">
+            <button type="button" class="close" aria-label="Remove" (click)="cancelImage(image)">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          </span>
+        </div>
+        <div class="file-input-wrapper">
+          <input placeholder=" " type="file" name="image" id="image"  (change)="handleFileInput($event.target.files)" required autocomplete="off" multiple>
+          <label for="image" class="file-custom">Upload pictures</label>
+        </div>
+        <div class="d-flex justify-content-center btn-group mt-6">
+            <button routerLink="/admin/products" type="button" class="button-cancel">Cancel</button>
+            <button type="submit" class="button-submit">{{ submitButton }}</button>
+        </div>
+      </form>
+</div>

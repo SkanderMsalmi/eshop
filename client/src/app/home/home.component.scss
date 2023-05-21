@@ -119,8 +119,21 @@
 
 // Starter
 .ll-starter {
+  width: 75%;
   &__card {
     background: linear-gradient(180deg, #73b58d 0%, rgba(115, 181, 141, 0.7) 100%);
+  }
+  &__card:hover{
+    transform: scale(1.1);
+    transition: transform ease-in .25s;
+  }
+  &__card:hover img{
+    transform: scale(1.3);
+    transition: transform ease-in .25s;
+  }
+  &__card:hover::after{
+    transform: scale(.8);
+    transition: transform ease-out .25s;
   }
 }
 @media (min-width: 576px) {
@@ -190,7 +203,7 @@
 @media (min-width: 1440px) {
   // hero
   .ll-hero {
-    padding: 200px 0;
+    padding: 100px 0;
     &-text {
       h1 {
         font-size: 42px;

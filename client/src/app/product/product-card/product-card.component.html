@@ -10,7 +10,7 @@
     <mat-card-content class="flex">
         <div class="flex-grow pl-3">
         <h2 class="ll-product__name">
-            <a [routerLink]="['/products', product.productId]">{{ product.name }}</a>
+            <a [routerLink]="['/products', product._id]">{{ product.name }}</a>
         </h2>
         <div class="flex justify-start mt-5">
           <div class="text-mute">{{ product.color.length }} color<span *ngIf="product.color.length >1">s</span></div>

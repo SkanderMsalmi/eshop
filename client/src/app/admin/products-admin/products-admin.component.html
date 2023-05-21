@@ -1,1 +1,62 @@
-<p>products-admin works!</p>
+<div class="d-flex justify-content-end">
+  <button mat-raised-button color="primary" routerLink="/admin/addProduct" style="margin-right: 3rem;">
+    <mat-icon>add</mat-icon> Add new Product
+  </button>
+</div>
+
+<div class="container">
+  <table mat-table class="mat-elevation-z8" [dataSource]="listProducts" matSort>
+    <ng-container matColumnDef="productId">
+      <th mat-header-cell *matHeaderCellDef width=7%>Id</th>
+      <td mat-cell *matCellDef="let product">{{ product.productId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef width=50%>Name</th>
+      <td mat-cell *matCellDef="let product">{{ product.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef width=10%>Category</th>
+      <td mat-cell *matCellDef="let product">{{ product.category }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef width=10%>Quantity</th>
+      <td mat-cell *matCellDef="let product">{{ product.quantity }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef width=10%>Price</th>
+      <td mat-cell *matCellDef="let product">{{ product.price }} TND</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef width=23%>Actions</th>
+      <td mat-cell *matCellDef="let product">
+        <button mat-icon-button color="primary" (click)="select(product)">
+          <mat-icon>list</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" routerLink="/admin/editProduct/{{product._id}}">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="openDialog(product)" >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['productId', 'name', 'category', 'quantity', 'price', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['productId', 'name', 'category', 'quantity', 'price', 'actions']"></tr>
+  </table>
+
+  <mat-paginator
+    [length]="listProducts?.data.length"
+    [pageSize]="itemsPerPage"
+    [pageSizeOptions]="[10, 25, 100]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>
+<div *ngIf="selectedProduct" #elementRef>
+  <app-product-details [product]="selectedProduct" (productEmitter)="closeDetails($event)"></app-product-details>
+</div>

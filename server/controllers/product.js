@@ -14,7 +14,12 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     cb(
       null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+      file.fieldname +
+        "-" +
+        file.originalname +
+        "-" +
+        Date.now() +
+        path.extname(file.originalname)
     );
   },
 });
@@ -38,7 +43,7 @@ exports.getAllProducts = (req, res, next) => {
 
 exports.getOneProduct = (req, res, next) => {
   const id = req.params.id;
-  Product.findOne({ productId: id })
+  Product.findById(id)
     .populate("reviews.userId")
     .then((result) => {
       if (result) {
@@ -52,17 +57,18 @@ exports.getOneProduct = (req, res, next) => {
 
 exports.postAddProduct = async (req, res, next) => {
   const product = new Product(req.body);
-  console.log(req.files);
-  req.files.forEach((file) => {
-    const outputFileName = `eshop-${file.filename}`;
-    const image = sharp(file.path)
-      .resize(800, 600)
-      .jpeg({ quality: 80 })
-      .toFile(path.join(__dirname, "..", "public", "images", outputFileName))
-      .then((result) => fs.unlinkSync(file.path));
-    const index = outputFileName.lastIndexOf("\\");
-    product.image.push(outputFileName.substring(index + 1));
-  });
+  if (req.files) {
+    req.files.forEach((file) => {
+      const outputFileName = `eshop-${file.filename}`;
+      const image = sharp(file.path)
+        .resize(800, 600)
+        .jpeg({ quality: 80 })
+        .toFile(path.join(__dirname, "..", "public", "images", outputFileName))
+        .then((result) => fs.unlinkSync(file.path));
+      const index = outputFileName.lastIndexOf("\\");
+      product.image.push(outputFileName.substring(index + 1));
+    });
+  }
   Product.find()
     .sort({ productId: -1 })
     .limit(1)
@@ -88,9 +94,27 @@ exports.deleteOneProduct = (req, res, next) => {
 };
 
 exports.putUpdateProduct = (req, res, next) => {
-  Product.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true })
-    .then((product) => res.status(201).json(product))
-    .catch((err) => res.status(500).send());
+  const id = req.params.id;
+  const product = new Product(req.body);
+  if (req.files) {
+    req.files.forEach((file) => {
+      const outputFileName = `eshop-${file.filename}`;
+      const image = sharp(file.path)
+        .resize(800, 600)
+        .jpeg({ quality: 80 })
+        .toFile(path.join(__dirname, "..", "public", "images", outputFileName))
+        .then((result) => fs.unlinkSync(file.path));
+      const index = outputFileName.lastIndexOf("\\");
+      product.image.push(outputFileName.substring(index + 1));
+    });
+  }
+  Product.findById(id)
+    .then(existingProduct => {
+      product.reviews = existingProduct.reviews;
+      return Product.findByIdAndUpdate(id, product)
+    })
+    .then(result => res.status(200).json(result))
+    .catch((err) => res.status(500).send(err));
 };
 
 exports.getProductsByCategory = (req, res, next) => {
@@ -108,7 +132,7 @@ exports.getProductsByCategory = (req, res, next) => {
 
 exports.deleteOneProductById = (req, res, next) => {
   const id = req.params.id;
-  Product.findOneAndDelete({ productId: id })
+  Product.findByIdAndDelete(id)
     .then((result) => res.status(200).json("product deleted succefuly"))
     .catch((err) => res.status(500).send(err));
 };
@@ -121,7 +145,7 @@ exports.deleteAll = (req, res, next) => {
 
 exports.postAddReview = (req, res, next) => {
   const id = req.params.id;
-  Product.findById( id )
+  Product.findById(id)
     .then((product) => {
       const review = req.body;
       review.date = new Date();
@@ -145,7 +169,7 @@ exports.getSavedProductsListByUserId = async (req, res) => {
     );
 
     if (!savedProducts) {
-      return res.status(404).json({ message: "Saved products not found" });
+      return res.status(204).json({ message: "Saved products not found" });
     }
     const productIds = savedProducts.productsSaved.map(
       (product) => product._id
@@ -255,5 +279,37 @@ exports.clearSavedList = async (req, res, next) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.deleteReview = (req, res, next) =>{
+  const productId = req.params.id;
+  Product.updateOne({_id: productId},{$pull : {"reviews" :  req.body }})
+  .then(result => {
+    Product.findById(productId)
+      .then(product => res.status(201).json(product)
+    );
+  })
+  .catch(err => console.log(err));
+}
+
+exports.getNewestProduct = async (req, res, next) =>{
+  try {
+    const categories = ["MAN", "WOMAN", "KID"]; // Array of categories
+
+    const productPromises = categories.map(async (category) => {
+      const products = await Product.find({ category })
+        .sort({ createdAt: -1 })
+        .limit(10)
+        .exec();
+
+      return products;
+    });
+
+    const productsByCategory = await Promise.all(productPromises);
+
+    res.status(200).json(productsByCategory)
+  } catch (error) {
+    console.error(error);
   }
 };

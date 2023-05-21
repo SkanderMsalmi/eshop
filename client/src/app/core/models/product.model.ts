@@ -3,14 +3,15 @@ export class Product{
     name : String;
     description : String;
     price : number;
-    color : String;
-    size : String;
+    color : string[];
+    size : string[];
     category : String;
     quantity : Number;
-    image : String;
+    image : string[];
     material : String;
     reviews : any;
     rating: any;
     _id?: string
     isSaved?:boolean
+    createdAt : Date
 }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { IndexAdminComponent } from './index-admin/index-admin.component';
 import { ProductsAdminComponent } from './products-admin/products-admin.component';
+import { FormProductComponent } from './form-product/form-product.component';
 
 const routes: Routes = [
   {
@@ -27,8 +28,17 @@ const routes: Routes = [
         component: ProductsAdminComponent
       },
       {
+
         path:'orders',
         loadChildren: () => import('./orders-admin/orders-admin.module').then(m => m.OrdersAdminModule)
+
+        path:'addProduct',
+        component: FormProductComponent
+      },
+      {
+        path :'editProduct/:id',
+        component : FormProductComponent
+
       }
       // Define child routes for admin module here
       // Example:

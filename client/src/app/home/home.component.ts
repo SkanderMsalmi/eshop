@@ -29,4 +29,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+
+  handleButton(value : boolean){
+    const element = document.getElementById("category-card");
+    if(value && element){
+      element.scrollIntoView({behavior: 'smooth'})
+    }
+  }
 }

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/core/services/products.service';
 import { Product } from 'src/app/core/models/product.model';
-import { Store } from '@ngrx/store';
-import { StoreInterface } from 'src/app/store/store';
-import { AddToCartAction } from 'src/app/store/actions/cart.action';
+import { ActivatedRoute } from "@angular/router";
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/core/models/user.model';
@@ -24,18 +22,22 @@ export class ProductListComponent implements OnInit {
   public exist:Number;
   public SavedProducts;
   
-  constructor(private productService : ProductsService,private authService : AuthService,private router:Router) {
+  constructor(private productService : ProductsService,private authService : AuthService,private router:Router,private activatedRoute: ActivatedRoute) {
     this.user$.subscribe((response)=>this.user = response);
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.productService.getAllProducts().subscribe(res => {
-        this.products = res;
-        this.isLoaded = true
-        this.products.forEach(product => product.rating = this.productService.calculScore(product))
-        
-      })
-    },50)
+    this.activatedRoute.params.subscribe(params => {
+      const category = params['category'];
+      this.loadProducts(category);
+    });
+  }
+
+  loadProducts(category: string): void {
+    this.isLoaded = false;
+    this.productService.getProductsByCategory(category).subscribe(res => {
+      this.products = res;
+      this.isLoaded = true;
+    });
   }
 }

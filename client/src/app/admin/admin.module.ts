@@ -18,9 +18,20 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
+
 import { UsersAdminModule } from './users-admin/users-admin.module';
 import { OrdersAdminModule } from './orders-admin/orders-admin.module';
- const commonModules = [
+
+import { FormsModule } from '@angular/forms';
+import { FormProductComponent } from './form-product/form-product.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { SharedModule } from '../shared/shared.module';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
+import { MatRadioModule } from "@angular/material/radio";
+
+const commonModules = [
   HttpClientModule,
   MatToolbarModule,
   MatIconModule,
@@ -30,7 +41,10 @@ import { OrdersAdminModule } from './orders-admin/orders-admin.module';
   MatSidenavModule,
   MatListModule,
   MatMenuModule,
-  MatDialogModule
+  MatDialogModule,
+  MatPaginatorModule,
+  MatTableModule,
+  MatRadioModule
 ];
 
 @NgModule({
@@ -42,14 +56,19 @@ import { OrdersAdminModule } from './orders-admin/orders-admin.module';
        IndexAdminComponent,
        ProductsAdminComponent,
        AdminComponent,
-
+       FormProductComponent,
+       ProductDetailsComponent,
+       DialogDeleteComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
     AdminRoutingModule,
+
      ...commonModules,
      UsersAdminModule,
      OrdersAdminModule,
+    SharedModule,
 
   ],
   exports:[
