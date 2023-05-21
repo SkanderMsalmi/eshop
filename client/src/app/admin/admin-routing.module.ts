@@ -31,7 +31,8 @@ const routes: Routes = [
 
         path:'orders',
         loadChildren: () => import('./orders-admin/orders-admin.module').then(m => m.OrdersAdminModule)
-
+      },
+      {
         path:'addProduct',
         component: FormProductComponent
       },

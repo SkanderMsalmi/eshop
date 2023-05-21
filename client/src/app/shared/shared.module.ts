@@ -43,18 +43,17 @@ const commonModules = [
   MatListModule,
   MatMenuModule,
   MatDialogModule,
-
   MatSelectModule,
-   MatAutocompleteModule,
+  MatAutocompleteModule,
   MatChipsModule,
   MatFormFieldModule,
   ReactiveFormsModule
 ];
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, FeatureComponent, BaseLayoutComponent, LoaderComponent, SidenavComponent, CarouselComponent, CartComponent, DialogComponent, DialogStatusComponent, ConfirmationDialogComponent],
+  declarations: [HeaderComponent, FooterComponent, FeatureComponent, BaseLayoutComponent, LoaderComponent, SidenavComponent, CarouselComponent, CartComponent, DialogComponent, DialogStatusComponent, ConfirmationDialogComponent,ChipsComponent],
   imports: [CommonModule,FormsModule , RouterModule, ...commonModules],
-  exports: [HeaderComponent, FooterComponent, BaseLayoutComponent, FeatureComponent, LoaderComponent, SidenavComponent,CarouselComponent, ...commonModules]
+  exports: [HeaderComponent, FooterComponent, BaseLayoutComponent, FeatureComponent, LoaderComponent, SidenavComponent,CarouselComponent,ChipsComponent, ...commonModules]
 
 })
 export class SharedModule {}
