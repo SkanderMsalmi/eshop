@@ -22,16 +22,18 @@
         <a [routerLink]="['/auth/signup']" mat-raised-button color="accent" class="text-lg font-bold py-2 px-5 ml-2">Join Now</a>
       </div>
       <div class="hidden items-center md:flex ml-auto" *ngIf="isLoggedin">
-        <button mat-raised-button color="primary" class="text-lg font-bold py-2 px-5" [matMenuTriggerFor]="cartMenu">
+        <button mat-raised-button color="primary" class="text-lg font-bold py-2 px-5" [matMenuTriggerFor]="cartMenu" *ngIf="role == 'CUSTOMER'">
           <mat-icon>shopping_cart</mat-icon>
           <span class="item-count">{{ numberItems }}</span>
         </button>
-        <mat-menu #cartMenu="matMenu" xPosition="before" yPosition="below">
+
+        <mat-menu #cartMenu="matMenu" xPosition="before" yPosition="below" *ngIf="role == 'CUSTOMER'">
           <div (click)="$event.stopPropagation()">
             <app-cart></app-cart>
           </div>
         </mat-menu>
-        <a [routerLink]="['/espace']" mat-raised-button color="warn" class="text-lg font-bold py-2 px-5 ml-2" style="color: white;">My Space</a>
+        <a [routerLink]="['/espace']" mat-raised-button color="warn" class="text-lg font-bold py-2 px-5 ml-2" style="color: white;" *ngIf="role == 'CUSTOMER'">My Space </a>
+        <a [routerLink]="['/admin']" mat-raised-button color="warn" class="text-lg font-bold py-2 px-5 ml-2" style="color: white;" *ngIf="role == 'ADMIN'">Dashboard </a>
         <a (click)="onLogout()" mat-raised-button color="accent" class="text-lg font-bold py-2 px-5 ml-2">Logout</a>
       </div>
       

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class BaseLayoutComponent implements OnInit, OnDestroy {
   public isLoggedin$: Observable<boolean> = this.authService.isLoggedin$.asObservable();
-  public role$: Observable<string> = this.authService.role$.asObservable();
+  
   role:string;
   isLoggedIn: boolean;
   isAlive: boolean = true;
@@ -28,6 +28,7 @@ export class BaseLayoutComponent implements OnInit, OnDestroy {
     )
   }
   constructor(private breakpointObserver: BreakpointObserver,private authService:AuthService,private router:Router) {
+    
     this.breakpointObserver.observe(['(max-width: 1199px)']).pipe(takeWhile(() => this.isAlive)).subscribe(({matches}) => {
       this.isLessThenLargeDevice = matches;
       if (!matches) {
@@ -38,7 +39,9 @@ export class BaseLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
- 
+    this.authService.role$.subscribe(role => {
+      this.role = role;
+    });
   }
   
   ngOnDestroy(): void{

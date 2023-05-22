@@ -4,10 +4,14 @@ import { AdminComponent } from './admin.component';
 import { IndexAdminComponent } from './index-admin/index-admin.component';
 import { ProductsAdminComponent } from './products-admin/products-admin.component';
 import { FormProductComponent } from './form-product/form-product.component';
+import { DataUserGuard } from '../shared/guards/data-user.guard';
+import { AuthGuard } from '../shared/guards/auth.guard';
+import { AdminGuard } from '../shared/guards/AdminGuard.guard';
 
 const routes: Routes = [
   {
     path: '',
+   
     component: AdminComponent,
     children: [
       {
@@ -25,19 +29,23 @@ const routes: Routes = [
      },
       {
         path: 'products',
+
         component: ProductsAdminComponent
       },
       {
 
         path:'orders',
+
         loadChildren: () => import('./orders-admin/orders-admin.module').then(m => m.OrdersAdminModule)
       },
       {
         path:'addProduct',
+
         component: FormProductComponent
       },
       {
         path :'editProduct/:id',
+
         component : FormProductComponent
 
       }

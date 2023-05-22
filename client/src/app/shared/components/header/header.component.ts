@@ -12,7 +12,7 @@ import { StoreInterface } from 'src/app/store/store';
 })
 export class HeaderComponent implements OnInit {
   @Input() public isLoggedin!: boolean | null;
-  @Input() public role!: string | null;
+  @Input() public role: string | null;
   @Output() public logout: EventEmitter<true> = new EventEmitter();
   @Input() topFixed: boolean;
   @Output() toggleSidenav = new EventEmitter();
@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   isLessThenLargeDevice;
   numberItems : number;
   constructor(private breakpointObserver: BreakpointObserver,private authService:AuthService, private store: Store<StoreInterface>) {
+    console.log(this.role);
     
   }
 

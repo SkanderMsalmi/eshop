@@ -87,7 +87,7 @@
 <div class="grid grid-cols-12 gap-4 p-5 m-3" *ngIf="view === 'grid'">
   <div class="col-span-4" *ngFor="let user of users |  userSearch: searchQuery">
     <mat-card>
-      <img class="m-0 mb-4" mat-card-image src="../../../../assets/images/user-128x128.jpg" alt="Photo of a Shiba Inu" />
+      <img class="m-0 mb-4 image" mat-card-image src="../../../../assets/images/user-128x128.jpg" alt="Photo of a Shiba Inu" />
       <mat-card-header class="mx-0">
         <h3 class="text-[15px] leading-[23px]">{{ user?.name }}</h3>
         <h3 class="text-[15px] leading-[23px]">{{ user?.email }}</h3>
