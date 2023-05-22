@@ -109,11 +109,11 @@ exports.putUpdateProduct = (req, res, next) => {
     });
   }
   Product.findById(id)
-    .then(existingProduct => {
+    .then((existingProduct) => {
       product.reviews = existingProduct.reviews;
-      return Product.findByIdAndUpdate(id, product)
+      return Product.findByIdAndUpdate(id, product);
     })
-    .then(result => res.status(200).json(result))
+    .then((result) => res.status(200).json(result))
     .catch((err) => res.status(500).send(err));
 };
 
@@ -188,6 +188,7 @@ exports.getSavedProductsListByUserId = async (req, res) => {
           price: 1,
           rating: 1,
           feedback: 1,
+          image: 1,
         },
       },
     ]);
@@ -282,18 +283,18 @@ exports.clearSavedList = async (req, res, next) => {
   }
 };
 
-exports.deleteReview = (req, res, next) =>{
+exports.deleteReview = (req, res, next) => {
   const productId = req.params.id;
-  Product.updateOne({_id: productId},{$pull : {"reviews" :  req.body }})
-  .then(result => {
-    Product.findById(productId)
-      .then(product => res.status(201).json(product)
-    );
-  })
-  .catch(err => console.log(err));
-}
+  Product.updateOne({ _id: productId }, { $pull: { reviews: req.body } })
+    .then((result) => {
+      Product.findById(productId).then((product) =>
+        res.status(201).json(product)
+      );
+    })
+    .catch((err) => console.log(err));
+};
 
-exports.getNewestProduct = async (req, res, next) =>{
+exports.getNewestProduct = async (req, res, next) => {
   try {
     const categories = ["MAN", "WOMAN", "KID"]; // Array of categories
 
@@ -308,8 +309,20 @@ exports.getNewestProduct = async (req, res, next) =>{
 
     const productsByCategory = await Promise.all(productPromises);
 
-    res.status(200).json(productsByCategory)
+    res.status(200).json(productsByCategory);
   } catch (error) {
     console.error(error);
+  }
+};
+
+exports.getSavedItemsCount = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const count = await SavedProducts.find({ userId }).countDocuments();
+    console.log(count);
+    return res.status(200).json(count);
+  } catch (error) {
+    console.error(error);
+    return 0;
   }
 };

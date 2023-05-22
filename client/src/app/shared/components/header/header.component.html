@@ -27,7 +27,7 @@
           <span class="item-count">{{ numberItems }}</span>
         </button>
 
-        <mat-menu #cartMenu="matMenu" xPosition="before" yPosition="below" *ngIf="role == 'CUSTOMER'">
+        <mat-menu #cartMenu="matMenu" xPosition="before" yPosition="below" >
           <div (click)="$event.stopPropagation()">
             <app-cart></app-cart>
           </div>

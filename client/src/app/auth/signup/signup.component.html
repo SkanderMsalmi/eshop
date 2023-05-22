@@ -39,6 +39,22 @@
             <p class="text-accent" *ngIf="form.get('email')?.errors.required">Please insert your email address</p>
             <p class="text-accent" *ngIf="form.get('email')?.errors.email">Please insert a valid email address</p>
           </div>
+          <div class="mb-4 mt-6">
+            <label class="block text-gray-700 text-sm font-semibold mb-2" for="number"> Phone Number </label>
+            <input
+              class="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10 "
+              id="number"
+              type="number"
+              placeholder="Phone Number"
+              formControlName="number"
+             
+            />
+          </div>
+      
+          <div class="alert-danger" *ngIf="form.get('number')?.invalid && form.get('number')?.touched">
+            <p class="text-accent" *ngIf="form.get('number')?.errors.required">Please insert your phone number</p>
+            <p class="text-accent" *ngIf="form.get('number')?.errors.pattern">Please insert a valid phone number</p>
+          </div>
           <div class="mb-6 mt-6">
             <label class="block text-gray-700 text-sm font-semibold mb-2" for="password"> Password </label>
             <input

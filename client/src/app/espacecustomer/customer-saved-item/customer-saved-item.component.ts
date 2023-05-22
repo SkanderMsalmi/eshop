@@ -20,7 +20,8 @@ export class CustomerSavedItemComponent implements OnInit {
     
     
     this.productService.getSavedProductsForUserId(this.user._id).subscribe(
-      (reponse)=> this.SavedProduct = reponse
+      (reponse)=> {this.SavedProduct = reponse; console.log(this.SavedProduct);
+      }
      )
   }
 

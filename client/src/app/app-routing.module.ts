@@ -51,7 +51,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    canActivate:[AdminGuard,DataUserGuard],
+    canActivate:[DataUserGuard,AdminGuard],
 
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) // Replace with the actual path to your admin module
   },

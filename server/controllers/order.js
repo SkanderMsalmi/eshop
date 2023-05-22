@@ -1,6 +1,6 @@
 const Order = require("../models/order.model");
 const User = require("../models/user.model");
-
+const Product = require("../models/product.model");
 exports.getAllOrders = (req, res, next) => {
   Order.find()
     .populate("userId")
@@ -113,11 +113,18 @@ exports.putChangeOrderStatusToDelivered = (req, res, next) => {
 exports.changeStatusOrder = (req, res, next) => {
   const id = req.params.id;
   const status = req.body.status;
-  console.log(status);
   Order.findById(id)
+
     .then((order) => {
       if (order.status == status) {
         res.status(401).json("It's already " + status);
+      }
+      if (status == "DELIVERED") {
+        order.products.forEach(async (p) => {
+          await Product.findByIdAndUpdate(p.product, {
+            $inc: { quantity: -p.quantity },
+          });
+        });
       }
       order.status = status;
       Order.updateOne({ _id: order._id }, order, { new: true }).then((result) =>
@@ -129,6 +136,39 @@ exports.changeStatusOrder = (req, res, next) => {
 
 exports.getOrdersByUser = async (req, res, next) => {
   const userId = req.params.id;
-  const orders = await Order.find({ userId });
+  const orders = await Order.find({ userId }).populate(
+    "products.product",
+    "name image price quantity category"
+  );
   res.status(200).json(orders);
+};
+
+exports.getLatestOrders = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const latestOrders = await Order.find({ userId })
+      .sort({ date: -1 })
+      .limit(10);
+    return res.status(200).json(latestOrders);
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+exports.getOrdersCount = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const pendingCount = await Order.find({ userId }).countDocuments({
+      status: "PENDING",
+    });
+    const completedCount = await Order.find({ userId }).countDocuments({
+      status: "DELIVERED",
+    });
+    return res
+      .status(200)
+      .json({ Pending: pendingCount, Delivered: completedCount });
+  } catch (error) {
+    console.error(error);
+    return { pending: 0, completed: 0 };
+  }
 };

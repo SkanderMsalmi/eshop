@@ -15,7 +15,7 @@ export class AdminGuard implements CanActivate {
 
   canActivate(): Observable<boolean> {
     return this.authService.role$.pipe(
-      map(role => role === 'ADMIN'), // Check if role is 'ADMIN'
+      map(role => role === 'ADMIN' ), // Check if role is 'ADMIN'
       tap(isAdmin => {
         if (!isAdmin) {
           this.router.navigateByUrl('/'); // Redirect to home if not an admin
