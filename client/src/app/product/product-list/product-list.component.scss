@@ -2,3 +2,15 @@
 .text-mute {
   color: rgba(0, 0, 0, 0.5); /* set the text color to a semi-transparent black */
 }
+
+.my-class{
+  cursor: pointer;
+  &:hover{
+    transform: scale(1.05);
+    transition: transform ease-in-out 0.2s;
+  }
+  &:not(:hover){
+    transform: scale(1);
+    transition: transform ease-in-out .2s;
+  }
+}

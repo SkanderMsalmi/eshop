@@ -34,6 +34,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.product.rating = this.productService.calculScore(this.product);
     if (this.isLoggedIn) {
       this.productService.getSavedProductsForUserId(this.user._id).subscribe((savedProducts) => {
         if (savedProducts) {
@@ -48,6 +49,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   addToCart(product : Product){
+    event.stopPropagation();
     if (this.isLoggedIn) {
       this.cartStore.dispatch(new AddToCartAction(product));
     }else{
@@ -56,6 +58,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   toggleList(productId: string) {
+    event.stopPropagation();
     if (this.isFavourite) {
       this.productService.deleteProductFromSavedProducts(this.user._id, productId).subscribe(() => {
         // Do something after successfully deleting the product
