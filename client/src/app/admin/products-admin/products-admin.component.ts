@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductsService } from '../services/products.service';
 import { Product } from 'src/app/core/models/product.model';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -18,7 +18,7 @@ export class ProductsAdminComponent implements OnInit {
   selectedProduct : Product;
   itemsPerPage = 10;
   currentPage = 0;
-  constructor(private productsService : ProductsService, private dialog : MatDialog) { }
+  constructor(private productsService : ProductsService, private dialog : MatDialog, private elementRef: ElementRef) { }
 
   ngOnInit(): void {
     this.productsService.getAllProducts().subscribe((result : Product[]) => {
@@ -34,6 +34,10 @@ export class ProductsAdminComponent implements OnInit {
 
   select(product : Product){
     this.selectedProduct = product;
+    setTimeout(() => {
+      let element = document.getElementById("details")
+      element.scrollIntoView({behavior:'smooth'})
+    }, 100);
   }
 
   handleProduct(){
@@ -42,6 +46,8 @@ export class ProductsAdminComponent implements OnInit {
   }
 
   closeDetails(){
+    let element = document.getElementById("list");
+    element.scrollIntoView({behavior:'smooth'})
     this.selectedProduct = null;
   }
 

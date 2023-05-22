@@ -4,7 +4,7 @@
   </button>
 </div>
 
-<div class="container">
+<div class="container" id="list">
   <table mat-table class="mat-elevation-z8" [dataSource]="listProducts" matSort>
     <ng-container matColumnDef="productId">
       <th mat-header-cell *matHeaderCellDef width=7%>Id</th>
@@ -57,6 +57,8 @@
     (page)="onPageChange($event)">
   </mat-paginator>
 </div>
-<div *ngIf="selectedProduct" #elementRef>
-  <app-product-details [product]="selectedProduct" (productEmitter)="closeDetails($event)"></app-product-details>
+<div id="details">
+  <div *ngIf="selectedProduct" #elementRef >
+    <app-product-details [product]="selectedProduct" (productEmitter)="closeDetails($event)"></app-product-details>
+  </div>
 </div>

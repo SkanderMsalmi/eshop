@@ -35,7 +35,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   close(){
     this.fadeOutAnimation();
     setTimeout(() => {
-      console.log("timeout");
       this.productEmitter.emit(false);
     },500);
   }
