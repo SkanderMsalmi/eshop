@@ -33,6 +33,7 @@ const UserSchema = new Schema(
     number: {
       type: Number,
       unique: true,
+      required: true,
     },
     occupation: {
       type: String,

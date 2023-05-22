@@ -7,10 +7,11 @@ router.get("/all", orderController.getAllOrders);
 router.get("/:id", orderController.getOrder);
 router.get("/getOrdersByUser/:id", orderController.getOrdersByUser);
 router.get("/getUserByOrderId/:id", orderController.getUserFromOrder);
+router.get("/getLatestOrders/:userId", orderController.getLatestOrders);
+router.get("/getOrdersCount/:userId", orderController.getOrdersCount);
 router.post("/new", orderController.postNewOrder);
 router.put("/edit", orderController.putUpdateOrder);
 router.put("/changestatus/:id", orderController.changeStatusOrder);
 router.delete("/delete", orderController.deleteOrder);
 router.delete("/delete/:id", orderController.deleteOrderById);
-
 module.exports = router;

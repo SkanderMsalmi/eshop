@@ -4,6 +4,7 @@ import { BaseLayoutComponent } from './shared/components/layouts/base-layout/bas
 import { DataUserGuard } from './shared/guards/data-user.guard';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AdminGuard } from './shared/guards/AdminGuard.guard';
+import { CustomerGuard } from './shared/guards/CustomerGuard.guard';
 
 const baseLayoutRouting: Routes = [
   {
@@ -23,7 +24,7 @@ const baseLayoutRouting: Routes = [
   },
   {
     path:'espace',
-    canActivate:[DataUserGuard,AuthGuard],
+    canActivate:[AuthGuard,DataUserGuard,CustomerGuard],
     loadChildren: () => import('./espacecustomer/espacecustomer.module').then(m => m.EspacecustomerModule)
 
   },
@@ -50,8 +51,13 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-     // Add AdminGuard to restrict access to admin routes
+    canActivate:[DataUserGuard,AdminGuard],
+
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) // Replace with the actual path to your admin module
+  },
+  {
+    path: '**',
+    redirectTo:"/"
   }
 ];
 

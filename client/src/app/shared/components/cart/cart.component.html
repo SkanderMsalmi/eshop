@@ -23,12 +23,12 @@
         </div>
       </div>
     </div>
-    <div class="card text-end">
-      <p class="cart-total-text">Total: {{ cart.total | number:'.3' }} TND</p>
-      <span class="btn-group">
-        <button (click)="clearCart()" class="btn btn-sm btn-outline-danger w-25" *ngIf="cart.products.length > 0">Clear Cart</button>
-        <button (click)="openDialog()" class="btn btn-outline-primary w-75" [disabled]="cart.products.length < 1">Confirm order</button>
-      </span>
+    <div class="card text-end brsdf-0">
+      <p class="cart-total-text">Total: <strong> {{ cart.total | number:'.3' }} TND </strong></p>
+      <div class="d-flex" >
+        <button (click)="clearCart()" class="btn btn-sm btn-outline-danger w-25 m-2 rad" *ngIf="cart.products.length > 0">Clear Cart</button>
+        <button (click)="openDialog()" class="btn btn-outline-primary w-75 m-2 rad" [disabled]="cart.products.length < 1">Confirm order</button>
+      </div>
     </div>
   </div>
 </div>

@@ -6,6 +6,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  img{
+    border-radius: 100%;
+  }
 }
 .backtoList{
   padding-left: 2rem;
@@ -18,3 +21,4 @@
   cursor: pointer;
   color: var(--bs-blue);
 }
+

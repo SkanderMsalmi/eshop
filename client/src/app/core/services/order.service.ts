@@ -31,4 +31,10 @@ export class OrderService {
     return this.http.delete(`api/order/delete`);
   }
 
+  getLatestOrders(userId):Observable<any>{
+    return this.http.get(`/api/order/getLatestOrders/${userId}`);
+  }
+  getOrdersCount(userId):Observable<any>{
+    return this.http.get(`/api/order/getOrdersCount/${userId}`);
+  }
 }

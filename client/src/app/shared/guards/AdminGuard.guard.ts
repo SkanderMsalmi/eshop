@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { User } from 'src/app/core/models/user.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -9,18 +9,19 @@ import { AuthService } from 'src/app/core/services/auth.service';
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.authService.user$.pipe(
-      map((user: User | null) => {
-        if (user && user?.role === 'ADMIN') {
-          return true; // Allow access for admin users
-        } else {
-            this.router.navigateByUrl("/");
-          return false; // Deny access for non-admin users
+  }
+
+  canActivate(): Observable<boolean> {
+    return this.authService.role$.pipe(
+      map(role => role === 'ADMIN' ), // Check if role is 'ADMIN'
+      tap(isAdmin => {
+        if (!isAdmin) {
+          this.router.navigateByUrl('/'); // Redirect to home if not an admin
         }
       })
     );
   }
+
 }

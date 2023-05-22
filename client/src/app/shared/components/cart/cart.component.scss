@@ -68,9 +68,13 @@
   }
 
   .btn{
-    border-radius: 0;
+    border-radius: 15px;
   }
 
   .btn-group{
     width: 100%;
   }
+
+.brsdf-0{
+  border-radius: 0 !important;
+}

@@ -3,7 +3,7 @@ var router = express.Router();
 const productController = require("../controllers/product");
 
 router.get("/all", productController.getAllProducts);
-router.get("/newest",productController.getNewestProduct);
+router.get("/newest", productController.getNewestProduct);
 router.get("/category/:category", productController.getProductsByCategory);
 router.get("/:id", productController.getOneProduct);
 router.post(
@@ -11,7 +11,11 @@ router.post(
   productController.upload.array("image"),
   productController.postAddProduct
 );
-router.put("/edit/:id",productController.upload.array("image"), productController.putUpdateProduct);
+router.put(
+  "/edit/:id",
+  productController.upload.array("image"),
+  productController.putUpdateProduct
+);
 router.delete("/delete", productController.deleteOneProduct);
 router.delete("/deleteAll", productController.deleteAll);
 router.delete("/delete/:id", productController.deleteOneProductById);
@@ -27,6 +31,7 @@ router.get(
   "/allSavedProductByUserId/:userId",
   productController.getSavedProductsListByUserId
 );
+router.get("/getSavedItemsCount/:userId", productController.getSavedItemsCount);
 router.post(
   "/addProductToSavedList/:userId/:productId",
   productController.addProductToSavedList

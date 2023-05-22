@@ -61,6 +61,9 @@ public getNewestProducts() : Observable<any[]>{
   return this.http.get<any[]>(`/api/product/newest`);
 }
 
+public getSavedItemsCount(userId):Observable<any>{
+  return this.http.get(`/api/product/getSavedItemsCount/${userId}`);
+}
 
 
 }

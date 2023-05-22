@@ -19,15 +19,15 @@
           </div>
           <div class="flex items-center p-4 border-b hover:bg-blue-100" *ngFor="let product of SavedProduct ">
             <div class="w-6/12">
-              <a href="" class="flex hover:text-primary">
-                <div class="max-h-16 w-16 flex-none mr-3 border" *ngIf="product?.images">
-                  <img [src]="product?.images[0]" alt="img">
+              <a [routerLink]="['/products/',product._id]" class="flex hover:text-primary">
+                <div class="max-h-16 w-16 flex-none mr-3 border" *ngIf="product?.image">
+                  <img [src]="'http://localhost:8000/image/'+product.image[0]" alt="img">
                 </div>
                 <h6 class="flex-auto">{{ product?.name }}</h6>
               </a>
             </div>
             <div class="w-2/12">{{product?.category}}</div>
-            <div class="w-2/12 text-center">${{product?.price}}</div>
+            <div class="w-2/12 text-center">{{product?.price}} TND</div>
             <div class="w-2/12">
               <div class="flex items-center">
                 <mat-icon class="mr-1 text-lg leading-4 h-4 w-4 text-yellow-500">star_rate</mat-icon>
@@ -61,7 +61,7 @@
       <div class="grid grid-cols-12 gap-4" *ngIf="view === 'grid'">
         <div class="col-span-4" *ngFor="let product of SavedProduct | slice: 0:9">
           <mat-card>
-            <img class="m-0 mb-4" mat-card-image src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Photo of a Shiba Inu" />
+            <img class="m-0 mb-4" mat-card-image  [src]="'http://localhost:8000/image/'+product.image[0]" alt="Photo of a Shiba Inu" />
             <mat-card-header class="mx-0">
               <h3 class="text-[15px] leading-[23px]">{{ product?.name }}</h3>
             </mat-card-header>

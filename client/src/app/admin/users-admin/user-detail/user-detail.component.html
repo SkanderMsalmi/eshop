@@ -4,7 +4,7 @@
 <div class="border bg-white mt-8 rounded-md contact-info d-flex">
   <div class="col-md-3 imageprofil" >
 
-    <img src="../../../../assets/images/user-128x128.jpg" alt="test" height="180px" width="180px"  >
+    <img src="../../../../assets/images/user-128x128.jpg" alt="test" height="180px" width="180px" class="image" >
   </div>
 
   <div class="flex flex-wrap p-4 col-md-12" >
@@ -83,7 +83,7 @@
 						{{order?.shippingInfo | titlecase }}
 					</td>
 					<td>
-						<span>${{order?.totalAmount | number:'1.2-2'}}</span>
+						<span>{{order?.totalAmount | number:'1.2-2'}} TND</span>
 					</td>
 					<td>
 						<span>{{order?.createdAt | date}}</span>
