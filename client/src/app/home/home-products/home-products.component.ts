@@ -24,9 +24,9 @@ export class HomeProductsComponent implements OnInit {
     setTimeout(() =>{
       this.productService.getNewestProducts()
       .subscribe(res => {
-        this.manProducts = res[0];
-        this.womanProducts = res[1];
-        this.kidProducts = res[2];
+        this.manProducts = res[0].slice(0,3);
+        this.womanProducts = res[1].slice(0,3);
+        this.kidProducts = res[2].slice(0,3);
         this.isLoaded = true;
       }
       );
