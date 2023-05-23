@@ -33,7 +33,8 @@ export class HomeComponent implements OnInit {
 
   handleButton(value : boolean){
     const element = document.getElementById("category-card");
-    if(value && element){
+    console.log(element);
+    if(element){
       element.scrollIntoView({behavior: 'smooth'})
     }
   }

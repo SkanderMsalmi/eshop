@@ -23,14 +23,21 @@
     justify-content: center;
     align-items: center;
     background-color: transparent;
+    color: white;
     border: none;
     outline: none;
     cursor: pointer;
 }
 
-.ll-product__like-button:hover {
-    transform: scale(1.5);
-    animation-duration: 0.5s;
-    animation-iteration-count: 1;
+.ll-product__like-button:hover,
+.ll-product__like-button:hover mat-icon  {
+    color: red !important;
+    transform: scale(1.2);
+    transition: transform ease-in-out .05s;
+}
+
+.ll-product__like-button:not(:hover) {
     color: red;
+    transform: scale(1);
+    transition: transform ease-in-out .05s;
 }

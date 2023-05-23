@@ -13,6 +13,8 @@
             placeholder="I am looking for ..."
             class="flex-1 w-full sm:text-sm lg:text-xl border-gray-300 rounded-l-md py-3 px-6"
             required
+            [(ngModel)]="search"
+            (ngModelChange)="sort()"
           />
           <button class="bg-primary w-24 rounded-r-md"><mat-icon class="leading-8">search</mat-icon></button>
         </div>
@@ -20,36 +22,40 @@
       <mat-expansion-panel [expanded]="advanceSearchExpanded">
         <div class="grid grid-cols-6 gap-6 mt-4">
           <div class="col-span-6 sm:col-span-3">
+            <label for="minAmount"><strong>Minimum amount</strong></label>
+
             <input
               type="text"
               class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-              placeholder="Start price"
+              placeholder="Minimum price"
+              [(ngModel)]="minAmount"
+              (ngModelChange)="sort()"
+              id="minAmount"
+              name="minAmount"
             />
           </div>
           <div class="col-span-6 sm:col-span-3">
+            <label for="maxAmount"><strong>Maximum amount</strong></label>
             <input
               type="text"
               class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-              placeholder="End price"
+              placeholder="Max price"
+              [(ngModel)]="maxAmount"
+              (ngModelChange)="sort()"
+              id="maxAmount"
+              name="maxAmount"
             />
           </div>
           <div class="col-span-6 sm:col-span-3">
-            <select
-              name="categories"
-              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              <option>Category</option>
-              <option>Microservices</option>
-              <option>Shipping Service</option>
-              <option>Consulting</option>
-            </select>
-          </div>
-          <div class="col-span-6 sm:col-span-3">
+            <label for="rating"><strong>Rating</strong></label>
             <select
               name="rating"
               class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              <option>Rating</option>
+              placeholder="Rating"
+              [(ngModel)]="rating"
+              (ngModelChange)="sort()"
+              >
+              <option>0</option>
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -57,8 +63,25 @@
               <option>5</option>
             </select>
           </div>
-          <div class="col-span-6">
-            <button mat-flat-button color="accent">Apply filter</button>
+          <div class="col-span-6 sm:col-span-3">
+            <label for="order"><strong>Order by </strong></label>
+            <div class="d-flex justify-between">
+              <select
+              name="order"
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              [(ngModel)]="order"
+              aria-placeholder="Order by"
+              (ngModelChange)="sort()"
+              >
+              <option value="DATE">By date</option>
+              <option value="PRICE">By price</option>
+              <option value="RATING">By rating</option>
+            </select>
+            <div class="asec-wrapper">
+              <i *ngIf="asec" (click)="toggleOrder()" class="fa-solid fa-arrow-down-short-wide fa-xl" style="color:white"></i>
+              <i *ngIf="!asec" (click)="toggleOrder()" class="fa-solid fa-arrow-down-wide-short fa-xl" style="color:white"></i>
+            </div>
+            </div>
           </div>
         </div>
       </mat-expansion-panel>

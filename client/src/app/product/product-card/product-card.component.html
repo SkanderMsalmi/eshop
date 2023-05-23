@@ -1,7 +1,7 @@
 <mat-card class="ll-product">
-    <button mat-icon-button class="ll-product__like-button" [style.color]="isFavourite? 'red' : 'black'" (click)="toggleList(product._id)">
+    <button mat-icon-button class="ll-product__like-button"  (click)="toggleList(product._id)">
         <mat-icon
-        >favorite</mat-icon>
+        [style.color]="isFavourite? 'red' : 'black'" >favorite</mat-icon>
     </button>
     <app-carousel class="carousel" [imageUrls]="product.image" ></app-carousel>
     <div class="overlay" *ngIf="product.quantity == 0">
