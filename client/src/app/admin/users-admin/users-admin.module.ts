@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
 import { UserSearchPipe } from '../../core/pipes/user-search.pipe';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const commonModules = [
   HttpClientModule,
@@ -29,6 +31,8 @@ const commonModules = [
   MatListModule,
   MatMenuModule,
   MatDialogModule,
+  MatTableModule,
+  MatPaginatorModule
   
 ];
 

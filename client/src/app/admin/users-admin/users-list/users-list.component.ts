@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { User } from 'src/app/core/models/user.model';
 import { AdminService } from 'src/app/core/services/admin.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
@@ -10,9 +12,13 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator : MatPaginator;
   loading: boolean = false;
   view = "list"
   public users =[];
+  public listUsers : MatTableDataSource<User>;
+  itemsPerPage = 10;
+  currentPage = 0;
   searchQuery: string = '';
   public gettingUsers = ()=> this.adminService.getAllUsers().subscribe(
     (reponse)=> this.users = reponse
@@ -34,6 +40,14 @@ export class UsersListComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.adminService.getAllUsers().subscribe(res => {
+      this.listUsers = new MatTableDataSource(res);
+      this.listUsers.paginator = this.paginator;
+    })
+  }
+  onPageChange(event : PageEvent){
+    this.currentPage = event.pageIndex;
+    this.itemsPerPage = event.pageSize;
   }
   clearSearch() {
     this.searchQuery = '';

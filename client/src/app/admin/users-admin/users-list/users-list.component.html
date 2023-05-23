@@ -1,101 +1,89 @@
-<div class="m-5">
-    <div class="filter flex items-center mb-5">
-      <h5>User</h5>
-      <div class="flex items-center ml-auto">
-        <!-- <button [class.text-accent]="view === 'grid'" (click)="view = 'grid'" mat-icon-button class="view__btn"><mat-icon>grid_view</mat-icon></button> -->
-        <button [class.text-accent]="view === 'list'" (click)="view = 'list'" mat-icon-button class="view__btn"><mat-icon>list_alt</mat-icon></button>
-      </div>
-    </div>
-    <div class="custom-search-input">
-        <input type="text" class="form-control" [(ngModel)]="searchQuery" placeholder="Search by name or email">
-      </div>
-<div  class="table-inside" >
-  
-  
-    <div class="flex flex-col border ltLg:responsive" *ngIf="view == 'list'">
-      <div class="flex items-center p-4 border-b hover:bg-blue-100 hover:cursor-pointer" style="background-color: #354869; color: aliceblue;">
-        <div class="w-1/12 font-medium text-center ">User</div>
-        <div class="w-2/12 font-medium text-center">Name</div>
-        <div class="w-3/12 font-medium text-center">Email</div>
-        <div class="w-1/12 font-medium text-center">Gender</div>
-        <div class="w-2/12 font-medium text-center">Number</div>
-        <div class="w-2/12 font-medium text-center">Occupation</div>
-        <div class="w-1/12 font-medium text-center">Actions</div>
-      </div>
-      <div class="flex items-center p-4 border-b hover:bg-blue-100" *ngFor="let user of users |  userSearch: searchQuery">
-        <div class="w-1/12 text-center d-flex">
-          <!-- <a href="" class="flex hover:text-primary">
-            <div class="max-h-16 w-16 flex-none mr-3 border" *ngIf="user?.images">
-              <img [src]="user?.images[0]" alt="img">
-            </div>
-            <h6 class="flex-auto">{{ user?.id }}</h6>
-          </a> -->
-          <span [ngClass]="{'red-dot': user.blocked, 'green-dot': !user.blocked}" [title]="user.blocked? 'User is blocked':'User is not blocked'"></span>
-          <div>  <img src="../../../../assets/images/user-128x128.jpg" class="image" alt="user"></div>
-        </div>
-        <div class="w-2/12 text-center">{{user?.name}}</div>
-        <div class="w-3/12 text-center">{{user?.email}}</div>
-        
-        <div class="w-1/12 text-center" >
-            {{user?.gender ? user?.gender : '-'}}
-          </div>
-          
-       
-           
-        
-        <div class="w-2/12 text-center">
-            {{user?.occupation ? user?.occupation : '-'}}
-          </div>
-          <div class="w-2/12 text-center">
-            {{user?.number ? user?.number : '-'}}
-          </div>
-      
-     
-        <div class="w-1/12 text-center">
-          <button class="action_icon__btn" mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu" xposition="before">
-            <button mat-menu-item [routerLink]="['/admin/users/user/',user._id]">
-              <mat-icon>dialpad</mat-icon>
-              <span>Details</span>
-            </button>
-            <button *ngIf="!user.blocked" mat-menu-item (click)="confirmBlockUser(user._id)" >
-              <mat-icon   class="text-accent">block</mat-icon>
-              
-              <span  class="text-accent">Block</span>
-            </button>
-            <button *ngIf="user.blocked" mat-menu-item (click)="confirmUnBlockUser(user._id)">
-              <mat-icon class="text_green">block</mat-icon>
-              
-              <span class="text_green">Unblock</span>
-            </button>
-            <button mat-menu-item (click)="deleteUser(user._id)">
-              <mat-icon>delete</mat-icon>
-              <span>Delete</span>
-            </button>
-          </mat-menu>
-        </div>
-      </div>
-      <div *ngIf="users.length ==0">
-        <h2>No User found</h2>
-      </div>
-     
-    </div>
-    </div>
+<div class="d-flex justify-content-start">
+  <h2 color="primary"  style="margin-right: 3rem;">
+    Users
+  </h2>
 </div>
-<div class="grid grid-cols-12 gap-4 p-5 m-3" *ngIf="view === 'grid'">
-  <div class="col-span-4" *ngFor="let user of users |  userSearch: searchQuery">
-    <mat-card>
-      <img class="m-0 mb-4 image" mat-card-image src="../../../../assets/images/user-128x128.jpg" alt="Photo of a Shiba Inu" />
-      <mat-card-header class="mx-0">
-        <h3 class="text-[15px] leading-[23px]">{{ user?.name }}</h3>
-        <h3 class="text-[15px] leading-[23px]">{{ user?.email }}</h3>
-      </mat-card-header>
-      <mat-card-actions>
-        <a mat-stroked-button [routerLink]="['/users/user', user._id]" class="px-5">View</a>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
-    </mat-card>
+<div class="custom-search-input">
+  <input type="text" class="form-control" [(ngModel)]="searchQuery" placeholder="Search by name or email">
+</div>
+<div class="table-inside">
+  <div class="container" id="list">
+    <table mat-table class="mat-elevation-z8" [dataSource]="listUsers | userSearch:searchQuery" matSort>
+      <ng-container matColumnDef="image">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef >Image</th>
+        <div *matCellDef="let user">
+          <span  [ngClass]="{'red-dot': user.blocked, 'green-dot': !user.blocked}" [title]="user.blocked? 'User is blocked':'User is not blocked'">
+          </span>
+          <img src="../../../../assets/images/user-128x128.jpg"  class="image" alt="user">
+        </div>
+      </ng-container>
+  
+      <ng-container matColumnDef="name">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef>Name</th>
+        <td mat-cell class="mat-cell" *matCellDef="let user">{{ user.name }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="email">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef>Email</th>
+        <td mat-cell class="mat-cell" *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="gender">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef>Gender</th>
+        <td mat-cell class="mat-cell" *matCellDef="let user">{{user?.gender ? user?.gender : '-'}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="occupation">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef>Occupation</th>
+        <td mat-cell class="mat-cell" *matCellDef="let user">{{user?.occupation ? user?.occupation : '-'}}</td>
+      </ng-container>
+      <ng-container matColumnDef="phoneNumber">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef>Phone number</th>
+        <td mat-cell class="mat-cell" *matCellDef="let user">{{user?.number ? user?.number : '-'}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef>Actions</th>
+        <td mat-cell class="mat-cell center-cell" *matCellDef="let user">
+          <div class="center-content">
+            <button class="action_icon__btn" mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xposition="before">
+              <button mat-menu-item [routerLink]="['/admin/users/user/',user._id]">
+                <mat-icon>dialpad</mat-icon>
+                <span>Details</span>
+              </button>
+              <button *ngIf="!user.blocked" mat-menu-item (click)="confirmBlockUser(user._id)" >
+                <mat-icon   class="text-accent">block</mat-icon>
+                
+                <span  class="text-accent">Block</span>
+              </button>
+              <button *ngIf="user.blocked" mat-menu-item (click)="confirmUnBlockUser(user._id)">
+                <mat-icon class="text_green">block</mat-icon>
+                
+                <span class="text_green">Unblock</span>
+              </button>
+              <button mat-menu-item (click)="deleteUser(user._id)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </div>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row  *matHeaderRowDef="['image','name', 'email', 'gender', 'occupation','phoneNumber','actions']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['image','name', 'email', 'gender', 'occupation','phoneNumber', 'actions']"></tr>
+      
+    </table>
+      <mat-paginator
+      style="margin-bottom: 2rem;"
+      [length]="listUsers?.data.length"
+      [pageSize]="itemsPerPage"
+      [pageSizeOptions]="[10, 25, 100]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
   </div>
-</div>  
+  
+</div>
