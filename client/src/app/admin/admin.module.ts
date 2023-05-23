@@ -30,6 +30,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { DialogDeleteComponent } from './components/dialog-delete/dialog-delete.component';
 import { MatRadioModule } from "@angular/material/radio";
+import { ProductSearchPipe } from '../core/pipes/product-search.pipe';
 
 const commonModules = [
   HttpClientModule,
@@ -59,6 +60,7 @@ const commonModules = [
        FormProductComponent,
        ProductDetailsComponent,
        DialogDeleteComponent,
+       ProductSearchPipe
   ],
   imports: [
     CommonModule,

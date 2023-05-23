@@ -77,6 +77,7 @@ exports.register = async (req, res, next) => {
   const newUser = new User({
     email: req.body.email,
     name: req.body.name,
+    number : req.body.number,
     password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8)),
     role: "CUSTOMER",
   });

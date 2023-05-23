@@ -5,6 +5,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDeleteComponent } from "../components/dialog-delete/dialog-delete.component";
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-products-admin',
@@ -18,6 +19,9 @@ export class ProductsAdminComponent implements OnInit {
   selectedProduct : Product;
   itemsPerPage = 10;
   currentPage = 0;
+  view = "list"
+  searchQuery: string = '';
+
   constructor(private productsService : ProductsService, private dialog : MatDialog, private elementRef: ElementRef) { }
 
   ngOnInit(): void {
@@ -52,14 +56,14 @@ export class ProductsAdminComponent implements OnInit {
   }
 
   openDialog(product : Product){
-    const dialogRef = this.dialog.open(DialogDeleteComponent, {
-      width: '70rem',
-      autoFocus : true,
-      data: { title: 'Are you sure ?? ', 'payload' : product }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: { message: 'Are you sure you want to delete this product?' }
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.productsService.getAllProducts().subscribe(res => this.listProducts = new MatTableDataSource(res))
+      this.productsService.deleteProduct(product);
+      this.ngOnInit();
     });
   }
 }
