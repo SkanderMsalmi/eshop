@@ -19,6 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { OrderPipe } from 'src/app/core/pipes/order.pipe';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 const commonModules = [
   HttpClientModule,
   MatToolbarModule,
@@ -30,7 +32,9 @@ const commonModules = [
   MatListModule,
   MatMenuModule,
   MatDialogModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatTableModule,
+  MatPaginatorModule
 ];
 
 @NgModule({

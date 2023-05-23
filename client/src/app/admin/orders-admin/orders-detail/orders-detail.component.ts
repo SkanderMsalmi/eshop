@@ -38,7 +38,6 @@ export class OrdersDetailComponent implements OnInit {
     this.orderService.getOrderById(this.id).subscribe((rep)=>{
       
       this.order=rep;
-      console.log(this.order);
       
     });
   }

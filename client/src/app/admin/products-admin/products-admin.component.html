@@ -19,7 +19,9 @@
 
       <ng-container matColumnDef="image">
         <th mat-header-cell class="mat-header-cell" *matHeaderCellDef >Image</th>
-        <img *matCellDef="let product" [src]="'http://localhost:8000/image/'+product.image[0]" class="image" alt="product">
+        <span mat-cell *matCellDef="let product">
+          <app-carousel [imageUrls]="product.image"></app-carousel>
+        </span>
       </ng-container>
   
       <ng-container matColumnDef="name">
@@ -76,7 +78,7 @@
       (page)="onPageChange($event)">
     </mat-paginator>
   </div>
-  <div id="details">
+  <div id="details" style="margin-bottom: 2rem;">
     <div *ngIf="selectedProduct" #elementRef >
       <app-product-details [product]="selectedProduct" (productEmitter)="closeDetails($event)"></app-product-details>
     </div>

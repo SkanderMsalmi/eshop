@@ -1,59 +1,75 @@
-.custom-search-input {
-    display: flex;
-    align-items: center;
-  }
-  
-  .custom-search-input input {
-    padding: 8px;
-    margin: auto;
-    margin-bottom: 2rem;
-    max-width: 80%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    flex: 1;
-   
-  }
-  
-  .custom-search-input button {
-    margin-left: 8px;
-    padding: 8px 12px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .text_green{
-    color: green;
-  }
+.container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
 
-  .red-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: red;
-    margin-right: 5px ;
-    margin-left: 5px;
-  }
-  
-  .green-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: green;
-    margin-right: 5px ;
-    margin-left: 5px;
-  }
-  
-  .user{
-    font-weight: 700;
-  }
-  .user:hover{
-    color: var(--bs-blue);
-    cursor: pointer;
-  }
+th{
+  font-weight: bolder;
+}
+
+.image{
+width: 40px;
+height: 40px;
+margin: auto;
+border-radius: 100%;
+}
+
+.mat-header-cell{
+background-color: #354869;
+color: aliceblue;
+cursor: pointer;
+font-weight: 500;
+font-family: "Poppins", "Helvetica Neue", sans-serif;
+}
+
+.mat-cell{
+font-family: "Poppins", "Helvetica Neue", sans-serif;
+}
+
+.custom-search-input {
+display: flex;
+align-items: center;
+margin-top: 1rem;
+}
+
+.custom-search-input input {
+padding: 8px;
+margin: auto;
+max-width: 80%;
+border: 1px solid #ccc;
+border-radius: 4px;
+font-size: 16px;
+flex: 1;
+
+}
+
+.custom-search-input button {
+margin-left: 8px;
+padding: 8px 12px;
+background-color: #007bff;
+color: #fff;
+border: none;
+border-radius: 4px;
+font-size: 16px;
+cursor: pointer;
+}
+
+.center-cell {
+text-align: center;
+}
+
+.center-content {
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+}
+
+.mat-menu-item .mat-icon{
+margin-right: 0;
+}

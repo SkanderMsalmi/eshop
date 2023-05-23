@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Order } from 'src/app/core/models/order.model';
 import { AdminService } from 'src/app/core/services/admin.service';
 import { OrderService } from 'src/app/core/services/order.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
@@ -10,7 +13,12 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
   styleUrls: ['./orders-list.component.scss']
 })
 export class OrdersListComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator : MatPaginator;
   orders = [];
+  listOrders : MatTableDataSource<Order>;
+  itemsPerPage = 10;
+  currentPage = 0;
+
   view = "list"
   searchQuery: string = '';
 
@@ -21,11 +29,19 @@ export class OrdersListComponent implements OnInit {
   ngOnInit(): void {
     this.adminService.getAllOrders().subscribe((rep)=>{
       this.orders= rep;   
-   
+      this.listOrders = new MatTableDataSource(this.orders);
+      this.listOrders.paginator = this.paginator;
+      
       // this.orders=rep;
       
     });
   }
+
+  onPageChange(event : PageEvent){
+    this.currentPage = event.pageIndex;
+    this.itemsPerPage = event.pageSize;
+  }
+  
   deleteOrder(s){
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '400px',
