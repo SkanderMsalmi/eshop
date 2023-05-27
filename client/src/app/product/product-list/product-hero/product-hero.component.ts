@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'll-product-hero',
@@ -24,6 +24,7 @@ export class ProductHeroComponent implements OnInit {
       }
     }
   };
+  @Input() category : string;
   constructor() { }
 
   ngOnInit(): void {

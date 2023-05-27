@@ -16,6 +16,7 @@ export class ProductListComponent implements OnInit {
   isLoaded: boolean;
   advanceSearchExpanded: boolean = false;
   products : Product[];
+  category : string;
   allProducts : Product[];
   isFavourite:boolean =false;
   search : string = '';
@@ -36,8 +37,8 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      const category = params['category'];
-      this.loadProducts(category);
+      this.category = params['category'];
+      this.loadProducts(this.category);
     });
   }
 
