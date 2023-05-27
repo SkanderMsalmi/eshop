@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-between">
+    <h1 mat-dialog-title>Change Status Of Order</h1>
+<button class="btn btn-outline-danger" id="closeButton" (click)="onClose()">
+    <i class="fa-solid fa-x"></i>
+  </button>
+</div>
+<div mat-dialog-content class="m-auto">
+    <div class="row  g-4 ">
+        <mat-form-field appearance="fill">
+            <mat-select matNativeControl required [(ngModel)]="status">
+                <mat-option value="DELIVERED" class=" text-blue-500">DELIVERED</mat-option>
+              <mat-option value="PENDING" class=" text-yellow-500">PENDING</mat-option>
+              <mat-option value="CANCELED" class=" text-red-500">CANCELED</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    </div>
+    <div mat-dialog-actions class="card-footer justify-content-around">
+        <div class="btn-group">
+            <button  class="btn btn-danger m-2" (click)="onClose()">Cancel</button>
+            <button  class="btn btn-info m-2" (click)="confirmStatus(status)" >Confirm</button>
+        </div>
+    </div>
+

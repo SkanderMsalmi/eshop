@@ -1,0 +1,157 @@
+<div class="mt-32">
+  <div class="container">
+    <div class="grid grid-cols-12 gap-8">
+      <div class="col-span-12 md:col-span-7 xl:col-span-8 border p-5">
+        <a href="javascript:void(0)" class="category text-primary inline-block mb-5">{{ product?.category }} SECTION</a>
+        <h1 class="_title font-medium">{{ product?.name }}</h1>
+        <ul class="product-meta flex flex-wrap items-center mt-8 mb-8">
+          <li class="mr-4">
+            <a class="flex items-center pr-4 py-1 hover:text-primary" href="javascript:void(0)"
+              ><mat-icon class="mr-2" color="warn">start</mat-icon> {{ score }}/5 ({{product.reviews.length}} Feedback)</a
+            >
+          </li>
+          <li class="mr-4">
+            <a class="flex items-center pr-4 py-1 hover:text-primary" href="javascript:void(0)"
+              ><mat-icon class="mr-2">favorite</mat-icon> Save</a
+            >
+          </li>
+
+          <li class="mr-4">
+            <a class="flex items-center pr-4 py-1 hover:text-primary" href="javascript:void(0)"
+              ><mat-icon class="mr-2">share</mat-icon> Share</a
+            >
+          </li>
+        </ul>
+        <app-carousel [imageUrls]="product.image"></app-carousel>
+        <div class="accordion mt-5" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                <strong>Description</strong>
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                {{ product.description }}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <strong>Reviews</strong>
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="card w-100 mb-3" *ngFor="let review of product.reviews">
+                  <div class="card-body row justify-content-between">
+                    <h5 class="card-title col-8">
+                      <p >{{ review.body }}</p>
+                    </h5>
+                      <div class="star-rating col-4">
+                        <span class="star" [style.color]="review.score >= 1 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                        <span class="star" [style.color]="review.score >= 2 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                        <span class="star" [style.color]="review.score >= 3 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                        <span class="star" [style.color]="review.score >= 4 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                        <span class="star" [style.color]="review.score >= 5 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                      </div>
+                      <p class="card-text" *ngIf="review.userId._id == user?._id">
+                        You | {{ review.date | date:'dd MMMM yyyy' }}
+                      </p>
+                      <p class="card-text" *ngIf="review.userId._id != user?._id">
+                        {{ review.userId.name }} | {{ review.date | date:'dd MMMM yyyy' }}
+                      </p>
+                  </div>
+                </div>
+                <div class="input-group mb-3 d-flex align-items-center" *ngIf="user">
+                  <input type="text" [(ngModel)]="feedback.body" class="form-control" placeholder="Please leave your honest feedback." aria-label="Recipient's username" aria-describedby="button-addon2">
+                  <span class="row d-flex justify-content-center" style="margin:0 1rem 0 1rem;">
+                    <input type="range" aria-label="Recipient's username" aria-describedby="button-addon2" class="form-range col-8" min="0" max="5" id="customRange2" [(ngModel)]="feedback.score">
+                    <span class="badge bg-primary rounded-pill col-4">{{ feedback.score }}</span>
+                  </span>
+                  <button class="btn btn-outline-primary" type="button" id="button-addon2" (click)="sendFeedback()" [disabled]="feedback.body == ''">Send my feedback</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-span-12 md:col-span-5 xl:col-span-4">
+        <div class="border">
+          <div class="border-b text-center pt-10 pb-10">
+            <div class="text-accent text-4xl font-semibold">{{ product.price }} TND</div>
+            <div class="font-medium text-lg mt-3 text-gray-400 tracking-wider">Price</div>
+          </div>
+          <div class="border">
+            <div class="border-b text-center pt-10 pb-10" *ngIf="product.quantity >0">
+              <div class="text-secondary text-4xl font-semibold">{{product.quantity}}</div>
+              <div class="font-medium text-lg mt-3 text-gray-400 tracking-wider">Items left</div>
+            </div>
+            <div class="border-b text-center pt-10 pb-10" *ngIf="product.quantity == 0">
+              <div class="alert alert-danger">Out of stock</div>
+            </div>
+          <div class="border-b p-5">
+            <ul class="service-info">
+              <li class="py-2 mr-2" *ngFor="let size of product.size">
+                <div class="flex items-center">
+                  <mat-icon class="text-primary border-2 rounded-full w-8 h-8 text-center leading-7 mr-4">check</mat-icon>
+                  <strong class="mr-4 font-black">{{ size }}</strong> 
+                </div>
+              </li>
+            </ul>
+            <div class="font-medium text-lg mt-3 text-gray-400 tracking-wider" style="text-align: center;">Sizes</div>
+          </div>
+          <div class="border-b p-5">
+            <ul class="service-info">
+              <li class="py-2 mr-2" *ngFor="let color of product.color">
+                <div class="flex items-center">
+                  <mat-icon class="text-primary border-2 rounded-full w-8 h-8 text-center leading-7 mr-4">check</mat-icon>
+                  <strong class="mr-4 font-black">{{ color }}</strong> 
+                </div>
+              </li>
+            </ul>
+            <div class="font-medium text-lg mt-3 text-gray-400 tracking-wider" style="text-align: center;">Colors</div>
+          </div>
+          <div class="border-b p-5">
+            <h5>Addons Services</h5>
+            <div class="flex mt-2">
+              <div class="sm:pt-1 mr-3 sm:mr-6 md:mr-8">
+                <input type="checkbox" class="appearance-none border border-gray-300 checked:bg-gray-400 checked:border-transparent ..." />
+              </div>
+              <div class="flex-grow">
+                <div class="price sm:float-right font-bold">€200.00</div>
+                <h6 class="text-gray-800">Execution after work</h6>
+                <p class="mt-2">
+                  Thanks to our home office approach, we can serve you during the entire microservice even after work, if that suits you
+                  better. The following times are possible after close of business: sun - thu, 9 p.m. - 7 p.m.
+                </p>
+              </div>
+            </div>
+            <div class="flex mt-4">
+              <div class="sm:pt-1 mr-3 sm:mr-6 md:mr-8">
+                <input type="checkbox" class="appearance-none border border-gray-300 checked:bg-gray-400 checked:border-transparent ..." />
+              </div>
+              <div class="flex-grow">
+                <div class="price sm:float-right font-bold">€200.00</div>
+                <h6 class="text-gray-800">Execution after work</h6>
+                <p class="mt-2">
+                  Thanks to our home office approach, we can serve you during the entire microservice even after work, if that suits you
+                  better. The following times are possible after close of business: sun - thu, 9 p.m. - 7 p.m.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="border-b px-5 pt-10 pb-12 text-center">
+            <p class="text-gray-400 mb-4">This price can increase due to additional bookings</p>
+            <button (click)="addToCart(product)" mat-flat-button class="py-3 px-20 text-xl font-bold" color="accent" [disabled]="product.quantity == 0">Add to cart <i class="fa-solid fa-cart-shopping"></i></button>
+          </div>
+        </div>
+        <div class="border mt-5 px-5 py-10 text-center">
+          <p class="font-bold mb-3">Do you have any special requirements?</p>
+          <button mat-stroked-button class="py-2 px-12 text-lg font-bold text-gray-700">Send us</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

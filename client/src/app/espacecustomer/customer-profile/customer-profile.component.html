@@ -1,0 +1,210 @@
+<div>
+	<!-- User Start -->
+	<div class="flex flex-wrap">
+		<div class="flex space-x-3 bg-primary rounded-md px-5 py-3 w-full sm:w-1/2">
+			<div class="w-16 h-16 rounded-full overflow-hidden shadow-md ">
+				<img src="assets/images/avatar.png" alt="" class="image " style="border-radius: 100%;">
+			</div>
+			<div class="text-white">
+				<h5>{{user.name}}</h5>
+				<p class="leading-normal text-white">
+					<span class="font-medium">Email</span>: {{user.email}}</p>
+			</div>
+		</div>
+		<div class="w-full sm:w-1/2 sm:pl-5 mt-5 mmd:t-0">
+			<p>
+				<strong>Member Since</strong>: {{user.createdAt | date}}</p>
+	
+		</div>
+	</div>
+	<!-- User End -->
+
+	<!-- User Meta Start -->
+	<div class="border bg-white mt-8 rounded-md">
+		<div class=" flex p-4 bg-gray-200">
+			<h6 class="text-normal">Personal Information</h6>
+			<button class="text-blue-400 hover:text-accent ml-auto flex items-center" (click)="ToggleIsEdit()" *ngIf="!isEdit">
+				<mat-icon class="_edit_icon mr-2" >edit</mat-icon>
+				Edit</button>
+                <div class="flex  ml-auto" *ngIf="isEdit">
+                    <button class="text-blue-400 hover:text-primary ml-auto flex items-center px-3" (click)="editUser()"  >
+                        <mat-icon class="_edit_icon mr-2" >save</mat-icon>
+                        Save</button>
+                        <button class="text-red-400 hover:text-accent ml-auto flex items-center"  (click)="cancelUpdate()">
+                            <mat-icon class="_edit_icon mr-2" >cancel</mat-icon>
+                            Cancel</button>
+                </div>
+            
+		</div>
+		<div class="flex flex-wrap p-4" *ngIf="!isEdit">
+			<div class="w-full sm:w-1/2">
+				<div class="ll-dataset">
+					<div class="ll-dataset__label">
+						Name:
+					</div>
+					<div class="ll-dataset__value" >
+						{{user.name}}
+					</div>
+                   
+                    
+				</div>
+              
+				<div class="ll-dataset mt-4">
+					<div class="ll-dataset__label">
+						Email:
+					</div>
+					<div class="ll-dataset__value" *ngIf="!isEdit">
+						{{user.email}}
+					</div>
+                  
+				</div>
+				<div class="ll-dataset mt-4">
+					<div class="ll-dataset__label">
+						Contact Number:
+					</div>
+					<div class="ll-dataset__value" *ngIf="user.number && !isEdit">
+						{{user.number}}
+					</div>
+                    <div class="ll-dataset__value" *ngIf="!user.number && !isEdit">
+						-
+					</div>
+                   
+				</div>
+               
+			</div>
+			<div class="w-full sm:w-1/2 mt-4 sm:mt-0">
+				
+                <div class="ll-dataset mt-4">
+					<div class="ll-dataset__label">
+						Date of Birth:
+					</div>
+					<div class="ll-dataset__value" *ngIf="user.dateOfBirth && !isEdit">
+						{{user.dateOfBirth | date}}
+					</div>
+                    <div class="ll-dataset__value" *ngIf="!user.dateOfBirth && !isEdit">
+						-
+					</div>
+                    
+				</div>
+                <div class="ll-dataset mt-4">
+					<div class="ll-dataset__label">
+						Gender:
+					</div>
+					<div class="ll-dataset__value" *ngIf="user.gender && !isEdit">
+						{{user.gender}}
+					</div>
+                    <div class="ll-dataset__value" *ngIf="!user.gender && !isEdit">
+						-
+					</div>
+                    
+				</div>
+				<div class="ll-dataset mt-4">
+					<div class="ll-dataset__label">
+						Occupation:
+					</div>
+					<div class="ll-dataset__value" *ngIf="user.occupation && !isEdit">
+						{{user.occupation}}
+					</div>
+                    <div class="ll-dataset__value" *ngIf="!user.occupation && !isEdit">
+						-
+					</div>
+                    
+				</div>
+				
+			</div>
+		</div>
+        <form  [formGroup]="userForm" *ngIf="isEdit"  >
+        <div class="flex flex-wrap p-4" >
+            
+			<div class="w-full sm:w-1/2">
+               
+				<div class="ll-dataset">
+					<div class="ll-dataset__label">
+						Name:
+					</div>
+				
+                    <div class="ll-dataset__value"  >
+						<input formControlName="name" class="text-sm appearance-none rounded w-full py-2 px-2 w-60 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10 "type="text">
+					</div>
+                    <div class="  alert-danger" *ngIf="userForm.get('name')?.errors && userForm.get('name')?.touched && isEdit" >
+                        <p class="text-accent" *ngIf="userForm.get('name')?.errors.required">Please insert your name</p>
+                        <p class="text-accent" *ngIf="userForm.get('name')?.errors.minlength">Name should be at least 3 letters </p>
+                        <p class="text-accent" *ngIf="userForm.get('name')?.errors.maxlength">Name should be at most 15 letters </p>
+                      </div>
+                    
+				</div>
+              
+				<div class="ll-dataset mt-4">
+					<div class="ll-dataset__label">
+						Email:
+					</div>
+					
+                    <div class="ll-dataset__value"  >
+						<input formControlName="email" class="text-sm appearance-none rounded w-full py-2 px-2 w-60 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10 "type="text">
+					</div>
+                    <div class="alert-danger mt-1 " *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched && isEdit">
+                        <p class="text-accent" *ngIf="userForm.get('email')?.errors.required">Please insert your email address</p>
+                        <p class="text-accent" *ngIf="userForm.get('email')?.errors.email">Please insert a valid email address</p>
+                      </div>
+     
+				</div>
+				<div class="ll-dataset mt-4">
+					<div class="ll-dataset__label">
+						Contact Number:
+					</div>
+					
+                    <div class="ll-dataset__value"  >
+						<input type="number" formControlName="number" class="text-sm appearance-none rounded w-full py-2 px-2 w-60 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10 ">
+					</div>
+                    <div class="alert-danger mt-1 " *ngIf="userForm.get('number')?.invalid && userForm.get('number')?.touched && isEdit">
+                        <p class="text-accent" *ngIf="userForm.get('number')?.errors.pattern">    insert valid number</p>
+                    
+                      </div>
+				</div>
+
+               
+			</div>
+			<div class="w-full sm:w-1/2 mt-4 sm:mt-0">
+				
+                <div class="ll-dataset mt-4">
+					<div class="ll-dataset__label">
+						Date of Birth:
+					</div>
+					
+                    <div class="ll-dataset__value"  >
+						<input type="date" formControlName="dateOfBirth" class="text-sm appearance-none rounded w-full py-2 px-2 w-60 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10 ">
+                    </div>
+                    <div *ngIf="userForm.controls['dateOfBirth'].errors?.notOldEnough && userForm.controls['dateOfBirth'].dirty" class="error-message">
+                        You must be at least 18 years old.
+                    </div>
+				</div>
+                <div class="ll-dataset mt-4">
+                    <div class="ll-dataset__label">
+						Gender:
+					</div>
+                    <div class="ll-dataset__value"  >
+						<select formControlName="gender" class="text-sm appearance-none rounded w-full py-2 px-2 w-60 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10 ">
+                            <option value="">--Select Gender--</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            </select>
+                        </div>
+				</div>
+				<div class="ll-dataset mt-4">
+					<div class="ll-dataset__label">
+						Occupation:
+					</div>
+					
+                    <div class="ll-dataset__value"  >
+						<input formControlName="occupation" class="text-sm appearance-none rounded w-full py-2 px-2 w-60 text-gray-700 bg-gray-100 leading-tight focus:outline-none focus:shadow-outline h-10 "type="text">
+					</div>
+				</div>
+            
+			</div>
+    
+		</div>
+    </form>
+	</div>
+  
+	<!-- User Meta End -->
+</div>

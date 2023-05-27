@@ -1,0 +1,83 @@
+<div class="m-5">
+    <div class="filter flex items-center mb-5">
+      <h5>Orders</h5>
+      <div class="flex items-center ml-auto">
+        <!-- <button [class.text-accent]="view === 'grid'" (click)="view = 'grid'" mat-icon-button class="view__btn"><mat-icon>grid_view</mat-icon></button> -->
+        <button [class.text-accent]="view === 'list'" (click)="view = 'list'" mat-icon-button class="view__btn"><mat-icon>list_alt</mat-icon></button>
+      </div>
+    </div>
+    <div class="custom-search-input">
+        <input type="text" class="form-control" [(ngModel)]="searchQuery" placeholder="Search by customer or id">
+        <button *ngIf="searchQuery" (click)="clearSearch()">Clear</button>
+      </div>
+<div>
+	<div class="table-inside">
+		<table class="order-table table-auto ltMd:responsive">
+			<thead>
+				<tr class="border text-left">
+					<th>
+						<span class="text-gray-800">Id</span>
+					</th>
+					<th>
+						<span class="text-gray-800">Customer</span>
+					</th>
+					<th>
+						<span class="text-gray-800">Amount</span>
+					</th>
+	
+					<th>
+						<span class="text-gray-800">Created</span>
+					</th>
+	
+					<th>
+						<span class="text-gray-800">Status</span>
+					</th>
+					<th class="text-right">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let order of orders   |  orderSearch: searchQuery" class="border">
+					<td>
+						<a class="text-primary" href="/" [title]="order?._id">#{{order?._id.substring(0,8)}}...</a>
+					</td>
+					<td class="user " [routerLink]="['/admin/users/user',order.userId._id]">
+						{{order?.userId.name | titlecase }}
+					</td>
+					<td>
+						<span>{{order?.totalAmount | number:'1.2-2'}} TND</span>
+					</td>
+					<td>
+						<span>{{order?.createdAt | date}}</span>
+					</td>
+					<td>
+						<div [ngClass]="{
+							'bg-blue-500 text-blue-500': order?.status === 'DELIVERED',
+							'bg-red-500 text-red-500': order?.status === 'CANCELED',
+							'bg-yellow-500 text-yellow-900': order?.status === 'PENDING',
+							'bg-primary text-primary': order?.status === 'initialized'
+							}" 
+							class="text-[12px] bg-opacity-20 rounded-full px-3 inline-block font-bold py-[3px]"
+						>
+							{{ order?.status | titlecase }}
+						</div>
+					</td>
+					<td class="text-right">
+						<button class="action_icon__btn" mat-icon-button [matMenuTriggerFor]="menu">
+							<mat-icon>more_vert</mat-icon>
+						</button>
+						<mat-menu #menu="matMenu" xposition="before">
+							<button mat-menu-item [routerLink]="['order',order?._id]">
+								<mat-icon>dialpad</mat-icon>
+								<span>Details</span>
+							</button>
+							<button mat-menu-item (click)="deleteOrder(order?._id)">
+								<mat-icon>delete</mat-icon>
+								<span>Delete</span>
+							</button>
+						</mat-menu>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

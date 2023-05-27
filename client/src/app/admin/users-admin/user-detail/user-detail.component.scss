@@ -1,0 +1,24 @@
+.contact-info{
+  max-width: 700px;
+  margin: auto;
+}
+.imageprofil{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img{
+    border-radius: 100%;
+  }
+}
+.backtoList{
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+  span{
+    padding: 0;
+  }
+}
+.backtoList:hover{
+  cursor: pointer;
+  color: var(--bs-blue);
+}
+

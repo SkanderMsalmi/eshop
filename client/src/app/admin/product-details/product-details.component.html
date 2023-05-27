@@ -1,0 +1,90 @@
+<div class="container" #elementRef>
+    <div class="card">
+        <h5 class="card-header">
+            <span>{{ product.name }}</span>
+            <span>Category : {{ product.category}}</span>
+            <span>Material : {{ product.material}}</span>
+        </h5>
+        <div class="card-body row parent">
+            <div class="col-4 card inside-left">
+                <div class="card-body ">
+                    <span>
+                        <strong>Description :</strong><br>
+                        {{product.description}}
+                    </span>
+                    <hr>
+                    <span>
+                        <strong>Price :</strong>
+                        {{product.price}} TND
+                    </span>
+                    <hr>
+                    <span>
+                        <strong>Quantity :</strong>
+                        {{product.quantity}}
+                    </span>
+                    <hr>
+                    <span>
+                        <strong>Colors :</strong>
+                        <ul>
+                            <li *ngFor="let color of product.color">{{color}}</li>
+                        </ul>
+                    </span>
+                    <hr>
+                    <span>
+                        <strong>Sizes :</strong>
+                        <ol>
+                            <li *ngFor="let size of product.size">{{size}}</li>
+                        </ol>
+                    </span>
+                </div>
+            </div>
+            <div class="col-8 inside-right">
+                <div class="row-6 card images">
+                    <div class="card-body row row-cols-4">
+                        <span class="col" *ngFor="let image of product.image">
+                            <img [src]="'http://localhost:8000/image/'+image" />
+                        </span>
+                    </div>
+                </div>
+                <div class="row-6 card reviews">
+                    <div class="card-body">
+                        <div class="card w-100 mb-3" *ngFor="let review of product.reviews">
+                            <div class="card-body row justify-content-between">
+                                <h5 class="card-title col-8">
+                                    <p >{{ review.body }}</p>
+                                </h5>
+                                <div class="star-rating col-4">
+                                    <span class="star" [style.color]="review.score >= 1 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                                    <span class="star" [style.color]="review.score >= 2 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                                    <span class="star" [style.color]="review.score >= 3 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                                    <span class="star" [style.color]="review.score >= 4 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                                    <span class="star" [style.color]="review.score >= 5 ? '#ffc107' : '#6c757d'">&#9733;</span>
+                                </div>
+                                <p class="card-text" *ngIf="review.userId._id == user?._id">
+                                    You | {{ review.date | date:'dd MMMM yyyy' }}
+                                </p>
+                                <p class="card-text" *ngIf="review.userId._id != user?._id">
+                                    {{ review.userId.name }} | {{ review.date | date:'dd MMMM yyyy' }}
+                                </p>
+                                <button type="button" class="delete" aria-label="Remove" (click)="removeReview(review)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                      <button mat-raised-button color="warn" class="text-lg font-bold py-2 px-5 ml-2" routerLink="/admin/editProduct/{{product._id}}">
+                        Edit
+                      </button>
+                      <button mat-raised-button color="accent" class="text-lg font-bold py-2 px-5 ml-2" (click)="deleteProduct()">
+                        Delete
+                      </button>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="close" aria-label="Remove" (click)="close()">
+            <span aria-hidden="true"><i class="fa-solid fa-caret-up"></i></span>
+        </button>
+    </div>
+</div>

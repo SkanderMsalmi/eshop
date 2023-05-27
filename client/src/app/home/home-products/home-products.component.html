@@ -1,0 +1,89 @@
+  <div class="mycontainer">
+    <div class="col-12">
+      <div class="ll-section-head text-center mb-5 row-2">
+        <h3 class="ll-section-head__heaidng">Enjoy our newest man collection</h3>
+      </div>
+      <div class="container" *ngIf="isLoaded">
+        <div class="row">
+          <div *ngFor="let product of manProducts" class="col-md-4">
+            <div class="grid-item" routerLink="/products/{{product._id}}">
+              <app-carousel [imageUrls]="product.image.slice(0,1)"></app-carousel>
+              <div class="rectangle">
+                <h2 class="price">{{product.price}} TND</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!isLoaded">
+        <ngx-skeleton-loader 
+          count="3"
+          appearance="circle"
+          [theme]="{ 
+            'border-radius': '5px',
+            height: '280px',
+            width: 'calc(33% - 10px)'
+          }"
+        ></ngx-skeleton-loader>
+      </div>
+      </div>
+      <div class="col-12">
+        <div class="ll-section-head text-center mb-5 row-2">
+          <h3 class="ll-section-head__heaidng">Enjoy our newest woman collection</h3>
+        </div>
+        <div class="container" *ngIf="isLoaded">
+          <div class="row">
+            <div *ngFor="let product of womanProducts" class="col-md-4">
+              <div class="grid-item" routerLink="/products/{{product._id}}">
+                <app-carousel [imageUrls]="product.image.slice(0,1)"></app-carousel>
+                <div class="rectangle">
+                  <h2 class="price">{{product.price}} TND</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div *ngIf="!isLoaded">
+        <ngx-skeleton-loader 
+          count="3"
+          appearance="circle"
+          [theme]="{ 
+            'border-radius': '5px',
+            height: '280px',
+            width: 'calc(33% - 10px)'
+          }"
+        ></ngx-skeleton-loader>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="ll-section-head text-center mb-5 row-2">
+        <h3 class="ll-section-head__heaidng">Enjoy our newest kids collections</h3>
+      </div>
+      <div class="container" *ngIf="isLoaded">
+        <div class="row">
+          <div *ngFor="let product of kidProducts" class="col-md-4">
+            <div class="grid-item" routerLink="/products/{{product._id}}">
+              <app-carousel [imageUrls]="product.image.slice(0,1)"></app-carousel>
+              <div class="rectangle">
+                <h2 class="price">{{product.price}} TND</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div *ngIf="!isLoaded">
+      <ngx-skeleton-loader 
+        count="3"
+        appearance="circle"
+        [theme]="{ 
+          'border-radius': '5px',
+          height: '280px',
+          width: 'calc(33% - 10px)'
+        }"
+      ></ngx-skeleton-loader>
+    </div>
+    <div class="text-center mt-10">
+      <a mat-raised-button color="accent" (click)="handleBrowse()" class="px-8 py-2 text-lg">Browse More</a>
+    </div>
+  </div>
+</div>

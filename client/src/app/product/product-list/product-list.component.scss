@@ -1,0 +1,84 @@
+
+.text-mute {
+  color: rgba(0, 0, 0, 0.5); /* set the text color to a semi-transparent black */
+}
+
+.my-class{
+  cursor: pointer;
+  &:hover{
+    transform: scale(1.05);
+    transition: transform ease-in-out 0.2s;
+  }
+  &:not(:hover){
+    transform: scale(1);
+    transition: transform ease-in-out .2s;
+  }
+}
+.star-rating {
+  display: inline-block;
+}
+
+.fa-star {
+  cursor: pointer;
+  font-size: 24px;
+  color: #ccc;
+  &:hover{
+    color: #ffcc00;
+    transition: ease-in-out .2s;
+  }
+  &:not(:hover){
+    color: #ccc;
+    transition: ease-in-out .2s;
+  }
+}
+
+.fa-star.full {
+  color: #ffcc00; /* Adjust the color for the filled star */
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.input-container label {
+  margin-right: 10px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #f2f2f2;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.input-wrapper input {
+  margin-right: 5px;
+}
+
+.max-amount {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.asec-wrapper{
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background: #ccc;
+  border-radius: 3px;
+  box-shadow: 0 0 5px rgba(0, 0, 0);
+  &:hover{
+    background: #949494;
+    transition: ease-in-out .2s;
+    }
+    &:not(:hover){
+      background: #ccc;
+      transition: ease-in-out .2s;
+      }
+}

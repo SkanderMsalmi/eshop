@@ -1,0 +1,128 @@
+<ll-product-hero></ll-product-hero>
+<div class="ll-search pb-6">
+  <div class="container">
+    <div class="border overflow-hidden sm:rounded-md p-5">
+      <div class="mb-3">
+        <div class="flex justify-between flex-wrap">
+          <h4>Find your need</h4>
+          <button (click)="advanceSearchExpanded = !advanceSearchExpanded" mat-button><mat-icon>tune</mat-icon> ADVANCED SEARCH</button>
+        </div>
+        <div class="mt-3 flex">
+          <input
+            type="text"
+            placeholder="I am looking for ..."
+            class="flex-1 w-full sm:text-sm lg:text-xl border-gray-300 rounded-l-md py-3 px-6"
+            required
+            [(ngModel)]="search"
+            (ngModelChange)="sort()"
+          />
+          <button class="bg-primary w-24 rounded-r-md"><mat-icon class="leading-8">search</mat-icon></button>
+        </div>
+      </div>
+      <mat-expansion-panel [expanded]="advanceSearchExpanded">
+        <div class="grid grid-cols-6 gap-6 mt-4">
+          <div class="col-span-6 sm:col-span-3">
+            <label for="minAmount"><strong>Minimum amount</strong></label>
+
+            <input
+              type="text"
+              class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              placeholder="Minimum price"
+              [(ngModel)]="minAmount"
+              (ngModelChange)="sort()"
+              id="minAmount"
+              name="minAmount"
+            />
+          </div>
+          <div class="col-span-6 sm:col-span-3">
+            <label for="maxAmount"><strong>Maximum amount</strong></label>
+            <input
+              type="text"
+              class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              placeholder="Max price"
+              [(ngModel)]="maxAmount"
+              (ngModelChange)="sort()"
+              id="maxAmount"
+              name="maxAmount"
+            />
+          </div>
+          <div class="col-span-6 sm:col-span-3">
+            <label for="rating"><strong>Rating</strong></label>
+            <select
+              name="rating"
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Rating"
+              [(ngModel)]="rating"
+              (ngModelChange)="sort()"
+              >
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+          <div class="col-span-6 sm:col-span-3">
+            <label for="order"><strong>Order by </strong></label>
+            <div class="d-flex justify-between">
+              <select
+              name="order"
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              [(ngModel)]="order"
+              aria-placeholder="Order by"
+              (ngModelChange)="sort()"
+              >
+              <option value="DATE">By date</option>
+              <option value="PRICE">By price</option>
+              <option value="RATING">By rating</option>
+            </select>
+            <div class="asec-wrapper">
+              <i *ngIf="asec" (click)="toggleOrder()" class="fa-solid fa-arrow-down-short-wide fa-xl" style="color:white"></i>
+              <i *ngIf="!asec" (click)="toggleOrder()" class="fa-solid fa-arrow-down-wide-short fa-xl" style="color:white"></i>
+            </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </div>
+</div>
+<div class="ll-products-area mb-24">
+  <div class="container">
+    <div class="grid grid-cols-12 gap-6 xxl:gap-8" *ngIf="isLoaded">
+      <div *ngFor="let product of products" class="col-span-12 md:col-span-6 xl:col-span-4 my-class" [routerLink]="['/products', product._id]">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </div>
+    <div *ngIf="!isLoaded">
+      <ngx-skeleton-loader 
+        count="9"
+        appearance="circle"
+        [theme]="{ 
+          'border-radius': '5px',
+          height: '280px',
+          width: 'calc(33% - 10px)'
+        }"
+      ></ngx-skeleton-loader>
+    </div>
+  </div>
+</div>
+
+<div class="ll-find-more mt-10 mb-36">
+  <div class="container rounded-md">
+    <h2 class="ll-find-more__heading">Didn't find what you were looking for? There is more we can do for you.</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+      <div class="_card bg-white rounded-md">
+        <h3 class="_card__title font-normal text-black">Post Requirements and let our consultants make an individual offer</h3>
+        <h5 class="_card__paragraph font-light text-black mt-3">Talent marketplace</h5>
+        <a href="" mat-fab color="warn" class="float-right mt-"><mat-icon>arrow_forward</mat-icon></a>
+      </div>
+      <div class="_card bg-white rounded-md ml-auto">
+        <h3 class="_card__title font-normal text-black">Post a problem and we will look for talented and skillful suitable advisors.</h3>
+        <h5 class="_card__paragraph font-light text-black mt-3">Scouting</h5>
+        <a href="" mat-fab color="warn" class="float-right mt-"><mat-icon>arrow_forward</mat-icon></a>
+      </div>
+    </div>
+  </div>
+</div>

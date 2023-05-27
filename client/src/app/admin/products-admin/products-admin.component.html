@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-end">
+  <button mat-raised-button color="primary" routerLink="/admin/addProduct" style="margin-right: 3rem;">
+    <mat-icon>add</mat-icon> Add new Product
+  </button>
+</div>
+<div class="custom-search-input">
+  <input type="text" class="form-control" [(ngModel)]="searchQuery" placeholder="Search by name">
+</div>
+<div class="table-inside">
+  <div class="container" id="list">
+    <table mat-table class="mat-elevation-z8" [dataSource]="listProducts | productSearch:searchQuery" matSort>
+      <ng-container matColumnDef="productId">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef >Id</th>
+        <td mat-cell class="mat-cell" *matCellDef="let product">{{ product.productId }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="image">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef >Image</th>
+        <img *matCellDef="let product" [src]="'http://localhost:8000/image/'+product.image[0]" class="image" alt="product">
+      </ng-container>
+  
+      <ng-container matColumnDef="name">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef>Name</th>
+        <td mat-cell class="mat-cell" *matCellDef="let product">{{ product.name }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="category">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef>Category</th>
+        <td mat-cell class="mat-cell" *matCellDef="let product">{{ product.category }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef>Quantity</th>
+        <td mat-cell class="mat-cell" *matCellDef="let product">{{ product.quantity }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="price">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef>Price</th>
+        <td mat-cell class="mat-cell" *matCellDef="let product">{{ product.price }} TND</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell class="mat-header-cell" *matHeaderCellDef>Actions</th>
+        <td mat-cell class="mat-cell center-cell" *matCellDef="let product">
+          <div class="center-content">
+            <button class="action_icon__btn" mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xposition="before">
+              <button mat-menu-item class="center-content" (click)="select(product)">
+                <mat-icon color="primary">list</mat-icon>
+              </button>
+              <button mat-menu-item class="center-content"  routerLink="/admin/editProduct/{{product._id}}">
+                <mat-icon color="warn">edit</mat-icon>
+              </button>
+              <button mat-menu-item class="center-content"s  (click)="openDialog(product)" >
+                <mat-icon color="accent">delete</mat-icon>
+              </button>
+            </mat-menu>
+          </div>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row  *matHeaderRowDef="['productId','image','name', 'category', 'quantity', 'price', 'actions']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['productId','image','name', 'category', 'quantity', 'price', 'actions']"></tr>
+      
+    </table>
+      <mat-paginator
+      style="margin-bottom: 2rem;"
+      [length]="listProducts?.data.length"
+      [pageSize]="itemsPerPage"
+      [pageSizeOptions]="[10, 25, 100]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+  <div id="details">
+    <div *ngIf="selectedProduct" #elementRef >
+      <app-product-details [product]="selectedProduct" (productEmitter)="closeDetails($event)"></app-product-details>
+    </div>
+  </div>
+  
+</div>

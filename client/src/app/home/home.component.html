@@ -1,0 +1,74 @@
+<div class="ll-hero" id="category-card">
+  <ng-particles [id]="'home_hero__particles'" class="ll-hero__particles" [options]="particlesOptions"></ng-particles>
+  <div class="container">
+    <div class="grid grid-cols-12 gap-x-6">
+      <div class="col-span-12 md:col-span-12 lg:col-span-12 xxl:col-span-12 ll-hero-text" >
+        <h1 class="lg:mt-12 text-white font-bold">
+          Welcome to Clothify! Discover fashionable apparel and accessories to elevate your style. Happy shopping!
+        </h1>
+        <span class="lg:mt-12">
+          <app-home-cards></app-home-cards>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ll-service-area">
+  <div class="container">
+    <h1 class="ll-service__title text-center font-extralight mb-12">Digital - Quality - Services</h1>
+    <div class="ll-services grid grid-cols-12 gap-8">
+      <div class="ll-service col-span-12 sm:col-span-6 lg:col-span-3">
+        <div class="number">01</div>
+        <h3 class="mb-2">Stylish</h3>
+        <p>Find the latest fashion trends and styles to enhance your wardrobe.</p>
+      </div>
+      <div class="ll-service col-span-12 sm:col-span-6 lg:col-span-3">
+        <div class="number">02</div>
+        <h3 class="mb-2">Affordable</h3>
+        <p>Get high-quality clothing and accessories at great prices.</p>
+      </div>
+      <div class="ll-service col-span-12 sm:col-span-6 lg:col-span-3">
+        <div class="number">03</div>
+        <h3 class="mb-2">Convenient</h3>
+        <p>Shop from the comfort of your home and enjoy hassle-free online shopping.</p>
+      </div>
+      <div class="ll-service col-span-12 sm:col-span-6 lg:col-span-3">
+        <div class="number">04</div>
+        <h3 class="mb-2">Trendsetting</h3>
+        <p>Discover unique and fashionable pieces that will make you stand out.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<ll-home-products (buttonEmitter)="handleButton($event)" style="width: 100%;"></ll-home-products>
+
+<div class="ll-process-area bg-black mt-16">
+  <div class="container">
+    <h2 class="ll-process__title text-center text-warn mb-8">How it works</h2>
+    <div class="ll-processes grid grid-cols-12 gap-8">
+      <div class="ll-process col-span-12 sm:col-span-6 lg:col-span-3">
+        <div class="number">01</div>
+        <h3 class="mb-2 text-warn font-bold">Join</h3>
+        <p class="text-white">Join now and elevate your style with our exclusive clothing collection.</p>
+      </div>
+      <div class="ll-process col-span-12 sm:col-span-6 lg:col-span-3">
+        <div class="number">02</div>
+        <h3 class="mb-2 text-warn font-bold">Choose</h3>
+        <p class="text-white">Browse our irresistible clothing collection and choose your perfect style today.</p>
+      </div>
+      <div class="ll-process col-span-12 sm:col-span-6 lg:col-span-3">
+        <div class="number">03</div>
+        <h3 class="mb-2 text-warn font-bold">Order</h3>
+        <p class="text-white">Place your order now and experience the joy of wearing our exquisite clothing.</p>
+      </div>
+      <div class="ll-process col-span-12 sm:col-span-6 lg:col-span-3">
+        <div class="number">04</div>
+        <h3 class="mb-2 text-warn font-bold">Enjoy</h3>
+        <p class="text-white">Shop now and enjoy the elegance and comfort of our premium clothing</p>
+      </div>
+    </div>
+  </div>
+</div>

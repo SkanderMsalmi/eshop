@@ -1,0 +1,37 @@
+.container-admin {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+  }
+  
+ .header{
+  background-color: #444c5a;
+ }
+  
+  .main {
+    flex: 1;
+    background-color: #f9f9f9;
+  }
+  
+  .content {
+    margin-top: 20px;
+  }
+  
+  .footer{
+    position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  }
+
+  .sidebar {
+    width: 20% !important;
+    background-color: var(#636f83,#212333) !important;
+    background-image: linear-gradient(45deg,var(--cui-dark-start,#3c4b64) 0%,var(--cui-dark-stop,#212333 100%)) !important;
+    
+    position: sticky !important;
+  
+    top: 0 !important;
+  }

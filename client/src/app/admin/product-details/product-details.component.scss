@@ -1,0 +1,158 @@
+.parent{
+  display: flex;
+  height: 50rem;
+}
+
+.card-header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.inside-left{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    span{
+        display: flex;
+        justify-content: space-between;
+        overflow-y: auto;
+        max-height: auto;
+    }
+    hr{
+        margin: 1rem 0 1rem 0;
+    }
+}
+
+.inside-right{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;  
+    .images{
+      overflow-y: scroll;
+      overflow-x: hidden;
+      max-height: 50%;
+      width: 100%;
+      margin: 0 0 1rem 0;
+    }
+    .reviews{
+      margin: 0 0 1rem 0;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      max-height: 50%;
+      width: 100%;
+    }
+}
+
+.card-footer{
+  display: flex;
+  height: 10%;
+  justify-content: end;
+}
+
+
+img{
+    margin: 1rem;
+    box-shadow: 0 0 1rem rgba(0,0,0,.5);
+}
+
+.star-rating {
+    display: inline-block;
+    height: 2rem;
+    position: relative;
+    justify-content: space-around;
+    width: 10rem;
+    background-color: #e3e3e3;
+    border-radius: 1rem;
+    overflow: hidden;
+    padding: 0 1rem 0 1rem;
+  
+    .star {
+      display: inline-block;
+      font-size: 1.5em;
+      height: 1em;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1em;
+      white-space: nowrap;
+    }
+  
+    .star:nth-child(1) {
+      z-index: 5;
+      left: 1rem;
+    }
+  
+    .star:nth-child(2) {
+      z-index: 4;
+      left: 2.5rem;
+    }
+  
+    .star:nth-child(3) {
+      z-index: 3;
+      left: 4rem;
+    }
+  
+    .star:nth-child(4) {
+      z-index: 2;
+      left: 5.5rem;
+    }
+  
+    .star:nth-child(5) {
+      z-index: 1;
+      left: 7rem;
+    }
+  }
+
+  button.close {
+    position: absolute;
+    top: -1rem;
+    right: 0;
+    background-color: transparent;
+    border: 1px solid;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: grey;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1;
+    
+    &:hover {
+      color: white;
+      background-color: grey;
+    }
+
+    
+}
+
+button.delete {
+  position: absolute;
+  top: -1rem;
+  right: 0;
+  background-color: transparent;
+  border: 1px solid;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1;
+  
+  &:hover {
+    color: white;
+    background-color: red;
+  }
+
+  
+}
+
+  
+    
