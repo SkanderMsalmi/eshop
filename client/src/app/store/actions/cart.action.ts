@@ -5,6 +5,7 @@ export const ADDTOCART = "[Cart] ADD_TO_CART";
 export const REMOVEFROMCART = "[Cart] REMOVE_FROM_CART";
 export const DELETEFROMCART ="[Cart] DELETE_FROM_CART";
 export const CLEARCART = "[Cart] CLEAR_CART";
+export const LOADCART = "[Cart] LOAD_CART"
 
 export class AddToCartAction{
     type : string = ADDTOCART;
@@ -31,6 +32,11 @@ export class DeleteFromCartAction {
     constructor(payload : Product) {
         this.payload = payload;
     }
+}
+
+export class LoadCartAction{
+    type : string = LOADCART;
+    payload : any;
 }
 
 export class ClearCartAction{

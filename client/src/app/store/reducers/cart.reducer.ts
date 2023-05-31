@@ -1,5 +1,5 @@
 import { CartAction } from "../store";
-import { ADDTOCART, REMOVEFROMCART, CLEARCART, DELETEFROMCART } from "../actions/cart.action";
+import { ADDTOCART, REMOVEFROMCART, CLEARCART, DELETEFROMCART, LOADCART } from "../actions/cart.action";
 import { Product } from "src/app/core/models/product.model";
 
 
@@ -20,6 +20,8 @@ let initialState = {
 
 export function cartReducer(state = initialState, action: CartAction){
     switch (action.type) {
+
+
         case ADDTOCART:
             let existingItem = state.products.find((item) => item.product.productId == action.payload.productId)
             if(existingItem){
@@ -32,15 +34,21 @@ export function cartReducer(state = initialState, action: CartAction){
                         updatedState.push(element);
                     }
                 });
-                return {
+                let result = {
                     products : updatedState,
                     total : state.total + action.payload.price
-                }
+                };
+                localStorage.setItem("cart", JSON.stringify(result));
+                return result;
             }
-            return {
+            let result = {
                 products : [...state.products, {product : action.payload , quantity : 1}],
                 total : state.total + action.payload.price
             };
+            localStorage.setItem("cart", JSON.stringify(result));
+            return result; 
+
+
         case REMOVEFROMCART:
             let existingItems = state.products.find((item) => item.product.productId == action.payload.productId)
             if(existingItems){
@@ -53,20 +61,37 @@ export function cartReducer(state = initialState, action: CartAction){
                         updatedState.push(element);
                     }
                 });
-                return {
+                let result = {
                     products : updatedState,
                     total : state.total - action.payload.price
-                }
+                };
+                localStorage.setItem("cart",JSON.stringify(result));
+                return result
             }
-            return {
+            result = {
                 products : [...state.products, {product : action.payload , quantity : 1}],
                 total : state.total + action.payload.price
             };
+            localStorage.setItem("cart", JSON.stringify(result));
+            return result;
+
+
         case CLEARCART:
+            localStorage.removeItem("cart");
             return {
                 products : [],
                 total : 0
             }
+
+
+        case LOADCART : 
+            let cart = localStorage.getItem("cart");
+            if (cart) {
+                return JSON.parse(cart);
+            }
+            return state;
+
+
         case DELETEFROMCART:
             let deletedItem = state.products.find(element => element.product.productId == action.payload.productId);
             if(deletedItem){
@@ -78,11 +103,15 @@ export function cartReducer(state = initialState, action: CartAction){
                         total = total + ( element.product.price * element.quantity);
                     }
                 })
-                return {
+                let result = {
                     products : updatedState,
                     total : total
-                }
+                };
+                localStorage.setItem("cart", JSON.stringify(result));
+                return result;
             }
+
+
         default:
             return state;
     }
